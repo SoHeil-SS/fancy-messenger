@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { idMaker } from "./modules";
+import { idMaker, tempPersons } from "./modules";
 
 import SearchBar from "./Components/personList/SearchBar";
 import PersonList from "./Components/personList/PersonList";
@@ -8,233 +8,11 @@ import ChatContainer from "./Components/chatBox/ChatContainer";
 
 function App() {
   const [chatContent, setChatContent] = useState("");
-  const [persons, setPersons] = useState([
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/soheila.jpg",
-        personName: "Soheila",
-        lastChatText: "so excited.>!",
-        lastChatTime: 1606577774127,
-        unreadChatCounter: 10,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1606577174127,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1606577274127,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1606577374127,
-          chatId: idMaker(),
-        },
-        {
-          me: "so excited.>!",
-          chatTime: 1606577774127,
-          chatId: idMaker(),
-        },
-      ],
-    },
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/parvaneh.jpg",
-        personName: "Parvaneh",
-        lastChatText: "chatContent",
-        lastChatTime: 1606444467412,
-        unreadChatCounter: 10,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1606444167412,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1606444267412,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1606444367412,
-          chatId: idMaker(),
-        },
-        {
-          me: "thanks...",
-          chatTime: 1606444467412,
-          chatId: idMaker(),
-        },
-      ],
-    },
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/kitty.jpg",
-        personName: "Kitty",
-        lastChatText: "thanks...",
-        lastChatTime: 1606333362326,
-        unreadChatCounter: 2,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1606333062326,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1606333162326,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1606333262326,
-          chatId: idMaker(),
-        },
-        {
-          me: "thanks...",
-          chatTime: 1606333362326,
-          chatId: idMaker(),
-        },
-      ],
-    },
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/love.jpg",
-        personName: "Love",
-        lastChatText: "not good ... :(",
-        lastChatTime: 1606222261324,
-        unreadChatCounter: 4,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1606222211324,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1606222221324,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1606222231324,
-          chatId: idMaker(),
-        },
-        {
-          me: "not good ... :(",
-          chatTime: 1606222261324,
-          chatId: idMaker(),
-        },
-      ],
-    },
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/nahid.jpg",
-        personName: "Nahid",
-        lastChatText: "dont ask ...",
-        lastChatTime: 1606111165489,
-        unreadChatCounter: 10,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1606111115489,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1606111125489,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1606111135489,
-          chatId: idMaker(),
-        },
-        {
-          me: "dont ask ...",
-          chatTime: 1606111165489,
-          chatId: idMaker(),
-        },
-      ],
-    },
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/sahar.jpg",
-        personName: "Sahar",
-        lastChatText: "uuuuh i dont know !",
-        lastChatTime: 1506999998654,
-        unreadChatCounter: 10,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1506999918654,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1506999928654,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1506999938654,
-          chatId: idMaker(),
-        },
-        {
-          me: "uuuuh i dont know !",
-          chatTime: 1506999998654,
-          chatId: idMaker(),
-        },
-      ],
-    },
-    {
-      details: {
-        personId: idMaker(),
-        avatar: "./personPictures/sajad.jpg",
-        personName: "Sajad",
-        lastChatText: "yey im good!",
-        lastChatTime: 1506888860258,
-        unreadChatCounter: 10,
-      },
-      chats: [
-        {
-          me: "Hello there...",
-          chatTime: 1506888810258,
-          chatId: idMaker(),
-        },
-        {
-          me: "nock.. nock...",
-          chatTime: 1506888820258,
-          chatId: idMaker(),
-        },
-        {
-          person: "Hi :) how are u... ?",
-          chatTime: 1506888830258,
-          chatId: idMaker(),
-        },
-        {
-          me: "yey im good!",
-          chatTime: 1506888860258,
-          chatId: idMaker(),
-        },
-      ],
-    },
-  ]);
+  const [persons, setPersons] = useState(tempPersons);
   const [selectedPerson, setSelectedPerson] = useState(null);
+  const [editingChat, setEditingChat] = useState("");
+  const [isEditing, setisEditing] = useState(false);
+
   const SelectedPersonId = selectedPerson
     ? selectedPerson.details.personId
     : "/*person not selected*/";
@@ -306,7 +84,25 @@ function App() {
     setPersons(copiedPersons);
   }
 
-  function handleEdit(chatId, personId) {}
+  function handleEdit(chatId) {
+    const copiedPersons = [...persons];
+    const chats = [...selectedPerson.chats];
+    const chatIndex = chats.findIndex((chat) => chat.chatId === chatId);
+    if (isEditing) {
+      setisEditing(false);
+      setChatContent(chats[chatIndex].me);
+      setEditingChat(chatContent);
+    } else {
+      const details = { ...selectedPerson.details };
+      const personIndex = copiedPersons.findIndex(
+        (person) => person.details.personId === selectedPerson.details.personId
+      );
+      chats[chatIndex].me = chatContent;
+      setisEditing(true);
+      copiedPersons.splice(personIndex, 1, { chats, details });
+      setPersons(copiedPersons);
+    }
+  }
 
   function handleForward(chatId) {}
 
@@ -318,9 +114,9 @@ function App() {
   }
 
   function handleKeyPress(e) {
-    if (chatContent && e.key === "Enter") {
+    if (chatContent && e.key === "Enter" && !isEditing) {
       handleAddChat();
-    }
+    } else handleEdit();
   }
 
   function handleChangeInput(e) {
@@ -349,6 +145,9 @@ function App() {
             <ChatContainer
               selectedPerson={selectedPerson}
               chatContent={chatContent}
+              isEditing={isEditing}
+              editingChat={editingChat}
+              onEditing={handleEdit}
               onAddChat={handleAddChat}
               onKeyPress={handleKeyPress}
               onChangeInput={handleChangeInput}

@@ -1,6 +1,13 @@
 import React from "react";
 
-function ChatInput({ chatContent, onAddChat, onKeyPress, onChangeInput }) {
+function ChatInput({
+  chatContent,
+  isEditing,
+  onAddChat,
+  onEditing,
+  onKeyPress,
+  onChangeInput,
+}) {
   return (
     <div>
       <div className="chatDetail_input-section__2qoiR">
@@ -20,7 +27,7 @@ function ChatInput({ chatContent, onAddChat, onKeyPress, onChangeInput }) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
           color="#009588"
-          onClick={onAddChat}
+          onClick={isEditing ? onEditing : onAddChat}
         >
           <path
             fill="currentColor"
