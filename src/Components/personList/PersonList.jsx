@@ -3,8 +3,12 @@ import React from "react";
 import PersonListItem from "./PersonListItem";
 
 import { handleGetDate, handleGetTime } from "../../modules";
+import { useDispatch } from "../../stateManager/dispatch";
+import { personClicked } from "../../stateManager/actionCreator";
 
-function PersonList({ persons, SelectedPersonId, onPersonClick }) {
+function PersonList({ persons, SelectedPersonId }) {
+  const dispatch = useDispatch();
+
   const list = persons.map((person) => {
     return (
       <PersonListItem
@@ -17,7 +21,7 @@ function PersonList({ persons, SelectedPersonId, onPersonClick }) {
         lastChatTime={handleGetTime(person.details.lastChatTime)}
         lastChatDate={handleGetDate(person.details.lastChatTime)}
         unreadChatCounter={person.details.unreadChatCounter}
-        onPersonClick={() => onPersonClick(person.details.personId)}
+        onPersonClick={() => dispatch(personClicked(person.details.personId))}
       />
     );
   });

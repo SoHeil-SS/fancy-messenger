@@ -1,21 +1,23 @@
 import React from "react";
-
-function ChatInput({
-  chatContent,
-  isEditing,
-  onAddChat,
-  onEditing,
+import {
+  addClicked,
+  editClicked,
+  onInputChange,
   onKeyPress,
-  onChangeInput,
-}) {
+} from "../../stateManager/actionCreator";
+import { useDispatch } from "../../stateManager/dispatch";
+
+function ChatInput({ chatContent, isEditing }) {
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="chatDetail_input-section__2qoiR">
         <input
           type="text"
+          placeholder="Write a message..."
+          onChange={(e) => dispatch(onInputChange(e.target.value))}
           value={chatContent}
-          onKeyPress={onKeyPress}
-          onChange={onChangeInput}
+          onKeyPress={(e) => dispatch(onKeyPress(e))}
         />
         <svg
           aria-hidden="true"
@@ -27,7 +29,7 @@ function ChatInput({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
           color="#009588"
-          onClick={isEditing ? onEditing : onAddChat}
+          onClick={() => dispatch(!isEditing ? addClicked() : editClicked())}
         >
           <path
             fill="currentColor"

@@ -1,9 +1,11 @@
 import React from "react";
+import { editClicked } from "../../stateManager/actionCreator";
+import { useDispatch } from "../../stateManager/dispatch";
 
-import Button from "../Others/Buttton";
+import Button from "../Others/Button";
 
-function Editing({ isEditing, editingChat, onEditing }) {
-  console.log(editingChat);
+function Editing({ isEditing, editingChat }) {
+  const dispatch = useDispatch();
   return (
     <>
       {isEditing && (
@@ -18,7 +20,7 @@ function Editing({ isEditing, editingChat, onEditing }) {
                   position: "relative",
                   fontSize: "30px",
                 }}
-                event={onEditing}
+                event={() => dispatch(editClicked())}
                 text="X"
               />
             </span>

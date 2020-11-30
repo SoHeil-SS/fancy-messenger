@@ -20,6 +20,18 @@ export function idMaker() {
   return Math.random();
 }
 
+// function idMaker() {
+//   let counter = 0;
+//   return function id() {
+//     return (counter = counter + 1);
+//   };
+// }
+// const makeId = new idMaker();
+
+// function record(name, phone) {
+//   return { name, phone, id: makeId() };
+// }
+
 // this is temporary .
 export const tempPersons = [
   {

@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "./Buttton";
+import Button from "./Button";
 
 function Buttons({ values }) {
   const buttons = values.map((value, index) => {

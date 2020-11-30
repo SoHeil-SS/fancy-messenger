@@ -1,4 +1,6 @@
 import React from "react";
+import { closeClicked } from "../../stateManager/actionCreator";
+import { useDispatch } from "../../stateManager/dispatch";
 
 import ChatInput from "./ChatInput";
 import ChatMapper from "./ChatMapper";
@@ -10,45 +12,22 @@ function ChatContainer({
   chatContent,
   isEditing,
   editingChat,
-  onEditing,
-  onAddChat,
-  onKeyPress,
-  onChangeInput,
-  onCloseChat,
-  onDelete,
-  onEdit,
-  onForward,
 }) {
+  const dispatch = useDispatch();
   return (
     <div>
       <ChatTitleBar
         avatar={selectedPerson.details.avatar}
         personName={selectedPerson.details.personName}
-        onCloseChat={onCloseChat}
+        onCloseChat={() => dispatch(closeClicked())}
       />
       <div
         style={{ backgroundColor: "lighcyan" }}
         className="chatDetail_chat-box__3peJu"
       >
-        <ChatMapper
-          chats={selectedPerson.chats}
-          onDelete={onDelete}
-          onEdit={onEdit}
-          onForward={onForward}
-        />
-        <Editing
-          isEditing={isEditing}
-          editingChat={editingChat}
-          onEditing={onEditing}
-        />
-        <ChatInput
-          isEditing={isEditing}
-          chatContent={chatContent}
-          onAddChat={onAddChat}
-          onEditing={onEditing}
-          onKeyPress={onKeyPress}
-          onChangeInput={onChangeInput}
-        />
+        <ChatMapper chats={selectedPerson.chats} />
+        <Editing isEditing={isEditing} editingChat={editingChat} />
+        <ChatInput chatContent={chatContent} />
       </div>
     </div>
   );

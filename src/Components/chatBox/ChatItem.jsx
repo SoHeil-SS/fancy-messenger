@@ -1,5 +1,6 @@
 import React from "react";
 import Buttons from "../Others/Buttons";
+import Button from "../Others/Button";
 
 function chatItem({
   me,
@@ -18,7 +19,7 @@ function chatItem({
     fontSize: "25px",
   };
 
-  const values = [
+  const buttonsValue = [
     { text: "Delete", event: onDelete, style: style },
     { text: "Edit", event: onEdit, style: style },
     { text: "Forward", event: onForward, style: style },
@@ -40,7 +41,7 @@ function chatItem({
           <div className="message-content">
             <div className="message-text">
               <li className="chatDetail_me__2ZOxv">{me}</li>
-              <Buttons values={values} />
+              <Buttons values={buttonsValue} />
             </div>
             <div className="message-time">
               {chatDate} {chatTime}
@@ -53,7 +54,8 @@ function chatItem({
           <div>
             <li style={listStyle}>
               {person}
-              <Buttons values={values} />
+              <Button event={onDelete} text="Delete" style={style} />
+              <Button event={onForward} text="Forward" style={style} />
             </li>
           </div>
           <div className="message-time">
