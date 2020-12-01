@@ -6,6 +6,7 @@ function PersonListItem({
   avatar,
   personName,
   lastChatText,
+  draft,
   lastChatTime,
   lastChatDate,
   unreadChatCounter,
@@ -26,7 +27,15 @@ function PersonListItem({
         </div>
       </div>
       <div className="listItem_name__2wTlg">{personName}</div>
-      <div className="listItem_message__3ZiRE">{lastChatText}</div>
+      <div className="listItem_message__3ZiRE">
+        {draft ? (
+          <span style={draft ? { color: "red" } : { color: "blue" }}>
+            draft: {draft}
+          </span>
+        ) : (
+          lastChatText
+        )}
+      </div>
       <div className="listItem_time__3-xft">
         {lastChatTime} {lastChatDate}
       </div>

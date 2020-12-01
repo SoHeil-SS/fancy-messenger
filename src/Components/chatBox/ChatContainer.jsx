@@ -3,13 +3,14 @@ import { closeClicked } from "../../stateManager/actionCreator";
 import { useDispatch } from "../../stateManager/dispatch";
 
 import ChatInput from "./ChatInput";
-import ChatMapper from "./ChatMapper";
+import ChatList from "./ChatList";
 import ChatTitleBar from "./ChatTitleBar";
 import Editing from "./Editing";
 
 function ChatContainer({
   selectedPerson,
   chatContent,
+  draftContent,
   isEditing,
   editingChat,
 }) {
@@ -25,9 +26,14 @@ function ChatContainer({
         style={{ backgroundColor: "lighcyan" }}
         className="chatDetail_chat-box__3peJu"
       >
-        <ChatMapper chats={selectedPerson.chats} />
+        <ChatList chats={selectedPerson.chats} />
         <Editing isEditing={isEditing} editingChat={editingChat} />
-        <ChatInput chatContent={chatContent} isEditing={isEditing} />
+        <ChatInput
+          chatContent={chatContent}
+          draftContent={draftContent}
+          draft={selectedPerson.details.draft}
+          isEditing={isEditing}
+        />
       </div>
     </div>
   );

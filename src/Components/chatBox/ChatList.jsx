@@ -10,7 +10,7 @@ import {
 
 import ChatItem from "./ChatItem";
 
-function ChatMapper({ chats }) {
+function ChatList({ chats }) {
   const dispatch = useDispatch();
 
   const chatList = chats.map((chat) => (
@@ -28,4 +28,4 @@ function ChatMapper({ chats }) {
   return <ul className="chatDetail_messages-panel__3aOw8">{chatList}</ul>;
 }
 
-export default ChatMapper;
+export default ChatList;

@@ -11,14 +11,24 @@ import DispatchContext from "./stateManager/dispatch";
 
 function App() {
   const [
-    { chatContent, persons, selectedPerson, editingChat, isEditing },
+    {
+      chatContent,
+      draftContent,
+      persons,
+      selectedPerson,
+      editingChat,
+      isEditing,
+    },
     dispatch,
   ] = useReducer(reducer, {
     chatContent: "",
+    draftContent: "",
+    editingChat: "",
     persons: tempPersons,
     selectedPerson: null,
-    editingChat: "",
     isEditing: false,
+    prevPerson: null,
+    prevPersonId: null,
     editingChatId: null,
   });
   const SelectedPersonId = selectedPerson
@@ -42,6 +52,7 @@ function App() {
               <ChatContainer
                 selectedPerson={selectedPerson}
                 chatContent={chatContent}
+                draftContent={draftContent}
                 isEditing={isEditing}
                 editingChat={editingChat}
               />

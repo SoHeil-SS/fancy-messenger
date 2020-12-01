@@ -15,11 +15,14 @@ export function handleGetDate(time) {
 export function objectConstructor(
   {
     chatContent,
+    draftContent,
     persons,
     selectedPerson,
     editingChat,
     isEditing,
     editingChatId,
+    prevPerson,
+    prevPersonId,
   },
   chatId,
   personId
@@ -30,26 +33,32 @@ export function objectConstructor(
     );
   }
   const { details, chats } = selectedPerson;
-
   return {
     persons: [...persons],
     newPerson: null,
     personIndex: persons.findIndex(
       (person) => person.details.personId === details.personId
     ),
+    prevPersonIndex: persons.findIndex(
+      (person) => person.details.personId === prevPersonId
+    ),
     details: { ...selectedPerson.details },
-    chats: [...selectedPerson.chats],
     chatsAfterDelete: chats.filter((chat) => chat.chatId !== chatId),
+    chats: [...selectedPerson.chats],
     chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
     chatsLastIndex: chats.length - 2,
-    chatContent,
     editingChat,
     editingChatId,
     editingChatIndex: chats.findIndex((chat) => chat.chatId === editingChatId),
     isEditing,
+    prevPerson,
+    prevPersonId,
+    chatContent,
+    draftContent,
     newDate: Date.now(),
   };
 }
+
 export function idMaker() {
   // let counter = 0;
   // return function id() {
@@ -70,14 +79,15 @@ export function idMaker() {
 //   return { name, phone, id: makeId() };
 // }
 
-// this is temporary .
+// this is temporary . //TODO api from mocky
 export const tempPersons = [
   {
     details: {
-      personId: idMaker(),
+      personId: "soheila",
       avatar: "./personPictures/soheila.jpg",
       personName: "Soheila",
       lastChatText: "so excited.>!",
+      draft: "",
       lastChatTime: 1606577774127,
       unreadChatCounter: 10,
     },
@@ -106,10 +116,11 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: idMaker(),
+      personId: "parvaneh",
       avatar: "./personPictures/parvaneh.jpg",
       personName: "Parvaneh",
       lastChatText: "thanks...",
+      draft: "",
       lastChatTime: 1606444467412,
       unreadChatCounter: 10,
     },
@@ -138,10 +149,11 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: idMaker(),
+      personId: "kitty",
       avatar: "./personPictures/kitty.jpg",
       personName: "Kitty",
       lastChatText: "thanks...",
+      draft: "",
       lastChatTime: 1606333362326,
       unreadChatCounter: 2,
     },
@@ -170,10 +182,11 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: idMaker(),
+      personId: "Love",
       avatar: "./personPictures/love.jpg",
       personName: "Love",
       lastChatText: "not good ... :(",
+      draft: "",
       lastChatTime: 1606222261324,
       unreadChatCounter: 4,
     },
@@ -202,10 +215,11 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: idMaker(),
+      personId: "Nahid",
       avatar: "./personPictures/nahid.jpg",
       personName: "Nahid",
       lastChatText: "dont ask ...",
+      draft: "",
       lastChatTime: 1606111165489,
       unreadChatCounter: 10,
     },
@@ -234,10 +248,11 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: idMaker(),
+      personId: "Sahar",
       avatar: "./personPictures/sahar.jpg",
       personName: "Sahar",
       lastChatText: "uuuuh i dont know !",
+      draft: "",
       lastChatTime: 1506999998654,
       unreadChatCounter: 10,
     },
@@ -266,10 +281,11 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: idMaker(),
+      personId: "Sajad",
       avatar: "./personPictures/sajad.jpg",
       personName: "Sajad",
       lastChatText: "yey im good!",
+      draft: "",
       lastChatTime: 1506888860258,
       unreadChatCounter: 10,
     },
