@@ -27,7 +27,7 @@ function ChatContainer({
       >
         <ChatMapper chats={selectedPerson.chats} />
         <Editing isEditing={isEditing} editingChat={editingChat} />
-        <ChatInput chatContent={chatContent} />
+        <ChatInput chatContent={chatContent} isEditing={isEditing} />
       </div>
     </div>
   );

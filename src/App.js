@@ -19,6 +19,7 @@ function App() {
     selectedPerson: null,
     editingChat: "",
     isEditing: false,
+    editingChatId: null,
   });
   const SelectedPersonId = selectedPerson
     ? selectedPerson.details.personId

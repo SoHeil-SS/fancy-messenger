@@ -1,18 +1,19 @@
 import React from "react";
 
 import { handleGetDate, handleGetTime } from "../../modules";
+import { useDispatch } from "../../stateManager/dispatch";
 import {
   deleteClicked,
   editClicked,
   forwardClicked,
 } from "../../stateManager/actionCreator";
-import { useDispatch } from "../../stateManager/dispatch";
+
 import ChatItem from "./ChatItem";
 
 function ChatMapper({ chats }) {
   const dispatch = useDispatch();
 
-  const mappedChat = chats.map((chat) => (
+  const chatList = chats.map((chat) => (
     <ChatItem
       key={chat.chatId}
       me={chat.me}
@@ -24,7 +25,7 @@ function ChatMapper({ chats }) {
       onForward={() => dispatch(forwardClicked(chat.chatId))}
     />
   ));
-  return <ul className="chatDetail_messages-panel__3aOw8">{mappedChat}</ul>;
+  return <ul className="chatDetail_messages-panel__3aOw8">{chatList}</ul>;
 }
 
 export default ChatMapper;

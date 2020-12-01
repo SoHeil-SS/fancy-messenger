@@ -12,8 +12,13 @@ export const deleteClicked = (chatId) =>
 
 export const editClicked = (chatId) => actionCreator("EDIT_CLICKED", chatId);
 
+export const saveClicked = () => actionCreator("SAVE_CLICKED");
+
 export const forwardClicked = (chatId) =>
   actionCreator("FORWARD_CLICKED", chatId);
+
+export const editCloseClicked = (chatId) =>
+  actionCreator("EDIT_CLOSE_CLICKED", chatId);
 
 export const onInputChange = (chatContent) =>
   actionCreator("INPUT_CHANGED", chatContent);

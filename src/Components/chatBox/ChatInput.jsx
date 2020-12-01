@@ -1,11 +1,12 @@
 import React from "react";
+
+import { useDispatch } from "../../stateManager/dispatch";
 import {
   addClicked,
-  editClicked,
+  saveClicked,
   onInputChange,
   onKeyPress,
 } from "../../stateManager/actionCreator";
-import { useDispatch } from "../../stateManager/dispatch";
 
 function ChatInput({ chatContent, isEditing }) {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function ChatInput({ chatContent, isEditing }) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 448 512"
           color="#009588"
-          onClick={() => dispatch(!isEditing ? addClicked() : editClicked())}
+          onClick={() => dispatch(!isEditing ? addClicked() : saveClicked())}
         >
           <path
             fill="currentColor"

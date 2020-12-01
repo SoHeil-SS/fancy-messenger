@@ -1,6 +1,7 @@
 import React from "react";
-import { editClicked } from "../../stateManager/actionCreator";
+
 import { useDispatch } from "../../stateManager/dispatch";
+import { editCloseClicked } from "../../stateManager/actionCreator";
 
 import Button from "../Others/Button";
 
@@ -20,7 +21,7 @@ function Editing({ isEditing, editingChat }) {
                   position: "relative",
                   fontSize: "30px",
                 }}
-                event={() => dispatch(editClicked())}
+                event={() => dispatch(editCloseClicked())}
                 text="X"
               />
             </span>

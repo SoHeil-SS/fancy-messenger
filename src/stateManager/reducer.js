@@ -1,7 +1,8 @@
-import { idMaker } from "../modules";
+import { idMaker, objectConstructor } from "../modules";
 
 export function reducer(state, action) {
   const payload = action.payload;
+
   switch (action.type) {
     case "PERSON_CLICKED":
       return handlePersonClick(state, payload);
@@ -11,8 +12,12 @@ export function reducer(state, action) {
       return handleDeleteChat(state, payload);
     case "EDIT_CLICKED":
       return handleEditChat(state, payload);
-    // case "FORWARD_CLICKED":
-    //   return handleForwardChat(state, payload);
+    case "SAVE_CLICKED":
+      return handleSaveChat(state);
+    case "FORWARD_CLICKED":
+      return handleForwardChat(state, payload);
+    case "EDIT_CLOSE_CLICKED":
+      return handleCancelEdit(state);
     case "INPUT_CHANGED":
       return handleInputChange(state, payload);
     case "ENTER_CLICKED":
@@ -26,37 +31,37 @@ export function reducer(state, action) {
 }
 
 function handlePersonClick(state, personId) {
-  const { persons } = state;
-  const copiedPersons = [...persons];
-  const index = copiedPersons.findIndex(
-    (person) => person.details.personId === personId
+  let { persons, details, chats, personIndex, newPerson } = objectConstructor(
+    state,
+    null,
+    personId
   );
-  const details = { ...copiedPersons[index].details };
-  const chats = [...copiedPersons[index].chats];
 
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
   }
-  const newPerson = { details, chats };
-  copiedPersons.splice(index, 1, newPerson);
+  newPerson = { details, chats };
+  persons.splice(personIndex, 1, newPerson);
 
   return {
     ...state,
     selectedPerson: newPerson,
     chatContent: "",
-    persons: copiedPersons,
+    persons: persons,
   };
 }
 
 function handleAddChat(state) {
-  const { persons, selectedPerson, chatContent } = state;
-  const copiedPersons = [...persons];
-  const details = { ...selectedPerson.details };
-  const chats = [...selectedPerson.chats];
-  const index = copiedPersons.findIndex(
-    (p) => p.details.personId === selectedPerson.details.personId
-  );
-  const newDate = Date.now();
+  let {
+    persons,
+    personIndex,
+    details,
+    chats,
+    chatContent,
+    newDate,
+    newPerson,
+  } = objectConstructor(state);
+
   details.lastChatTime = newDate;
   details.lastChatText = chatContent;
   chats.push({
@@ -64,75 +69,86 @@ function handleAddChat(state) {
     chatTime: newDate,
     chatId: idMaker(),
   });
-  copiedPersons.splice(index, 1, { details, chats });
+  newPerson = { details, chats };
+  persons.splice(personIndex, 1, newPerson);
+
   return {
     ...state,
     chatContent: "",
-    persons: handleSortPersons(copiedPersons),
-    selectedPerson: { details, chats },
+    persons: handleSortPersons(persons),
+    selectedPerson: newPerson,
   };
 }
 
 function handleDeleteChat(state, chatId) {
-  let newPerson = null;
-  const { persons, selectedPerson } = state;
-  const copiedPersons = [...persons];
-  const details = { ...selectedPerson.details };
-  const chats = selectedPerson.chats.filter((chat) => chat.chatId !== chatId);
-  const personIndex = copiedPersons.findIndex(
-    (p) => p.details.personId === selectedPerson.details.personId
-  );
+  let {
+    persons,
+    personIndex,
+    details,
+    chatsAfterDelete,
+    chatsLastIndex,
+    newPerson,
+  } = objectConstructor(state, chatId);
 
-  if (chats.length) {
-    const chatsLastIndex = chats.length - 1;
-
-    details.lastChatTime = chats[chatsLastIndex].chatTime;
-    chats[chatsLastIndex].me
-      ? (details.lastChatText = chats[chatsLastIndex].me)
-      : (details.lastChatText = chats[chatsLastIndex].person);
-    newPerson = { details, chats };
-    copiedPersons.splice(personIndex, 1, newPerson);
+  if (chatsAfterDelete.length) {
+    details.lastChatTime = chatsAfterDelete[chatsLastIndex].chatTime;
+    chatsAfterDelete[chatsLastIndex].me
+      ? (details.lastChatText = chatsAfterDelete[chatsLastIndex].me)
+      : (details.lastChatText = chatsAfterDelete[chatsLastIndex].person);
+    newPerson = { details, chats: chatsAfterDelete };
+    persons.splice(personIndex, 1, newPerson);
   } else {
-    copiedPersons.splice(personIndex, 1);
+    persons.splice(personIndex, 1);
     handleCloseChat();
   }
+
   return {
     ...state,
     chatContent: "",
     selectedPerson: newPerson,
-    persons: copiedPersons,
+    persons,
   };
 }
 
 function handleEditChat(state, chatId) {
-  const { persons, selectedPerson, isEditing, chatContent } = state;
-  const copiedPersons = [...persons];
-  const chats = [...selectedPerson.chats];
-  const chatIndex = chats.findIndex((chat) => chat.chatId === chatId);
-  if (!isEditing) {
-    const text = chats[chatIndex].me;
-    return {
-      ...state,
-      isEditing: true,
-      chatContent: text,
-      editingChat: text,
-    };
-  } else {
-    const details = { ...selectedPerson.details };
-    const personIndex = copiedPersons.findIndex(
-      (person) => person.details.personId === selectedPerson.details.personId
-    );
-    chats[chatIndex].me = chatContent;
-    copiedPersons.splice(personIndex, 1, { chats, details });
-    return {
-      ...state,
-      isEditing: false,
-      persons: copiedPersons,
-    };
+  const { chats, chatIndex } = objectConstructor(state, chatId);
+  const newText = chats[chatIndex].me;
+
+  return {
+    ...state,
+    isEditing: true,
+    editingChatId: chatId,
+    chatContent: newText,
+    editingChat: newText,
+  };
+}
+
+function handleSaveChat(state) {
+  const {
+    persons,
+    details,
+    chats,
+    chatContent,
+    editingChatIndex,
+    personIndex,
+  } = objectConstructor(state);
+
+  chats[editingChatIndex].me = chatContent;
+  if (chats.length - 1 === editingChatIndex) {
+    details.lastChatText = chatContent;
   }
+  persons.splice(personIndex, 1, { chats, details });
+
+  return {
+    ...state,
+    chatContent: "",
+    isEditing: false,
+    persons,
+  };
 }
 
 function handleForwardChat(state, chatId) {
+  console.log("forward clicked");
   return state;
 }
 
@@ -146,18 +162,17 @@ function handleSortPersons(copiedPersons) {
 function handleKeyPress(state, e) {
   const { chatContent, isEditing } = state;
   if (chatContent && e.key === "Enter" && !isEditing) {
-    handleAddChat(state);
     return handleAddChat(state);
-  } else if (chatContent && e.key === "Enter" && isEditing) {
-    return handleEditChat(state);
+  } else if (e.key === "Enter" && isEditing) {
+    return handleSaveChat(state);
   }
   return state;
 }
 
-function handleInputChange(state, payload) {
+function handleInputChange(state, chatContent) {
   return {
     ...state,
-    chatContent: payload,
+    chatContent,
   };
 }
 
@@ -166,5 +181,13 @@ function handleCloseChat(state) {
     ...state,
     chatContent: "",
     selectedPerson: null,
+  };
+}
+
+function handleCancelEdit(state) {
+  return {
+    ...state,
+    isEditing: false,
+    chatContent: "",
   };
 }

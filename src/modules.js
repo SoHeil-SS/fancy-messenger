@@ -12,6 +12,44 @@ export function handleGetDate(time) {
   return `${getMonth + 1}/${getDay + 22}`;
 }
 
+export function objectConstructor(
+  {
+    chatContent,
+    persons,
+    selectedPerson,
+    editingChat,
+    isEditing,
+    editingChatId,
+  },
+  chatId,
+  personId
+) {
+  if (personId) {
+    selectedPerson = persons.find(
+      (person) => person.details.personId === personId
+    );
+  }
+  const { details, chats } = selectedPerson;
+
+  return {
+    persons: [...persons],
+    newPerson: null,
+    personIndex: persons.findIndex(
+      (person) => person.details.personId === details.personId
+    ),
+    details: { ...selectedPerson.details },
+    chats: [...selectedPerson.chats],
+    chatsAfterDelete: chats.filter((chat) => chat.chatId !== chatId),
+    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
+    chatsLastIndex: chats.length - 2,
+    chatContent,
+    editingChat,
+    editingChatId,
+    editingChatIndex: chats.findIndex((chat) => chat.chatId === editingChatId),
+    isEditing,
+    newDate: Date.now(),
+  };
+}
 export function idMaker() {
   // let counter = 0;
   // return function id() {
