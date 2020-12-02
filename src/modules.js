@@ -1,15 +1,8 @@
-export function handleGetTime(time) {
+export function handleGetTime(time, method1, method2, type) {
   const dateNow = new Date(time);
-  const getHours = dateNow.getHours();
-  const getMinutes = dateNow.getMinutes();
-  return `${getHours}:${getMinutes}`;
-}
-
-export function handleGetDate(time) {
-  const dateNow = new Date(time);
-  const getMonth = dateNow.getMonth();
-  const getDay = dateNow.getDay();
-  return `${getMonth + 1}/${getDay + 22}`;
+  const time1 = dateNow[method1]();
+  const time2 = dateNow[method2]();
+  return `${method1 === "getMonth" ? time1 + 1 : time1}${type}${time2}`;
 }
 
 export function objectConstructor(
@@ -72,11 +65,6 @@ export function idMaker() {
 //   return function id() {
 //     return (counter = counter + 1);
 //   };
-// }
-// const makeId = new idMaker();
-
-// function record(name, phone) {
-//   return { name, phone, id: makeId() };
 // }
 
 // this is temporary . //TODO api from mocky
