@@ -2,7 +2,7 @@ import React from "react";
 
 import PersonListItem from "./PersonListItem";
 
-import { handleGetDate, handleGetTime } from "../../modules";
+import { handleGetTime } from "../../modules";
 import { useDispatch } from "../../stateManager/dispatch";
 import { personClicked } from "../../stateManager/actionCreator";
 
@@ -29,8 +29,13 @@ function PersonList({ persons, SelectedPersonId }) {
         personName={personName}
         lastChatText={lastChatText}
         draft={draft}
-        lastChatTime={handleGetTime(lastChatTime)}
-        lastChatDate={handleGetDate(lastChatTime)}
+        lastChatTime={handleGetTime(
+          lastChatTime,
+          "getHours",
+          "getMinutes",
+          ":"
+        )}
+        lastChatDate={handleGetTime(lastChatTime, "getMonth", "getDate", "/")}
         unreadChatCounter={unreadChatCounter}
         onPersonClick={() => dispatch(personClicked(personId))}
       />

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { handleGetDate, handleGetTime } from "../../modules";
+import { handleGetTime } from "../../modules";
 import { useDispatch } from "../../stateManager/dispatch";
 import {
   deleteClicked,
@@ -18,8 +18,8 @@ function ChatList({ chats }) {
       key={chat.chatId}
       me={chat.me}
       person={chat.person}
-      chatTime={handleGetTime(chat.chatTime)}
-      chatDate={handleGetDate(chat.chatTime)}
+      chatTime={handleGetTime(chat.chatTime, "getHours", "getMinutes", ":")}
+      chatDate={handleGetTime(chat.chatTime, "getMonth", "getDate", "/")}
       onDelete={() => dispatch(deleteClicked(chat.chatId))}
       onEdit={() => dispatch(editClicked(chat.chatId))}
       onForward={() => dispatch(forwardClicked(chat.chatId))}
