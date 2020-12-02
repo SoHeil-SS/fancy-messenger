@@ -269,9 +269,9 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: "Sajad",
-      avatar: "./personPictures/sajad.jpg",
-      personName: "Sajad",
+      personId: "Sajjad",
+      avatar: "./personPictures/sajjad.jpg",
+      personName: "Sajjad",
       lastChatText: "yey im good!",
       draft: "",
       lastChatTime: 1506888860258,
