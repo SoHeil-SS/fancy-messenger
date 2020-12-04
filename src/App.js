@@ -31,6 +31,7 @@ function App() {
     prevPersonId: null,
     editingChatId: null,
   });
+  //TODO remove selectedPerson .
   const SelectedPersonId = selectedPerson
     ? selectedPerson.details.personId
     : "/*person not selected*/";
