@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch } from "../../stateManager/dispatch";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   addClicked,
