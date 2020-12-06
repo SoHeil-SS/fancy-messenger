@@ -9,7 +9,6 @@ import {
   handleInputChange,
   handleKeyPress,
   handleSaveChat,
-  handleDraftChange,
 } from "./eventHandlers";
 
 export function reducer(state, action) {
@@ -32,8 +31,6 @@ export function reducer(state, action) {
       return handleCancelEdit(state);
     case "INPUT_CHANGED":
       return handleInputChange(state, payload);
-    case "DRAFT_CHANGED":
-      return handleDraftChange(state, payload);
     case "ENTER_CLICKED":
       return handleKeyPress(state, payload);
     case "CLOSE_CLICKED":

@@ -23,8 +23,6 @@ export const editCloseClicked = (chatId) =>
 export const onInputChange = (chatContent) =>
   actionCreator("INPUT_CHANGED", chatContent);
 
-export const onDraftChange = (draft) => actionCreator("DRAFT_CHANGED", draft);
-
 export const onKeyPress = (e) => actionCreator("ENTER_CLICKED", e);
 
 export const closeClicked = () => actionCreator("CLOSE_CLICKED");

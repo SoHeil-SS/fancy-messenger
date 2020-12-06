@@ -11,7 +11,6 @@ function ChatContainer({
   selectedPersonId,
   persons,
   chatContent,
-  draftContent,
   isEditing,
   editingChat,
 }) {
@@ -34,7 +33,6 @@ function ChatContainer({
         <Editing isEditing={isEditing} editingChat={editingChat} />
         <ChatInput
           chatContent={chatContent}
-          draftContent={draftContent}
           draft={details.draft}
           isEditing={isEditing}
         />

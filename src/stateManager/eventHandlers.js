@@ -6,15 +6,15 @@ export function handlePersonClick(state, personId) {
     chats,
     personIndex,
     prevPersonIndex,
-    draftContent,
   } = objectConstructor(state, null, personId);
+  let personDraft = persons[personIndex].details.draft;
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
   }
-  if (chatContent || draftContent) {
+  if (chatContent) {
     const prevPerson = { ...persons[prevPersonIndex] };
     const prevDetails = { ...prevPerson.details };
-    prevDetails.draft = chatContent ? chatContent : draftContent;
+    prevDetails.draft = chatContent;
     handleFinallyPersons(
       persons,
       [personIndex, prevPersonIndex],
@@ -30,8 +30,7 @@ export function handlePersonClick(state, personId) {
   return {
     ...state,
     selectedPersonId: personId,
-    draftContent: persons[personIndex].details.draft,
-    chatContent: "",
+    chatContent: personDraft,
     persons,
   };
 }
@@ -43,15 +42,14 @@ export function handleAddChat(state) {
     details,
     chats,
     chatContent,
-    draftContent,
     newDate,
   } = objectConstructor(state);
 
   details.lastChatTime = newDate;
-  details.lastChatText = draftContent ? draftContent : chatContent;
+  details.lastChatText = chatContent;
   details.draft = "";
   chats.push({
-    self: draftContent ? draftContent : chatContent,
+    self: chatContent,
     chatTime: newDate,
     chatId: idMaker(),
   });
@@ -61,7 +59,6 @@ export function handleAddChat(state) {
   return {
     ...state,
     chatContent: "",
-    draftContent: "",
     persons,
   };
 }
@@ -73,9 +70,7 @@ export function handleDeleteChat(state, chatId) {
     personIndex,
     details,
     chats,
-    draftContent,
   } = objectConstructor(state, chatId);
-  let draft = draftContent;
   const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
   const chatsLength = chatsAfterDelete.length;
 
@@ -89,7 +84,6 @@ export function handleDeleteChat(state, chatId) {
       [{ details, chats: chatsAfterDelete }]
     );
   } else {
-    draft = "";
     persons.splice(personIndex, 1);
     handleCloseChat();
   }
@@ -97,8 +91,8 @@ export function handleDeleteChat(state, chatId) {
   return {
     ...state,
     selectedPersonId: chatsLength ? selectedPersonId : null,
-    chatContent: "",
-    draftContent: draft,
+    isEditing: false,
+    chatContent: persons[personIndex].details.draft,
     persons,
   };
 }
@@ -106,13 +100,12 @@ export function handleDeleteChat(state, chatId) {
 export function handleEditChat(state, chatId) {
   const { chats, chatIndex } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
-  console.log(content);
+
   return {
     ...state,
     isEditing: true,
-    draftContent: content,
-    editingChatId: chatId,
     chatContent: content,
+    editingChatId: chatId,
     editingChat: content,
   };
 }
@@ -153,9 +146,9 @@ export function handleSortPersons(persons) {
 }
 
 export function handleKeyPress(state, e) {
-  const { chatContent, draftContent, isEditing } = state;
+  const { chatContent, isEditing } = state;
 
-  if (chatContent || draftContent) {
+  if (chatContent) {
     if (e.key === "Enter" && !isEditing) return handleAddChat(state);
     else if (e.key === "Enter" && isEditing) {
       return handleSaveChat(state);
@@ -166,16 +159,13 @@ export function handleKeyPress(state, e) {
 }
 
 export function handleInputChange(state, chatContent) {
+  const { persons, personIndex, details, chats } = objectConstructor(state);
+  details.draft = chatContent;
+  persons.splice(personIndex, 1, { details, chats });
   return {
     ...state,
+    persons,
     chatContent,
-  };
-}
-//TODO  ???
-export function handleDraftChange(state, draftContent) {
-  return {
-    ...state,
-    draftContent,
   };
 }
 
@@ -192,8 +182,7 @@ export function handleCancelEdit(state) {
   return {
     ...state,
     isEditing: false,
-    draftContent: persons[personIndex].details.draft,
-    chatContent: "",
+    chatContent: persons[personIndex].details.draft,
   };
 }
 
@@ -226,7 +215,6 @@ function objectConstructor(
     selectedPersonId,
     editingChatId,
     chatContent,
-    draftContent,
     persons,
     editingChat,
     isEditing,
@@ -260,7 +248,6 @@ function objectConstructor(
     isEditing,
     editingChat,
     chatContent,
-    draftContent,
   };
 }
 
@@ -380,7 +367,7 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: "Love",
+      personId: "love",
       avatar: "./personPictures/love.jpg",
       personName: "Love",
       lastChatText: "not good ... :(",
@@ -413,7 +400,7 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: "Nahid",
+      personId: "nahid",
       avatar: "./personPictures/nahid.jpg",
       personName: "Nahid",
       lastChatText: "dont ask ...",
@@ -446,7 +433,7 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: "Sahar",
+      personId: "sahar",
       avatar: "./personPictures/sahar.jpg",
       personName: "Sahar",
       lastChatText: "uuuuh i dont know !",
@@ -479,8 +466,8 @@ export const tempPersons = [
   },
   {
     details: {
-      personId: "Sajjad",
-      avatar: "./personPictures/sajjad.jpg",
+      personId: "sajjad",
+      avatar: "./personPictures/sajad.jpg",
       personName: "Sajjad",
       lastChatText: "yey im good!",
       draft: "",
