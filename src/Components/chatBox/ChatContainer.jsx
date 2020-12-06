@@ -8,30 +8,34 @@ import ChatTitleBar from "./ChatTitleBar";
 import Editing from "./Editing";
 
 function ChatContainer({
-  selectedPerson,
+  selectedPersonId,
+  persons,
   chatContent,
   draftContent,
   isEditing,
   editingChat,
 }) {
   const dispatch = useDispatch();
+  const { details, chats } = persons.find(
+    (person) => person.details.personId === selectedPersonId
+  );
   return (
     <div>
       <ChatTitleBar
-        avatar={selectedPerson.details.avatar}
-        personName={selectedPerson.details.personName}
+        avatar={details.avatar}
+        personName={details.personName}
         onCloseChat={() => dispatch(closeClicked())}
       />
       <div
         style={{ backgroundColor: "lighcyan" }}
         className="chatDetail_chat-box__3peJu"
       >
-        <ChatList chats={selectedPerson.chats} />
+        <ChatList chats={chats} />
         <Editing isEditing={isEditing} editingChat={editingChat} />
         <ChatInput
           chatContent={chatContent}
           draftContent={draftContent}
-          draft={selectedPerson.details.draft}
+          draft={details.draft}
           isEditing={isEditing}
         />
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { handleGetTime } from "../../modules";
+import { handleGetTime } from "../../stateManager/eventHandlers";
 import { useDispatch } from "../../stateManager/dispatch";
 import {
   deleteClicked,
@@ -16,7 +16,7 @@ function ChatList({ chats }) {
   const chatList = chats.map((chat) => (
     <ChatItem
       key={chat.chatId}
-      me={chat.me}
+      self={chat.self}
       person={chat.person}
       chatTime={handleGetTime(chat.chatTime, "getHours", "getMinutes", ":")}
       chatDate={handleGetTime(chat.chatTime, "getMonth", "getDate", "/")}

@@ -3,7 +3,7 @@ import Buttons from "../Others/Buttons";
 import Button from "../Others/Button";
 
 function chatItem({
-  me,
+  self,
   person,
   chatTime,
   chatDate,
@@ -36,11 +36,11 @@ function chatItem({
 
   return (
     <>
-      {me && (
+      {self && (
         <div className="message-row you-message hoverItem">
           <div className="message-content">
             <div className="message-text">
-              <li className="chatDetail_me__2ZOxv">{me}</li>
+              <li className="chatDetail_me__2ZOxv">{self}</li>
               <Buttons values={buttonsValue} />
             </div>
             <div className="message-time">

@@ -2,7 +2,7 @@ import React from "react";
 
 function PersonListItem({
   personId,
-  SelectedPersonId,
+  selectedPersonId,
   avatar,
   personName,
   lastChatText,
@@ -15,7 +15,7 @@ function PersonListItem({
   return (
     <div
       className={
-        personId === SelectedPersonId
+        personId === selectedPersonId
           ? "listItem_list-item__1mnZB listItem_selected__3Q6PN"
           : "listItem_list-item__1mnZB"
       }
@@ -29,9 +29,9 @@ function PersonListItem({
       <div className="listItem_name__2wTlg">{personName}</div>
       <div className="listItem_message__3ZiRE">
         {draft ? (
-          <span style={draft ? { color: "red" } : { color: "blue" }}>
-            draft: {draft}
-          </span>
+          <>
+            <span style={{ color: "red" }}>draft</span>: {draft}
+          </>
         ) : (
           lastChatText
         )}

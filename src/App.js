@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 
-import { tempPersons } from "./modules";
+import { tempPersons } from "./stateManager/eventHandlers";
 
 import SearchBar from "./Components/personList/SearchBar";
 import PersonList from "./Components/personList/PersonList";
@@ -12,29 +12,23 @@ import DispatchContext from "./stateManager/dispatch";
 function App() {
   const [
     {
+      selectedPersonId,
+      persons,
       chatContent,
       draftContent,
-      persons,
-      selectedPerson,
-      editingChat,
       isEditing,
+      editingChat,
     },
     dispatch,
   ] = useReducer(reducer, {
+    selectedPersonId: null,
+    persons: tempPersons,
     chatContent: "",
     draftContent: "",
-    editingChat: "",
-    persons: tempPersons,
-    selectedPerson: null,
     isEditing: false,
-    prevPerson: null,
-    prevPersonId: null,
+    editingChat: "",
     editingChatId: null,
   });
-  //TODO remove selectedPerson .
-  const SelectedPersonId = selectedPerson
-    ? selectedPerson.details.personId
-    : "/*person not selected*/";
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -45,13 +39,14 @@ function App() {
             <div className="chat_side__2kvyI">
               <SearchBar />
               <PersonList
-                SelectedPersonId={SelectedPersonId}
+                selectedPersonId={selectedPersonId}
                 persons={persons}
               />
             </div>
-            {selectedPerson && (
+            {selectedPersonId && (
               <ChatContainer
-                selectedPerson={selectedPerson}
+                selectedPersonId={selectedPersonId}
+                persons={persons}
                 chatContent={chatContent}
                 draftContent={draftContent}
                 isEditing={isEditing}

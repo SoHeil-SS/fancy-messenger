@@ -1,47 +1,43 @@
-import { idMaker, objectConstructor } from "../modules";
-
 export function handlePersonClick(state, personId) {
-  let {
+  const {
     persons,
     details,
     chatContent,
     chats,
     personIndex,
-    newPerson,
     prevPersonIndex,
-    prevPerson,
+    draftContent,
   } = objectConstructor(state, null, personId);
-
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
   }
-  if (chatContent) {
-    prevPerson = { ...persons[prevPersonIndex] };
+  if (chatContent || draftContent) {
+    const prevPerson = { ...persons[prevPersonIndex] };
     const prevDetails = { ...prevPerson.details };
-    const prevChats = [...prevPerson.chats];
-    prevDetails.draft = chatContent;
-    prevPerson = { details: prevDetails, chats: prevChats };
-    newPerson = { details, chats };
-    persons.splice(personIndex, 1, newPerson);
-    persons.splice(prevPersonIndex, 1, prevPerson);
+    prevDetails.draft = chatContent ? chatContent : draftContent;
+    handleFinallyPersons(
+      persons,
+      [personIndex, prevPersonIndex],
+      [
+        { details, chats },
+        { ...prevPerson, details: prevDetails },
+      ]
+    );
   } else {
-    newPerson = { details, chats };
-    persons.splice(personIndex, 1, newPerson);
+    handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   }
 
   return {
     ...state,
-    prevPersonId: personId,
-    selectedPerson: newPerson,
-    draftContent: prevPerson ? prevPerson.details.draft : "",
+    selectedPersonId: personId,
+    draftContent: persons[personIndex].details.draft,
     chatContent: "",
-    prevPerson,
-    persons: persons,
+    persons,
   };
 }
 
 export function handleAddChat(state) {
-  let {
+  const {
     persons,
     personIndex,
     details,
@@ -49,69 +45,75 @@ export function handleAddChat(state) {
     chatContent,
     draftContent,
     newDate,
-    newPerson,
   } = objectConstructor(state);
 
   details.lastChatTime = newDate;
   details.lastChatText = draftContent ? draftContent : chatContent;
   details.draft = "";
   chats.push({
-    me: draftContent ? draftContent : chatContent,
+    self: draftContent ? draftContent : chatContent,
     chatTime: newDate,
     chatId: idMaker(),
   });
-  newPerson = { details, chats };
-  persons.splice(personIndex, 1, newPerson);
-
+  handleSortPersons(
+    handleFinallyPersons(persons, [personIndex], [{ details, chats }])
+  );
   return {
     ...state,
     chatContent: "",
     draftContent: "",
-    persons: handleSortPersons(persons),
-    selectedPerson: newPerson,
+    persons,
   };
 }
 
 export function handleDeleteChat(state, chatId) {
-  let {
+  const {
+    selectedPersonId,
     persons,
     personIndex,
     details,
-    chatsAfterDelete,
-    chatsLastIndex,
-    newPerson,
+    chats,
+    draftContent,
   } = objectConstructor(state, chatId);
+  let draft = draftContent;
+  const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
+  const chatsLength = chatsAfterDelete.length;
 
-  if (chatsAfterDelete.length) {
-    details.lastChatTime = chatsAfterDelete[chatsLastIndex].chatTime;
-    chatsAfterDelete[chatsLastIndex].me
-      ? (details.lastChatText = chatsAfterDelete[chatsLastIndex].me)
-      : (details.lastChatText = chatsAfterDelete[chatsLastIndex].person);
-    newPerson = { details, chats: chatsAfterDelete };
-    persons.splice(personIndex, 1, newPerson);
+  if (chatsLength) {
+    const lastChat = chatsAfterDelete[chatsLength - 1];
+    details.lastChatTime = lastChat.chatTime;
+    details.lastChatText = lastChat.self ? lastChat.self : lastChat.person;
+    handleFinallyPersons(
+      persons,
+      [personIndex],
+      [{ details, chats: chatsAfterDelete }]
+    );
   } else {
+    draft = "";
     persons.splice(personIndex, 1);
     handleCloseChat();
   }
 
   return {
     ...state,
+    selectedPersonId: chatsLength ? selectedPersonId : null,
     chatContent: "",
-    selectedPerson: newPerson,
+    draftContent: draft,
     persons,
   };
 }
 
 export function handleEditChat(state, chatId) {
   const { chats, chatIndex } = objectConstructor(state, chatId);
-  const newText = chats[chatIndex].me;
-
+  const content = chats[chatIndex].self;
+  console.log(content);
   return {
     ...state,
     isEditing: true,
+    draftContent: content,
     editingChatId: chatId,
-    chatContent: newText,
-    editingChat: newText,
+    chatContent: content,
+    editingChat: content,
   };
 }
 
@@ -125,12 +127,11 @@ export function handleSaveChat(state) {
     personIndex,
   } = objectConstructor(state);
 
-  chats[editingChatIndex].me = chatContent;
+  chats[editingChatIndex].self = chatContent;
   if (chats.length - 1 === editingChatIndex) {
     details.lastChatText = chatContent;
   }
-  persons.splice(personIndex, 1, { chats, details });
-
+  handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
   return {
     ...state,
     chatContent: "",
@@ -139,13 +140,13 @@ export function handleSaveChat(state) {
   };
 }
 
-export function handleForwardChat(state) {
-  console.log("forward clicked");
+export function handleForwardChat(state, chatId) {
+  console.log("forward clicked", chatId);
   return state;
 }
 
-export function handleSortPersons(copiedPersons) {
-  return copiedPersons.sort(
+export function handleSortPersons(persons) {
+  return persons.sort(
     (a, b) =>
       new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
   );
@@ -153,12 +154,14 @@ export function handleSortPersons(copiedPersons) {
 
 export function handleKeyPress(state, e) {
   const { chatContent, draftContent, isEditing } = state;
+
   if (chatContent || draftContent) {
     if (e.key === "Enter" && !isEditing) return handleAddChat(state);
     else if (e.key === "Enter" && isEditing) {
       return handleSaveChat(state);
     }
   }
+
   return state;
 }
 
@@ -168,7 +171,7 @@ export function handleInputChange(state, chatContent) {
     chatContent,
   };
 }
-
+//TODO  ???
 export function handleDraftChange(state, draftContent) {
   return {
     ...state,
@@ -179,15 +182,332 @@ export function handleDraftChange(state, draftContent) {
 export function handleCloseChat(state) {
   return {
     ...state,
+    selectedPersonId: null,
     chatContent: "",
-    selectedPerson: null,
   };
 }
 
 export function handleCancelEdit(state) {
+  const { persons, personIndex } = objectConstructor(state);
   return {
     ...state,
     isEditing: false,
+    draftContent: persons[personIndex].details.draft,
     chatContent: "",
   };
 }
+
+function idMaker() {
+  // let counter = 0;
+  // return function id() {
+  //   return (counter = counter + 1);
+  // };
+  return Math.random();
+}
+
+/**
+ * @export
+ * @param {*} time is a present date by millisecond
+ * @param {*} method1 can be string value like this : "getMonth" or "getHours"
+ * @param {*} method2 can be string value like this : "getDate" or "getMinutes"
+ * @param {*} type can be : "/" for date or ":" for time
+ * @return {*}
+ */
+export function handleGetTime(time, method1, method2, type) {
+  const dateNow = new Date(time);
+  const time1 = dateNow[method1]();
+  const time2 = dateNow[method2]();
+
+  return `${method1 === "getMonth" ? time1 + 1 : time1}${type}${time2}`;
+}
+
+function objectConstructor(
+  {
+    selectedPersonId,
+    editingChatId,
+    chatContent,
+    draftContent,
+    persons,
+    editingChat,
+    isEditing,
+  },
+  chatId,
+  personId
+) {
+  const id = personId ? personId : selectedPersonId;
+  const { details, chats } = persons.find(
+    (person) => person.details.personId === id
+  );
+
+  return {
+    // VARIABLES =>
+    details: { ...details },
+    chats: [...chats],
+    newDate: Date.now(),
+    personIndex: persons.findIndex(
+      (person) => person.details.personId === details.personId
+    ),
+    prevPersonIndex: persons.findIndex(
+      (person) => person.details.personId === selectedPersonId
+    ),
+    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
+    editingChatIndex: chats.findIndex((chat) => chat.chatId === editingChatId),
+
+    // STATES =>
+    selectedPersonId,
+    editingChatId,
+    persons: [...persons],
+    isEditing,
+    editingChat,
+    chatContent,
+    draftContent,
+  };
+}
+
+/**
+ *  @param {*} persons
+ * @param {*} index array
+ * @param {*} person array
+ * @return {*} persons in arrays
+ */
+function handleFinallyPersons(persons, index, person) {
+  for (let i = 0; i <= index.length - 1; i++) {
+    persons.splice(index[i], 1, person[i]);
+  }
+
+  return persons;
+}
+
+export const tempPersons = [
+  {
+    details: {
+      personId: "soheila",
+      avatar: "./personPictures/soheila.jpg",
+      personName: "Soheila",
+      lastChatText: "so excited.>!",
+      draft: "",
+      lastChatTime: 1606577774127,
+      unreadChatCounter: 10,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1606577174127,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1606577274127,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1606577374127,
+        chatId: idMaker(),
+      },
+      {
+        self: "so excited.>!",
+        chatTime: 1606577774127,
+        chatId: idMaker(),
+      },
+    ],
+  },
+  {
+    details: {
+      personId: "parvaneh",
+      avatar: "./personPictures/parvaneh.jpg",
+      personName: "Parvaneh",
+      lastChatText: "thanks...",
+      draft: "",
+      lastChatTime: 1606444467412,
+      unreadChatCounter: 10,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1606444167412,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1606444267412,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1606444367412,
+        chatId: idMaker(),
+      },
+      {
+        self: "thanks...",
+        chatTime: 1606444467412,
+        chatId: idMaker(),
+      },
+    ],
+  },
+  {
+    details: {
+      personId: "kitty",
+      avatar: "./personPictures/kitty.jpg",
+      personName: "Kitty",
+      lastChatText: "thanks...",
+      draft: "",
+      lastChatTime: 1606333362326,
+      unreadChatCounter: 2,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1606333062326,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1606333162326,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1606333262326,
+        chatId: idMaker(),
+      },
+      {
+        self: "thanks...",
+        chatTime: 1606333362326,
+        chatId: idMaker(),
+      },
+    ],
+  },
+  {
+    details: {
+      personId: "Love",
+      avatar: "./personPictures/love.jpg",
+      personName: "Love",
+      lastChatText: "not good ... :(",
+      draft: "",
+      lastChatTime: 1606222261324,
+      unreadChatCounter: 4,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1606222211324,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1606222221324,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1606222231324,
+        chatId: idMaker(),
+      },
+      {
+        self: "not good ... :(",
+        chatTime: 1606222261324,
+        chatId: idMaker(),
+      },
+    ],
+  },
+  {
+    details: {
+      personId: "Nahid",
+      avatar: "./personPictures/nahid.jpg",
+      personName: "Nahid",
+      lastChatText: "dont ask ...",
+      draft: "",
+      lastChatTime: 1606111165489,
+      unreadChatCounter: 10,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1606111115489,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1606111125489,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1606111135489,
+        chatId: idMaker(),
+      },
+      {
+        self: "dont ask ...",
+        chatTime: 1606111165489,
+        chatId: idMaker(),
+      },
+    ],
+  },
+  {
+    details: {
+      personId: "Sahar",
+      avatar: "./personPictures/sahar.jpg",
+      personName: "Sahar",
+      lastChatText: "uuuuh i dont know !",
+      draft: "",
+      lastChatTime: 1506999998654,
+      unreadChatCounter: 10,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1506999918654,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1506999928654,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1506999938654,
+        chatId: idMaker(),
+      },
+      {
+        self: "uuuuh i dont know !",
+        chatTime: 1506999998654,
+        chatId: idMaker(),
+      },
+    ],
+  },
+  {
+    details: {
+      personId: "Sajjad",
+      avatar: "./personPictures/sajjad.jpg",
+      personName: "Sajjad",
+      lastChatText: "yey im good!",
+      draft: "",
+      lastChatTime: 1506888860258,
+      unreadChatCounter: 10,
+    },
+    chats: [
+      {
+        self: "Hello there...",
+        chatTime: 1506888810258,
+        chatId: idMaker(),
+      },
+      {
+        self: "nock.. nock...",
+        chatTime: 1506888820258,
+        chatId: idMaker(),
+      },
+      {
+        person: "Hi :) how are u... ?",
+        chatTime: 1506888830258,
+        chatId: idMaker(),
+      },
+      {
+        self: "yey im good!",
+        chatTime: 1506888860258,
+        chatId: idMaker(),
+      },
+    ],
+  },
+];

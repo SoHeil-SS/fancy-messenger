@@ -2,13 +2,12 @@ import React from "react";
 
 import PersonListItem from "./PersonListItem";
 
-import { handleGetTime } from "../../modules";
+import { handleGetTime } from "../../stateManager/eventHandlers";
 import { useDispatch } from "../../stateManager/dispatch";
 import { personClicked } from "../../stateManager/actionCreator";
 
-function PersonList({ persons, SelectedPersonId }) {
+function PersonList({ persons, selectedPersonId }) {
   const dispatch = useDispatch();
-
   const list = persons.map((person) => {
     const {
       personId,
@@ -24,7 +23,7 @@ function PersonList({ persons, SelectedPersonId }) {
       <PersonListItem
         key={personId}
         personId={personId}
-        SelectedPersonId={SelectedPersonId}
+        selectedPersonId={selectedPersonId}
         avatar={avatar}
         personName={personName}
         lastChatText={lastChatText}
