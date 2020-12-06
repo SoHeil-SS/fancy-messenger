@@ -12,7 +12,7 @@ import {
 function ChatInput({ chatContent, isEditing }) {
   const dispatch = useDispatch();
   return (
-..    <div>
+    <div>
       <div className="chatDetail_input-section__2qoiR">
         <input
           type="text"
