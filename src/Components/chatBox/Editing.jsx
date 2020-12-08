@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch } from "../../stateManager/dispatch";
 import { editCloseClicked } from "../../stateManager/actionCreator";
 
-import Button from "../Others/Buttons/Button";
+import Button from "../Buttons/Button";
 
 function Editing({ isEditing, editingChat }) {
   const dispatch = useDispatch();

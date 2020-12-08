@@ -1,38 +1,51 @@
 import {
-  handleAddChat,
-  handleDeleteChat,
   handlePersonClick,
-  handleCancelEdit,
-  handleCloseChat,
+  handleAddChat,
+  handleCopyChat,
   handleEditChat,
+  handleSaveChat,
+  handleCancelEdit,
   handleForwardChat,
+  handleDeleteChat,
+  handleCloseChat,
   handleInputChange,
   handleKeyPress,
-  handleSaveChat,
 } from "./eventHandlers";
 
 export function reducer(state, action) {
-  const payload = action.payload;
+  const { type, payload } = action;
 
-  switch (action.type) {
+  switch (type) {
     case "PERSON_CLICKED":
       return handlePersonClick(state, payload);
+
     case "ADD_CLICKED":
       return handleAddChat(state);
-    case "DELETE_CLICKED":
-      return handleDeleteChat(state, payload);
+
+    case "COPY_CLICKED":
+      return handleCopyChat(state, payload);
+
     case "EDIT_CLICKED":
       return handleEditChat(state, payload);
-    case "SAVE_CLICKED":
-      return handleSaveChat(state);
-    case "FORWARD_CLICKED":
-      return handleForwardChat(state, payload);
+
     case "EDIT_CLOSE_CLICKED":
       return handleCancelEdit(state);
+
+    case "SAVE_CLICKED":
+      return handleSaveChat(state);
+
+    case "FORWARD_CLICKED":
+      return handleForwardChat(state, payload);
+
+    case "DELETE_CLICKED":
+      return handleDeleteChat(state, payload);
+
     case "INPUT_CHANGED":
       return handleInputChange(state, payload);
+
     case "ENTER_CLICKED":
       return handleKeyPress(state, payload);
+
     case "CLOSE_CLICKED":
       return handleCloseChat(state);
 

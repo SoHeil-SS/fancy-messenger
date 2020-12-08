@@ -63,6 +63,11 @@ export function handleAddChat(state) {
   };
 }
 
+export function handleCopyChat(state, chatText) {
+  console.log(chatText);
+  return state;
+}
+
 export function handleDeleteChat(state, chatId) {
   const {
     selectedPersonId,

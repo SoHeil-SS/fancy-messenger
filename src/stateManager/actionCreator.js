@@ -7,15 +7,18 @@ export const personClicked = (personId) =>
 
 export const addClicked = () => actionCreator("ADD_CLICKED");
 
-export const deleteClicked = (chatId) =>
-  actionCreator("DELETE_CLICKED", chatId);
+export const copyClicked = (chatText) =>
+  actionCreator("COPY_CLICKED", chatText);
 
 export const editClicked = (chatId) => actionCreator("EDIT_CLICKED", chatId);
 
-export const saveClicked = () => actionCreator("SAVE_CLICKED");
+export const deleteClicked = (chatId) =>
+  actionCreator("DELETE_CLICKED", chatId);
 
 export const forwardClicked = (chatId) =>
   actionCreator("FORWARD_CLICKED", chatId);
+
+export const saveClicked = () => actionCreator("SAVE_CLICKED");
 
 export const editCloseClicked = (chatId) =>
   actionCreator("EDIT_CLOSE_CLICKED", chatId);

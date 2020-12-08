@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useThunkReducer from "react-hook-thunk-reducer";
 import { tempPersons } from "./stateManager/eventHandlers";
 import { reducer } from "./stateManager/reducer";
 
+import DispatchContext from "./stateManager/dispatch";
+
 import SearchBar from "./Components/personList/SearchBar";
 import PersonList from "./Components/personList/PersonList";
 import ChatContainer from "./Components/chatBox/ChatContainer";
+import ContextMenu from "./Components/Others/ContextMenu";
 
-import DispatchContext from "./stateManager/dispatch";
-import ContextMenu from "./Components/Others/ContextMenu/ContextMenu";
-
-import { menuId } from "./Components/Others/constants";
+import { menuId } from "./constants";
 
 function App() {
   const [
@@ -24,6 +24,12 @@ function App() {
     editingChat: "",
     editingChatId: null,
   });
+
+  useEffect(() => {
+    setTimeout(() => {
+      alert("Right click on chat item to see options");
+    }, 3500);
+  }, []);
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -39,19 +45,21 @@ function App() {
               />
             </div>
             {selectedPersonId && (
-              <ChatContainer
-                selectedPersonId={selectedPersonId}
-                menuId={menuId}
-                persons={persons}
-                chatContent={chatContent}
-                isEditing={isEditing}
-                editingChat={editingChat}
-              />
+              <>
+                <ChatContainer
+                  selectedPersonId={selectedPersonId}
+                  menuId={menuId}
+                  persons={persons}
+                  chatContent={chatContent}
+                  isEditing={isEditing}
+                  editingChat={editingChat}
+                />
+                <ContextMenu menuId={menuId} />
+              </>
             )}
           </div>
         </div>
       </div>
-      <ContextMenu menuId={menuId} />
     </DispatchContext.Provider>
   );
 }
