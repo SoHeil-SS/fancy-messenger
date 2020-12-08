@@ -1,22 +1,4 @@
 (function () {
-  "use strict";
-
-  //////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  // H E L P E R    F U N C T I O N S
-  //
-  //////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Function to check if we clicked inside an element with a particular class
-   * name.
-   *
-   * @param {Object} e The event
-   * @param {String} className The class name to check against
-   * @return {Boolean}
-   */
   function clickInsideElement(e, className) {
     var el = e.srcElement || e.target;
 
@@ -33,51 +15,32 @@
     return false;
   }
 
-  /**
-   * Get's exact position of event.
-   *
-   * @param {Object} e The event passed in
-   * @return {Object} Returns the x and y position
-   */
   function getPosition(e) {
-    var posx = 0;
-    var posy = 0;
+    var posX = 0;
+    var posY = 0;
 
-    if (!e) var e = window.event;
+    if (!e) e = window.event;
 
     if (e.pageX || e.pageY) {
-      posx = e.pageX;
-      posy = e.pageY;
+      posX = e.pageX;
+      posY = e.pageY;
     } else if (e.clientX || e.clientY) {
-      posx =
+      posX =
         e.clientX +
         document.body.scrollLeft +
         document.documentElement.scrollLeft;
-      posy =
+      posY =
         e.clientY +
         document.body.scrollTop +
         document.documentElement.scrollTop;
     }
 
     return {
-      x: posx,
-      y: posy,
+      x: posX,
+      y: posY,
     };
   }
 
-  //////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////
-  //
-  // C O R E    F U N C T I O N S
-  //
-  //////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Variables.
-   */
-  var contextMenuClassName = "context-menu";
-  var contextMenuItemClassName = "context-menu__item";
   var contextMenuLinkClassName = "context-menu__link";
   var contextMenuActive = "context-menu--active";
 
@@ -89,20 +52,13 @@
   var clickCoordsY;
 
   var menu = document.querySelector("#context-menu");
-  var menuItems = menu.querySelectorAll(".context-menu__item");
   var menuState = 0;
   var menuWidth;
   var menuHeight;
-  var menuPosition;
-  var menuPositionX;
-  var menuPositionY;
 
   var windowWidth;
   var windowHeight;
 
-  /**
-   * Initialise our application's code.
-   */
   function init() {
     contextListener();
     clickListener();
@@ -110,18 +66,17 @@
     resizeListener();
   }
 
-  /**
-   * Listens for contextmenu events.
-   */
   function contextListener() {
     document.addEventListener("contextmenu", function (e) {
       taskItemInContext = clickInsideElement(e, taskItemClassName);
 
       if (taskItemInContext) {
         e.preventDefault();
+        console.log("on");
         toggleMenuOn();
         positionMenu(e);
       } else {
+        console.log("off");
         taskItemInContext = null;
         toggleMenuOff();
       }
@@ -133,11 +88,11 @@
    */
   function clickListener() {
     document.addEventListener("click", function (e) {
-      var clickeElIsLink = clickInsideElement(e, contextMenuLinkClassName);
+      var clickElIsLink = clickInsideElement(e, contextMenuLinkClassName);
 
-      if (clickeElIsLink) {
+      if (clickElIsLink) {
         e.preventDefault();
-        menuItemListener(clickeElIsLink);
+        menuItemListener(clickElIsLink);
       } else {
         var button = e.which || e.button;
         if (button === 1) {
@@ -187,11 +142,6 @@
     }
   }
 
-  /**
-   * Positions the menu properly.
-   *
-   * @param {Object} e The event
-   */
   function positionMenu(e) {
     clickCoords = getPosition(e);
     clickCoordsX = clickCoords.x;
@@ -216,11 +166,6 @@
     }
   }
 
-  /**
-   * Dummy action function that logs an action when a menu item link is clicked
-   *
-   * @param {HTMLElement} link The link that was clicked
-   */
   function menuItemListener(link) {
     console.log(
       "Task ID - " +
@@ -231,8 +176,5 @@
     toggleMenuOff();
   }
 
-  /**
-   * Run the app.
-   */
   init();
 })();

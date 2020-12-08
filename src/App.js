@@ -1,19 +1,22 @@
-import React, { useReducer } from "react";
-
+import React from "react";
+import useThunkReducer from "react-hook-thunk-reducer";
 import { tempPersons } from "./stateManager/eventHandlers";
+import { reducer } from "./stateManager/reducer";
 
 import SearchBar from "./Components/personList/SearchBar";
 import PersonList from "./Components/personList/PersonList";
 import ChatContainer from "./Components/chatBox/ChatContainer";
-import { reducer } from "./stateManager/reducer";
 
 import DispatchContext from "./stateManager/dispatch";
+import ContextMenu from "./Components/Others/ContextMenu/ContextMenu";
+
+import { menuId } from "./Components/Others/constants";
 
 function App() {
   const [
     { selectedPersonId, persons, chatContent, isEditing, editingChat },
     dispatch,
-  ] = useReducer(reducer, {
+  ] = useThunkReducer(reducer, {
     selectedPersonId: null,
     persons: tempPersons,
     chatContent: "",
@@ -38,6 +41,7 @@ function App() {
             {selectedPersonId && (
               <ChatContainer
                 selectedPersonId={selectedPersonId}
+                menuId={menuId}
                 persons={persons}
                 chatContent={chatContent}
                 isEditing={isEditing}
@@ -47,6 +51,7 @@ function App() {
           </div>
         </div>
       </div>
+      <ContextMenu menuId={menuId} />
     </DispatchContext.Provider>
   );
 }

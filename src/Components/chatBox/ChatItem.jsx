@@ -1,8 +1,10 @@
 import React from "react";
-import Buttons from "../Others/Buttons";
-import Button from "../Others/Button";
+import Button from "../Others/Buttons/Button";
+import Buttons from "../Others/Buttons/Buttons";
 
 function chatItem({
+  id,
+  onContextMenu,
   self,
   person,
   chatTime,
@@ -35,7 +37,7 @@ function chatItem({
   };
 
   return (
-    <>
+    <div id={id} onContextMenu={onContextMenu}>
       {self && (
         <div className="message-row you-message hoverItem">
           <div className="message-content">
@@ -63,7 +65,7 @@ function chatItem({
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 

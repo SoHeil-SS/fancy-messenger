@@ -8,6 +8,7 @@ import ChatTitleBar from "./ChatTitleBar";
 import Editing from "./Editing";
 
 function ChatContainer({
+  menuId,
   selectedPersonId,
   persons,
   chatContent,
@@ -29,7 +30,7 @@ function ChatContainer({
         style={{ backgroundColor: "lighcyan" }}
         className="chatDetail_chat-box__3peJu"
       >
-        <ChatList chats={chats} />
+        <ChatList chats={chats} menuId={menuId} />
         <Editing isEditing={isEditing} editingChat={editingChat} />
         <ChatInput
           chatContent={chatContent}

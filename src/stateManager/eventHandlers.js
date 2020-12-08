@@ -199,15 +199,15 @@ function idMaker() {
  * @param {*} time is a present date by millisecond
  * @param {*} method1 can be string value like this : "getMonth" or "getHours"
  * @param {*} method2 can be string value like this : "getDate" or "getMinutes"
- * @param {*} type can be : "/" for date or ":" for time
+ * @param {*} separator its a time separator like "/" , ":"
  * @return {*}
  */
-export function handleGetTime(time, method1, method2, type) {
+export function handleGetTime(time, method1, method2, separator) {
   const dateNow = new Date(time);
   const time1 = dateNow[method1]();
   const time2 = dateNow[method2]();
 
-  return `${method1 === "getMonth" ? time1 + 1 : time1}${type}${time2}`;
+  return `${method1 === "getMonth" ? time1 + 1 : time1}${separator}${time2}`;
 }
 
 function objectConstructor(
