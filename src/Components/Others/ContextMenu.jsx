@@ -9,29 +9,27 @@ import {
   editClicked,
   forwardClicked,
 } from "../../stateManager/actionCreator";
-// React stylesheet =>
-import "react-contexify/dist/ReactContexify.min.css";
 
 function ContextMenu({ menuId }) {
   const dispatch = useDispatch();
 
   function handleItemClick({ event, props, data, triggerEvent }) {
+    const { id, text } = props;
     switch (event.currentTarget.id) {
       case "Copy":
-        dispatch(copyClicked(props.text));
+        dispatch(copyClicked(text));
         break;
 
       case "Edit":
-        dispatch(editClicked(props.id));
-        console.log(props.id);
+        dispatch(editClicked(id));
         break;
 
       case "Delete":
-        dispatch(deleteClicked(props.id));
+        dispatch(deleteClicked(id));
         break;
 
       case "Forward":
-        dispatch(forwardClicked(props.id));
+        dispatch(forwardClicked(id));
         break;
 
       default:

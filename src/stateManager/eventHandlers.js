@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export function handlePersonClick(state, personId) {
   const {
     persons,
@@ -31,6 +33,7 @@ export function handlePersonClick(state, personId) {
     ...state,
     selectedPersonId: personId,
     chatContent: personDraft,
+    isEditing: false,
     persons,
   };
 }
@@ -76,6 +79,7 @@ export function handleDeleteChat(state, chatId) {
     details,
     chats,
   } = objectConstructor(state, chatId);
+
   const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
   const chatsLength = chatsAfterDelete.length;
 
@@ -90,6 +94,15 @@ export function handleDeleteChat(state, chatId) {
     );
   } else {
     persons.splice(personIndex, 1);
+    toast.error(`${details.personName} removed .`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     handleCloseChat();
   }
 
@@ -185,6 +198,7 @@ export function handleCloseChat(state) {
     ...state,
     selectedPersonId: null,
     chatContent: "",
+    isEditing: false,
   };
 }
 

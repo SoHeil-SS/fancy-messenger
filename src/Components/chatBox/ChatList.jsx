@@ -1,11 +1,12 @@
 import React from "react";
 import { useContextMenu } from "react-contexify";
+import { menuId } from "../../constants";
 
 import { handleGetTime } from "../../stateManager/eventHandlers";
 
 import ChatItem from "./ChatItem";
 
-function ChatList({ chats, menuId }) {
+function ChatList({ chats }) {
   const { show } = useContextMenu({
     id: menuId,
   });
