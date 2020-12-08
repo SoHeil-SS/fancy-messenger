@@ -164,9 +164,15 @@ export function handleKeyPress(state, e) {
 }
 
 export function handleInputChange(state, chatContent) {
-  const { persons, personIndex, details, chats } = objectConstructor(state);
-  details.draft = chatContent;
+  const { persons, personIndex, details, chats, isEditing } = objectConstructor(
+    state
+  );
+
+  if (!isEditing) {
+    details.draft = chatContent;
+  }
   persons.splice(personIndex, 1, { details, chats });
+
   return {
     ...state,
     persons,
