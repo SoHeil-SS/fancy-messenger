@@ -1,8 +1,7 @@
 import React from "react";
-import { listStyle } from "../../constants";
+import { handleDisplayMenu } from "../../stateManager/eventHandlers";
 
-function chatItem({ chatId, displayMenu, self, person, chatTime, chatDate }) {
-  // "message" classNames from Haleh <3 .
+function chatItem({ chatId, self, person, chatTime, chatDate, show }) {
   return (
     <div>
       {self && (
@@ -10,7 +9,7 @@ function chatItem({ chatId, displayMenu, self, person, chatTime, chatDate }) {
           <div
             className="message-content"
             id={chatId}
-            onContextMenu={displayMenu}
+            onContextMenu={(e) => handleDisplayMenu(e, show)}
           >
             <div className="message-text">
               <li className="chatDetail_me__2ZOxv">{self}</li>
@@ -23,8 +22,8 @@ function chatItem({ chatId, displayMenu, self, person, chatTime, chatDate }) {
       )}
       {person && (
         <>
-          <div onContextMenu={displayMenu} id={chatId}>
-            <li style={listStyle}>{person}</li>
+          <div onContextMenu={(e) => handleDisplayMenu(e, show)} id={chatId}>
+            <li className="liPerson">{person}</li>
           </div>
           <div className="message-time">
             {chatTime} {chatDate}

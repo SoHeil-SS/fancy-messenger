@@ -10,7 +10,6 @@ function Editing({ isEditing, editingChat }) {
   return (
     <>
       {isEditing && (
-        //TODO grid style for Editing
         <div className="chatDetail_input-section__2qoiR">
           <div style={{ paddingLeft: "10px" }}>
             <span style={{ fontSize: "30px" }}>
@@ -25,7 +24,6 @@ function Editing({ isEditing, editingChat }) {
                 text="X"
               />
             </span>
-            {/* <br /> */}
             <p style={{ float: "left" }}>{editingChat} </p>
           </div>
         </div>

@@ -7,4 +7,3 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-contexify/dist/ReactContexify.min.css";
 
 render(<App />, document.getElementById("root"));
-// render(<Demo />, document.getElementById("root"));

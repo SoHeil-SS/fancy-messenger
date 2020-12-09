@@ -1,31 +1,25 @@
 import React from "react";
 import { useContextMenu } from "react-contexify";
-import { menuId } from "../../constants";
 
 import { handleGetTime } from "../../stateManager/eventHandlers";
 
 import ChatItem from "./ChatItem";
 
+import { menuId } from "../../constants";
+
 function ChatList({ chats }) {
   const { show } = useContextMenu({
     id: menuId,
   });
-
-  function displayMenu(e) {
-    show(e, {
-      props: { id: Number(e.currentTarget.id), text: e.target.textContent },
-    });
-  }
-
   const chatList = chats.map((chat) => (
     <ChatItem
       key={chat.chatId}
       chatId={chat.chatId}
-      displayMenu={displayMenu}
       self={chat.self}
       person={chat.person}
       chatTime={handleGetTime(chat.chatTime, "getHours", "getMinutes", ":")}
       chatDate={handleGetTime(chat.chatTime, "getMonth", "getDate", "/")}
+      show={show}
     />
   ));
   return (

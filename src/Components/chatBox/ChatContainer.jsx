@@ -15,6 +15,7 @@ function ChatContainer({
   editingChat,
 }) {
   const dispatch = useDispatch();
+
   const { details, chats } = persons.find(
     (person) => person.details.personId === selectedPersonId
   );

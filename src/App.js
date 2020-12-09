@@ -1,6 +1,5 @@
 // import useThunkReducer from "react-hook-thunk-reducer";
 import React, { useReducer, useEffect } from "react";
-import { tempPersons } from "./stateManager/eventHandlers";
 import { reducer } from "./stateManager/reducer";
 import { ToastContainer, toast } from "react-toastify";
 import DispatchContext from "./stateManager/dispatch";
@@ -11,7 +10,7 @@ import ChatContainer from "./Components/chatBox/ChatContainer";
 import ContextMenu from "./Components/Others/ContextMenu";
 import Portal from "./Components/Others/Portal";
 
-import { menuId } from "./constants";
+import { menuId, tempPersons } from "./constants";
 
 function App() {
   const [
@@ -42,8 +41,8 @@ function App() {
       <DispatchContext.Provider value={dispatch}>
         <div className="app_app__3mk8F">
           <div className="app_head__1Nu6Y"></div>
-          <div className="app_main__1NOZK">
-            <div className="chat_layout__2YPVn">
+          <div className="app_main__1NOZK  ">
+            <div className="chat_layout__2YPVn messenger-box">
               <div className="chat_side__2kvyI">
                 <SearchBar />
                 <PersonList
@@ -51,6 +50,7 @@ function App() {
                   persons={persons}
                 />
               </div>
+              {/* {!selectedPersonId && <ChatTitleBar />} */}
               {selectedPersonId && (
                 <>
                   <ChatContainer

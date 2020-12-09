@@ -24,5 +24,6 @@
     "nozk",
     "uuuuh",
     "wxcs"
-  ]
+  ],
+  "dimmer.enabled": false
 }
