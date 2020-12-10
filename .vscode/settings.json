@@ -25,5 +25,10 @@
     "uuuuh",
     "wxcs"
   ],
-  "dimmer.enabled": false
+  "dimmer.enabled": false,
+  "emmet.preferences": {},
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  }
 }
