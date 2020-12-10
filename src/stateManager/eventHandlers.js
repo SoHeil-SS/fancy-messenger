@@ -97,8 +97,8 @@ export function handleDeleteChat(state, chatId) {
       [{ details, chats: chatsAfterDelete }]
     );
   } else {
-    handleFinallyPersons(persons, [personIndex]);
-    toast.error(`${details.personName} removed .`, {
+    persons.splice(personIndex, 1);
+    toast.error(`${details.personName} removed from list .`, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -114,21 +114,33 @@ export function handleDeleteChat(state, chatId) {
     ...state,
     selectedPersonId: chatsLength ? selectedPersonId : null,
     isEditing: false,
-    chatContent: persons[personIndex].details.draft,
     persons,
   };
 }
 
 export function handleEditChat(state, chatId) {
-  const { chats, chatIndex } = objectConstructor(state, chatId);
+  const {
+    persons,
+    personIndex,
+    chatContent,
+    details,
+    chats,
+    chatIndex,
+  } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
 
   if (!content) {
     return state;
   }
+  if (chatContent) {
+    details.draft = chatContent;
+  }
+
+  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
+    persons,
     isEditing: true,
     chatContent: content,
     editingChatId: chatId,
@@ -154,7 +166,7 @@ export function handleSaveChat(state) {
 
   return {
     ...state,
-    chatContent: "",
+    chatContent: details.draft,
     isEditing: false,
     persons,
   };
@@ -234,7 +246,7 @@ export function handleGetTime(time, method1, method2, separator) {
  */
 function handleFinallyPersons(persons, index, newPerson) {
   for (let i = 0; i <= index.length - 1; i++) {
-    persons.splice(index[i], 1, newPerson && newPerson[i]);
+    persons.splice(index[i], 1, newPerson[i]);
   }
 
   return persons;
