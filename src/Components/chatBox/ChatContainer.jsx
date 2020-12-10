@@ -1,24 +1,21 @@
 import React from "react";
 import { closeClicked } from "../../stateManager/actionCreator";
 import { useDispatch } from "../../stateManager/dispatch";
+import ChatTitleBar from "./ChatTitleBar";
 
 import ChatInput from "./ChatInput";
 import ChatList from "./ChatList";
-import ChatTitleBar from "./ChatTitleBar";
 import Editing from "./Editing";
 
 function ChatContainer({
-  selectedPersonId,
-  persons,
+  details,
+  chats,
   chatContent,
   isEditing,
   editingChat,
 }) {
   const dispatch = useDispatch();
 
-  const { details, chats } = persons.find(
-    (person) => person.details.personId === selectedPersonId
-  );
   return (
     <div>
       <ChatTitleBar
@@ -26,10 +23,7 @@ function ChatContainer({
         personName={details.personName}
         onCloseChat={() => dispatch(closeClicked())}
       />
-      <div
-        style={{ backgroundColor: "lighcyan" }}
-        className="chatDetail_chat-box__3peJu"
-      >
+      <div className="chatDetail_chat-box__3peJu">
         <ChatList chats={chats} />
         <Editing isEditing={isEditing} editingChat={editingChat} />
         <ChatInput

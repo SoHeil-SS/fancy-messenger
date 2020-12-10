@@ -17,7 +17,7 @@ function App() {
     { selectedPersonId, persons, chatContent, isEditing, editingChat },
     dispatch,
   ] = useReducer(reducer, {
-    selectedPersonId: null,
+    selectedPersonId: "kitty",
     persons: tempPersons,
     chatContent: "",
     isEditing: false,
@@ -36,6 +36,10 @@ function App() {
     );
   }, []);
 
+  const { details, chats } = selectedPersonId
+    ? persons.find((person) => person.details.personId === selectedPersonId)
+    : {};
+
   return (
     <>
       <DispatchContext.Provider value={dispatch}>
@@ -50,17 +54,16 @@ function App() {
                   persons={persons}
                 />
               </div>
-              {/* {!selectedPersonId && <ChatTitleBar />} */}
-              {selectedPersonId && (
-                <>
-                  <ChatContainer
-                    selectedPersonId={selectedPersonId}
-                    persons={persons}
-                    chatContent={chatContent}
-                    isEditing={isEditing}
-                    editingChat={editingChat}
-                  />
-                </>
+              {selectedPersonId ? (
+                <ChatContainer
+                  details={details}
+                  chats={chats}
+                  chatContent={chatContent}
+                  isEditing={isEditing}
+                  editingChat={editingChat}
+                />
+              ) : (
+                <div className="forBackground"></div>
               )}
             </div>
           </div>

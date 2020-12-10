@@ -16,18 +16,18 @@ function PersonListItem({
     <div
       className={
         personId === selectedPersonId
-          ? "listItem_list-item__1mnZB listItem_selected__3Q6PN"
-          : "listItem_list-item__1mnZB"
+          ? "listItem_list-item__1mnZB listItem_selected__3Q6PN  "
+          : "listItem_list-item__1mnZB listItem_bg "
       }
       onClick={onPersonClick}
     >
-      <div className="listItem_avatar__FkMqU">
+      <div className="listItem_avatar__FkMqU ">
         <div className="avatar__avatar__oTaCM">
           <img src={avatar} alt={personName} />
         </div>
       </div>
       <div className="listItem_name__2wTlg">{personName}</div>
-      <div className="listItem_message__3ZiRE">
+      <div className="listItem_message__3ZiRE" style={{ overflow: "hidden" }}>
         {draft ? (
           <>
             <span style={{ color: "red" }}>draft</span>: {draft}

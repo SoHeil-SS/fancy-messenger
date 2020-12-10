@@ -24,9 +24,12 @@ function ChatInput({ chatContent, isEditing }) {
           value={chatContent}
           onKeyPress={(e) => dispatch(onKeyPress(e))}
         />
-        <button
-          disabled={chatContent ? false : true}
-          onClick={() => dispatch(!isEditing ? addClicked() : saveClicked())}
+        <span
+          onClick={() =>
+            chatContent
+              ? () => dispatch(!isEditing ? addClicked() : saveClicked())
+              : console.log("Pin Clicked")
+          }
           style={{ border: "0px", fontSize: "20px", padding: "11px" }}
         >
           <Svg
@@ -36,7 +39,7 @@ function ChatInput({ chatContent, isEditing }) {
           >
             <Path path={chatContent ? svgPath.send : svgPath.pin} />
           </Svg>
-        </button>
+        </span>
       </div>
     </div>
   );
