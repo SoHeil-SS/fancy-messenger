@@ -120,6 +120,10 @@ export function handleEditChat(state, chatId) {
   const { chats, chatIndex } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
 
+  if (!content) {
+    return state;
+  }
+
   return {
     ...state,
     isEditing: true,

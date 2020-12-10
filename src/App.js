@@ -1,4 +1,3 @@
-// import useThunkReducer from "react-hook-thunk-reducer";
 import React, { useReducer, useEffect } from "react";
 import { reducer } from "./stateManager/reducer";
 import { ToastContainer, toast } from "react-toastify";
@@ -27,7 +26,7 @@ function App() {
 
   useEffect(() => {
     toast.info(
-      `با کلیک راست روی هرکدوم از چت ها و یا کنارشون یه منو باز میشه که میتونی چت رو مدیریت کنی 😊 `,
+      `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `,
       {
         position: "top-right",
         closeOnClick: true,
