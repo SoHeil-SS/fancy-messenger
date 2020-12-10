@@ -17,7 +17,7 @@ function App() {
     { selectedPersonId, persons, chatContent, isEditing, editingChat },
     dispatch,
   ] = useReducer(reducer, {
-    selectedPersonId: "kitty",
+    selectedPersonId: null,
     persons: tempPersons,
     chatContent: "",
     isEditing: false,
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     toast.info(
-      `با کلیک راست روی هرکدوم از چت ها و یا کنارشون یه منو جدید باز میشه که باهاش میتونی اونارو مدیریت کنی 😊 `,
+      `با کلیک راست روی هرکدوم از چت ها و یا کنارشون یه منو باز میشه که میتونی چت رو مدیریت کنی 😊 `,
       {
         position: "top-right",
         closeOnClick: true,
