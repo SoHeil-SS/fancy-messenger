@@ -10,7 +10,8 @@ export function handlePersonClick(state, personId) {
     personIndex,
     prevPersonIndex,
   } = objectConstructor(state, null, personId);
-  let personDraft = persons[personIndex].details.draft;
+  const draft = persons[personIndex].details.draft;
+
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
   }
@@ -33,7 +34,7 @@ export function handlePersonClick(state, personId) {
   return {
     ...state,
     selectedPersonId: personId,
-    chatContent: personDraft,
+    chatContent: draft,
     isEditing: false,
     persons,
   };
@@ -57,9 +58,11 @@ export function handleAddChat(state) {
     chatTime: newDate,
     chatId: idMaker(),
   });
+
   handleSortPersons(
     handleFinallyPersons(persons, [personIndex], [{ details, chats }])
   );
+
   return {
     ...state,
     chatContent: "",
@@ -69,6 +72,7 @@ export function handleAddChat(state) {
 
 export function handleCopyChat(state, chatText) {
   console.log(chatText);
+
   return state;
 }
 
@@ -80,7 +84,6 @@ export function handleDeleteChat(state, chatId) {
     details,
     chats,
   } = objectConstructor(state, chatId);
-
   const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
   const chatsLength = chatsAfterDelete.length;
 
@@ -94,7 +97,7 @@ export function handleDeleteChat(state, chatId) {
       [{ details, chats: chatsAfterDelete }]
     );
   } else {
-    persons.splice(personIndex, 1);
+    handleFinallyPersons(persons, [personIndex]);
     toast.error(`${details.personName} removed .`, {
       position: "top-right",
       autoClose: 5000,
@@ -142,12 +145,13 @@ export function handleSaveChat(state) {
     editingChatIndex,
     personIndex,
   } = objectConstructor(state);
-
   chats[editingChatIndex].self = chatContent;
+
   if (chats.length - 1 === editingChatIndex) {
     details.lastChatText = chatContent;
   }
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
+
   return {
     ...state,
     chatContent: "",
@@ -158,6 +162,7 @@ export function handleSaveChat(state) {
 
 export function handleForwardChat(state, chatId) {
   console.log("forward clicked", chatId);
+
   return state;
 }
 
@@ -173,27 +178,15 @@ export function handleKeyPress(state, e) {
 
   if (chatContent) {
     if (e.key === "Enter" && !isEditing) return handleAddChat(state);
-    else if (e.key === "Enter" && isEditing) {
-      return handleSaveChat(state);
-    }
+    if (e.key === "Enter" && isEditing) return handleSaveChat(state);
   }
 
   return state;
 }
 
 export function handleInputChange(state, chatContent) {
-  const { persons, personIndex, details, chats, isEditing } = objectConstructor(
-    state
-  );
-
-  if (!isEditing) {
-    details.draft = chatContent;
-  }
-  persons.splice(personIndex, 1, { details, chats });
-
   return {
     ...state,
-    persons,
     chatContent,
   };
 }
@@ -209,6 +202,7 @@ export function handleCloseChat(state) {
 
 export function handleCancelEdit(state) {
   const { persons, personIndex } = objectConstructor(state);
+
   return {
     ...state,
     isEditing: false,
@@ -216,20 +210,12 @@ export function handleCancelEdit(state) {
   };
 }
 
-export function idMaker() {
-  // let counter = 0;
-  // return function id() {
-  //   return (counter = counter + 1);
-  // };
-  return Math.random();
-}
-
 /**
  * @export
- * @param {*} time is a present date by millisecond
+ * @param {*} time date by millisecond
  * @param {*} method1 string value like  : "getMonth","getHours",...
  * @param {*} method2 string value like : "getDate","getMinutes",...
- * @param {*} separator its a time separator like "/" , ":"
+ * @param {*} separator time separator like "/" , ":"
  * @return {*}
  */
 export function handleGetTime(time, method1, method2, separator) {
@@ -243,12 +229,12 @@ export function handleGetTime(time, method1, method2, separator) {
 /**
  *  @param {*} persons
  * @param {*} index array
- * @param {*} person array
+ * @param {*} newPerson array
  * @return {*} persons in arrays
  */
-function handleFinallyPersons(persons, index, person) {
+function handleFinallyPersons(persons, index, newPerson) {
   for (let i = 0; i <= index.length - 1; i++) {
-    persons.splice(index[i], 1, person[i]);
+    persons.splice(index[i], 1, newPerson && newPerson[i]);
   }
 
   return persons;
@@ -258,4 +244,8 @@ export function handleDisplayMenu(e, show) {
   show(e, {
     props: { id: Number(e.currentTarget.id), text: e.target.textContent },
   });
+}
+
+export function idMaker() {
+  return Math.random();
 }

@@ -19,7 +19,7 @@ function PersonListItem({
           ? "listItem_list-item__1mnZB listItem_selected__3Q6PN  "
           : "listItem_list-item__1mnZB listItem_bg "
       }
-      onClick={onPersonClick}
+      onClick={() => personId !== selectedPersonId && onPersonClick()}
     >
       <div className="listItem_avatar__FkMqU ">
         <div className="avatar__avatar__oTaCM">
