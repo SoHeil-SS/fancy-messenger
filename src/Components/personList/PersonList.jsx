@@ -19,6 +19,10 @@ function PersonList({ persons, selectedPersonId }) {
       unreadChatCounter,
     } = person.details;
 
+    function onClickPerson(dispatch) {
+      dispatch(personClicked(personId));
+    }
+
     return (
       <PersonListItem
         key={personId}
@@ -36,7 +40,7 @@ function PersonList({ persons, selectedPersonId }) {
         )}
         lastChatDate={handleGetTime(lastChatTime, "getMonth", "getDate", "/")}
         unreadChatCounter={unreadChatCounter}
-        onPersonClick={() => dispatch(personClicked(personId))}
+        onPersonClick={() => onClickPerson(dispatch)}
       />
     );
   });

@@ -2,8 +2,8 @@ function actionCreator(type, payload) {
   return { type, payload };
 }
 
-export const personClicked = (personId) =>
-  actionCreator("PERSON_CLICKED", personId);
+export const personClicked = (personId) => (dispatch) =>
+  dispatch(actionCreator("PERSON_CLICKED", personId));
 
 export const addClicked = () => actionCreator("ADD_CLICKED");
 

@@ -1,6 +1,8 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useEffect } from "react";
 import { reducer } from "./stateManager/reducer";
 import { ToastContainer, toast } from "react-toastify";
+import useThunkReducer from "react-hook-thunk-reducer";
+
 import DispatchContext from "./stateManager/dispatch";
 
 import SearchBar from "./Components/personList/SearchBar";
@@ -15,7 +17,7 @@ function App() {
   const [
     { selectedPersonId, persons, chatContent, isEditing, editingChat },
     dispatch,
-  ] = useReducer(reducer, {
+  ] = useThunkReducer(reducer, {
     selectedPersonId: null,
     persons: tempPersons,
     chatContent: "",
@@ -25,7 +27,7 @@ function App() {
   });
 
   useEffect(() => {
-    toast.info(
+    toast.dark(
       `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `,
       {
         position: "top-right",

@@ -8,6 +8,7 @@ export function handlePersonClick(state, personId) {
     chatContent,
     chats,
     personIndex,
+    selectedPersonId,
     prevPersonIndex,
   } = objectConstructor(state, null, personId);
   const draft = persons[personIndex].details.draft;
@@ -15,7 +16,7 @@ export function handlePersonClick(state, personId) {
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
   }
-  if (chatContent) {
+  if (selectedPersonId) {
     const prevPerson = { ...persons[prevPersonIndex] };
     const prevDetails = { ...prevPerson.details };
     prevDetails.draft = chatContent;
@@ -27,10 +28,7 @@ export function handlePersonClick(state, personId) {
         { ...prevPerson, details: prevDetails },
       ]
     );
-  } else {
-    handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   }
-
   return {
     ...state,
     selectedPersonId: personId,
@@ -49,16 +47,13 @@ export function handleAddChat(state) {
     chatContent,
     newDate,
   } = objectConstructor(state);
-
-  details.lastChatTime = newDate;
-  details.lastChatText = chatContent;
-  details.draft = "";
-  chats.push({
+  const newChat = {
     self: chatContent,
     chatTime: newDate,
     chatId: idMaker(),
-  });
-
+  };
+  lastInfo(details, newChat, "");
+  chats.push(newChat);
   handleSortPersons(
     handleFinallyPersons(persons, [personIndex], [{ details, chats }])
   );
@@ -89,8 +84,9 @@ export function handleDeleteChat(state, chatId) {
 
   if (chatsLength) {
     const lastChat = chatsAfterDelete[chatsLength - 1];
-    details.lastChatTime = lastChat.chatTime;
-    details.lastChatText = lastChat.self ? lastChat.self : lastChat.person;
+
+    lastInfo(details, lastChat, details.draft);
+
     handleFinallyPersons(
       persons,
       [personIndex],
@@ -128,7 +124,7 @@ export function handleEditChat(state, chatId) {
     chatIndex,
   } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
-
+  // when clicking on person edit option
   if (!content) {
     return state;
   }
@@ -260,4 +256,10 @@ export function handleDisplayMenu(e, show) {
 
 export function idMaker() {
   return Math.random();
+}
+
+function lastInfo(details, lastChat, draft) {
+  details.lastChatTime = lastChat.chatTime;
+  details.lastChatText = lastChat.self ? lastChat.self : lastChat.person;
+  details.draft = draft;
 }
