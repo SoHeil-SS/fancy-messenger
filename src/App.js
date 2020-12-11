@@ -27,14 +27,11 @@ function App() {
   });
 
   useEffect(() => {
-    toast.dark(
-      `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `,
-      {
-        position: "top-right",
-        closeOnClick: true,
-        autoClose: 8800,
-      }
-    );
+    toast.dark(`برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `, {
+      position: "top-right",
+      closeOnClick: true,
+      autoClose: 8800,
+    });
   }, []);
 
   const { details, chats } = selectedPersonId
@@ -50,10 +47,7 @@ function App() {
             <div className="chat_layout__2YPVn messenger-box">
               <div className="chat_side__2kvyI">
                 <SearchBar />
-                <PersonList
-                  selectedPersonId={selectedPersonId}
-                  persons={persons}
-                />
+                <PersonList selectedPersonId={selectedPersonId} persons={persons} />
               </div>
               {selectedPersonId ? (
                 <ChatContainer
