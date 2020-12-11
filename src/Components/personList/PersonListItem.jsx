@@ -1,12 +1,11 @@
 import React from "react";
 
 function PersonListItem({
-  personId,
-  selectedPersonId,
+  condition,
+  draft,
   avatar,
   personName,
   lastChatText,
-  draft,
   lastChatTime,
   lastChatDate,
   unreadChatCounter,
@@ -15,11 +14,11 @@ function PersonListItem({
   return (
     <div
       className={
-        personId === selectedPersonId
+        condition
           ? "listItem_list-item__1mnZB listItem_selected__3Q6PN  "
           : "listItem_list-item__1mnZB listItem_bg "
       }
-      onClick={() => personId !== selectedPersonId && onPersonClick()}
+      onClick={() => !condition && onPersonClick()}
     >
       <div className="listItem_avatar__FkMqU ">
         <div className="avatar__avatar__oTaCM">

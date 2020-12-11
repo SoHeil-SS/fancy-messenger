@@ -22,9 +22,7 @@ export const tempPersons = [
       personId: "soheila",
       avatar: "./personPictures/soheila.jpg",
       personName: "Soheila",
-      lastChatText: "so excited.>!",
       draft: "",
-      lastChatTime: 1606577774127,
       unreadChatCounter: 7,
     },
     chats: [
@@ -55,9 +53,7 @@ export const tempPersons = [
       personId: "parvaneh",
       avatar: "./personPictures/parvaneh.jpg",
       personName: "Parvaneh",
-      lastChatText: "thanks...",
       draft: "",
-      lastChatTime: 1606444467412,
       unreadChatCounter: 1,
     },
     chats: [
@@ -88,9 +84,7 @@ export const tempPersons = [
       personId: "kitty",
       avatar: "./personPictures/kitty.jpg",
       personName: "Kitty",
-      lastChatText: "thanks...",
       draft: "",
-      lastChatTime: 1606333362326,
       unreadChatCounter: 2,
     },
     chats: [
@@ -121,9 +115,7 @@ export const tempPersons = [
       personId: "love",
       avatar: "./personPictures/love.jpg",
       personName: "Love",
-      lastChatText: "not good ... :(",
       draft: "",
-      lastChatTime: 1606222261324,
       unreadChatCounter: 4,
     },
     chats: [
@@ -154,9 +146,7 @@ export const tempPersons = [
       personId: "nahid",
       avatar: "./personPictures/nahid.jpg",
       personName: "Nahid",
-      lastChatText: "dont ask ...",
       draft: "",
-      lastChatTime: 1606111165489,
       unreadChatCounter: 2,
     },
     chats: [
@@ -187,9 +177,7 @@ export const tempPersons = [
       personId: "sahar",
       avatar: "./personPictures/sahar.jpg",
       personName: "Sahar",
-      lastChatText: "uuuuh i dont know !",
       draft: "",
-      lastChatTime: 1506999998654,
       unreadChatCounter: 9,
     },
     chats: [
@@ -220,9 +208,7 @@ export const tempPersons = [
       personId: "sajjad",
       avatar: "./personPictures/sajad.jpg",
       personName: "Sajjad",
-      lastChatText: "yey im good!",
       draft: "",
-      lastChatTime: 1506888860258,
       unreadChatCounter: 3,
     },
     chats: [

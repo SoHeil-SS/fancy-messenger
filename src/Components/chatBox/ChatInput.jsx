@@ -25,10 +25,10 @@ function ChatInput({ chatContent, isEditing }) {
           onKeyPress={(e) => dispatch(onKeyPress(e))}
         />
         <span
-          onClick={() =>
+          onClick={
             chatContent
               ? () => dispatch(!isEditing ? addClicked() : saveClicked())
-              : console.log("Pin Clicked")
+              : () => console.log("Pin Clicked")
           }
           style={{ border: "0px", fontSize: "20px", padding: "11px" }}
         >

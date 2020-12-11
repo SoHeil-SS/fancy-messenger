@@ -8,16 +8,18 @@ import { personClicked } from "../../stateManager/actionCreator";
 
 function PersonList({ persons, selectedPersonId }) {
   const dispatch = useDispatch();
-  const list = persons.map((person) => {
+  const list = persons.map((personItem) => {
+    const { chatTime, self, person } = personItem.chats[
+      personItem.chats.length - 1
+    ];
     const {
       personId,
       avatar,
       personName,
-      lastChatText,
       draft,
-      lastChatTime,
       unreadChatCounter,
-    } = person.details;
+    } = personItem.details;
+    const condition = personId === selectedPersonId;
 
     function onClickPerson(dispatch) {
       dispatch(personClicked(personId));
@@ -28,17 +30,13 @@ function PersonList({ persons, selectedPersonId }) {
         key={personId}
         personId={personId}
         selectedPersonId={selectedPersonId}
+        condition={condition}
         avatar={avatar}
         personName={personName}
-        lastChatText={lastChatText}
+        lastChatText={self ? self : person}
         draft={draft}
-        lastChatTime={handleGetTime(
-          lastChatTime,
-          "getHours",
-          "getMinutes",
-          ":"
-        )}
-        lastChatDate={handleGetTime(lastChatTime, "getMonth", "getDate", "/")}
+        lastChatTime={handleGetTime(chatTime, "getHours", "getMinutes", ":")}
+        lastChatDate={handleGetTime(chatTime, "getMonth", "getDate", "/")}
         unreadChatCounter={unreadChatCounter}
         onPersonClick={() => onClickPerson(dispatch)}
       />

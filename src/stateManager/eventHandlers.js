@@ -11,15 +11,16 @@ export function handlePersonClick(state, personId) {
     selectedPersonId,
     prevPersonIndex,
   } = objectConstructor(state, null, personId);
-  const draft = persons[personIndex].details.draft;
 
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
+    handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   }
+
   if (selectedPersonId) {
     const prevPerson = { ...persons[prevPersonIndex] };
     const prevDetails = { ...prevPerson.details };
-    prevDetails.draft = chatContent;
+    handleDraftChange(prevDetails, chatContent);
     handleFinallyPersons(
       persons,
       [personIndex, prevPersonIndex],
@@ -29,10 +30,11 @@ export function handlePersonClick(state, personId) {
       ]
     );
   }
+
   return {
     ...state,
     selectedPersonId: personId,
-    chatContent: draft,
+    chatContent: details.draft,
     isEditing: false,
     persons,
   };
@@ -47,13 +49,15 @@ export function handleAddChat(state) {
     chatContent,
     newDate,
   } = objectConstructor(state);
-  const newChat = {
+
+  chats.push({
     self: chatContent,
     chatTime: newDate,
     chatId: idMaker(),
-  };
-  lastInfo(details, newChat, "");
-  chats.push(newChat);
+  });
+
+  handleDraftChange(details, "");
+
   handleSortPersons(
     handleFinallyPersons(persons, [personIndex], [{ details, chats }])
   );
@@ -83,10 +87,6 @@ export function handleDeleteChat(state, chatId) {
   const chatsLength = chatsAfterDelete.length;
 
   if (chatsLength) {
-    const lastChat = chatsAfterDelete[chatsLength - 1];
-
-    lastInfo(details, lastChat, details.draft);
-
     handleFinallyPersons(
       persons,
       [personIndex],
@@ -94,20 +94,13 @@ export function handleDeleteChat(state, chatId) {
     );
   } else {
     persons.splice(personIndex, 1);
-    toast.error(`${details.personName} removed from list .`, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    toaster("error", details, "removed from list .");
     handleCloseChat();
   }
 
   return {
     ...state,
+    chatContent: details.draft,
     selectedPersonId: chatsLength ? selectedPersonId : null,
     isEditing: false,
     persons,
@@ -124,14 +117,11 @@ export function handleEditChat(state, chatId) {
     chatIndex,
   } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
-  // when clicking on person edit option
+  // when clicking on person edit option. //FIXME contextMenu
   if (!content) {
     return state;
   }
-  if (chatContent) {
-    details.draft = chatContent;
-  }
-
+  handleDraftChange(details, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
@@ -155,9 +145,6 @@ export function handleSaveChat(state) {
   } = objectConstructor(state);
   chats[editingChatIndex].self = chatContent;
 
-  if (chats.length - 1 === editingChatIndex) {
-    details.lastChatText = chatContent;
-  }
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
 
   return {
@@ -175,9 +162,10 @@ export function handleForwardChat(state, chatId) {
 }
 
 export function handleSortPersons(persons) {
-  return persons.sort(
+  persons.sort(
     (a, b) =>
-      new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
+      new Date(b.chats[b.chats.length - 1].chatTime) -
+      new Date(a.chats[a.chats.length - 1].chatTime)
   );
 }
 
@@ -200,21 +188,32 @@ export function handleInputChange(state, chatContent) {
 }
 
 export function handleCloseChat(state) {
+  const {
+    persons,
+    personIndex,
+    details,
+    chats,
+    chatContent,
+  } = objectConstructor(state);
+
+  handleDraftChange(details, chatContent);
+  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   return {
     ...state,
     selectedPersonId: null,
+    persons,
     chatContent: "",
     isEditing: false,
   };
 }
 
 export function handleCancelEdit(state) {
-  const { persons, personIndex } = objectConstructor(state);
+  const { details } = objectConstructor(state);
 
   return {
     ...state,
     isEditing: false,
-    chatContent: persons[personIndex].details.draft,
+    chatContent: details.draft,
   };
 }
 
@@ -237,12 +236,12 @@ export function handleGetTime(time, method1, method2, separator) {
 /**
  *  @param {*} persons
  * @param {*} index array
- * @param {*} newPerson array
+ * @param {*} person array
  * @return {*} persons in arrays
  */
-function handleFinallyPersons(persons, index, newPerson) {
+function handleFinallyPersons(persons, index, person) {
   for (let i = 0; i <= index.length - 1; i++) {
-    persons.splice(index[i], 1, newPerson[i]);
+    persons.splice(index[i], 1, person[i]);
   }
 
   return persons;
@@ -258,8 +257,18 @@ export function idMaker() {
   return Math.random();
 }
 
-function lastInfo(details, lastChat, draft) {
-  details.lastChatTime = lastChat.chatTime;
-  details.lastChatText = lastChat.self ? lastChat.self : lastChat.person;
+function handleDraftChange(details, draft) {
   details.draft = draft;
+}
+
+function toaster(type, details, text) {
+  toast[type](`${details.personName} ${text}`, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
 }
