@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-import { objectConstructor } from "../constants";
 
 export function handlePersonClick(state, personId) {
   const {
@@ -85,7 +84,6 @@ export function handleDeleteChat(state, chatId) {
   } = objectConstructor(state, chatId);
   const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
   const chatsLength = chatsAfterDelete.length;
-
   if (chatsLength) {
     handleFinallyPersons(
       persons,
@@ -271,4 +269,46 @@ function toaster(type, details, text) {
     draggable: true,
     progress: undefined,
   });
+}
+
+export function objectConstructor(
+  {
+    selectedPersonId,
+    editingChatId,
+    chatContent,
+    persons,
+    editingChat,
+    isEditing,
+  },
+  chatId,
+  personId
+) {
+  const id = personId ? personId : selectedPersonId;
+  const { details, chats } = persons.find(
+    (person) => person.details.personId === id
+  );
+  console.log(id);
+
+  return {
+    // VARIABLES =>
+    details: { ...details },
+    chats: [...chats],
+    newDate: Date.now(),
+    personIndex: persons.findIndex(
+      (person) => person.details.personId === details.personId
+    ),
+    prevPersonIndex: persons.findIndex(
+      (person) => person.details.personId === selectedPersonId
+    ),
+    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
+    editingChatIndex: chats.findIndex((chat) => chat.chatId === editingChatId),
+
+    // STATES =>
+    selectedPersonId,
+    editingChatId,
+    persons: [...persons],
+    isEditing,
+    editingChat,
+    chatContent,
+  };
 }

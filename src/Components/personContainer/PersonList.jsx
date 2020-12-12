@@ -1,7 +1,6 @@
 import { useImport } from "../../imports";
 
 function PersonList({ persons, selectedPersonId }) {
-  //CLEANUP
   const {
     React,
     useDispatch,
@@ -10,6 +9,7 @@ function PersonList({ persons, selectedPersonId }) {
     personClicked,
   } = useImport();
   const dispatch = useDispatch();
+
   const list = persons.map((personItem) => {
     const { chatTime, self, person } = personItem.chats[
       personItem.chats.length - 1

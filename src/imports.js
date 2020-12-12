@@ -5,9 +5,9 @@ import useThunkReducer from "react-hook-thunk-reducer";
 import { ToastContainer, toast } from "react-toastify";
 
 import DispatchContext, { useDispatch } from "./stateManager/dispatch";
-import SearchBar from "./Components/personList/SearchBar";
-import PersonList from "./Components/personList/PersonList";
-import PersonListItem from "./Components/personList/PersonListItem";
+import SearchBar from "./Components/personContainer/SearchBar";
+import PersonList from "./Components/personContainer/PersonList";
+import PersonListItem from "./Components/personContainer/PersonListItem";
 
 import ChatContainer from "./Components/chatBox/ChatContainer";
 import ChatTitleBar from "./Components/chatBox/ChatTitleBar";
