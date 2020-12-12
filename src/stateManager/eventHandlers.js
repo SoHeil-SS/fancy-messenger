@@ -186,6 +186,14 @@ export function handleInputChange(state, chatContent) {
 }
 
 export function handleCloseChat(state) {
+  if (!state)
+    return {
+      ...state,
+      selectedPersonId: null,
+      chatContent: "",
+      isEditing: false,
+    };
+
   const {
     persons,
     personIndex,
@@ -193,7 +201,6 @@ export function handleCloseChat(state) {
     chats,
     chatContent,
   } = objectConstructor(state);
-
   handleDraftChange(details, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   return {
@@ -287,7 +294,6 @@ export function objectConstructor(
   const { details, chats } = persons.find(
     (person) => person.details.personId === id
   );
-  console.log(id);
 
   return {
     // VARIABLES =>
