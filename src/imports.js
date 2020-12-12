@@ -5,7 +5,6 @@ import useThunkReducer from "react-hook-thunk-reducer";
 import { ToastContainer, toast } from "react-toastify";
 
 import DispatchContext, { useDispatch } from "./stateManager/dispatch";
-
 import SearchBar from "./Components/personList/SearchBar";
 import PersonList from "./Components/personList/PersonList";
 import PersonListItem from "./Components/personList/PersonListItem";
