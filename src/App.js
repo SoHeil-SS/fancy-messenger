@@ -18,15 +18,15 @@ function App() {
     tempPersons,
   } = useImport();
   const [
-    { selectedPersonId, persons, chatContent, isEditing, editingChat },
+    { selectedPersonId, persons, chatInputText, isEditing, editingChat },
     dispatch,
   ] = useThunkReducer(reducer, {
     selectedPersonId: null,
     persons: tempPersons,
-    chatContent: "",
+    chatInputText: "",
     isEditing: false,
+    //TODO move to editing
     editingChat: "",
-    editingChatId: null,
   });
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function App() {
                 <ChatContainer
                   details={details}
                   chats={chats}
-                  chatContent={chatContent}
+                  chatInputText={chatInputText}
                   isEditing={isEditing}
                   editingChat={editingChat}
                 />

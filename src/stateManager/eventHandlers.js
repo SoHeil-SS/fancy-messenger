@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
 
+let editingChatId = null;
+
 export function handlePersonClick(state, personId) {
   const {
     persons,
     details,
-    chatContent,
+    chatInputText,
     chats,
     personIndex,
     selectedPersonId,
@@ -19,7 +21,7 @@ export function handlePersonClick(state, personId) {
   if (selectedPersonId) {
     const prevPerson = { ...persons[prevPersonIndex] };
     const prevDetails = { ...prevPerson.details };
-    handleDraftChange(prevDetails, chatContent);
+    handleDraftChange(prevDetails, chatInputText);
     handleFinallyPersons(
       persons,
       [personIndex, prevPersonIndex],
@@ -33,7 +35,7 @@ export function handlePersonClick(state, personId) {
   return {
     ...state,
     selectedPersonId: personId,
-    chatContent: details.draft,
+    chatInputText: details.draft,
     isEditing: false,
     persons,
   };
@@ -45,12 +47,12 @@ export function handleAddChat(state) {
     personIndex,
     details,
     chats,
-    chatContent,
+    chatInputText,
     newDate,
   } = objectConstructor(state);
 
   chats.push({
-    self: chatContent,
+    self: chatInputText,
     chatTime: newDate,
     chatId: idMaker(),
   });
@@ -63,7 +65,7 @@ export function handleAddChat(state) {
 
   return {
     ...state,
-    chatContent: "",
+    chatInputText: "",
     persons,
   };
 }
@@ -98,7 +100,7 @@ export function handleDeleteChat(state, chatId) {
 
   return {
     ...state,
-    chatContent: details.draft,
+    chatInputText: details.draft,
     selectedPersonId: chatsLength ? selectedPersonId : null,
     isEditing: false,
     persons,
@@ -109,7 +111,7 @@ export function handleEditChat(state, chatId) {
   const {
     persons,
     personIndex,
-    chatContent,
+    chatInputText,
     details,
     chats,
     chatIndex,
@@ -119,15 +121,15 @@ export function handleEditChat(state, chatId) {
   if (!content) {
     return state;
   }
-  handleDraftChange(details, chatContent);
+  handleDraftChange(details, chatInputText);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
+  editingChatId = chatId;
   return {
     ...state,
     persons,
     isEditing: true,
-    chatContent: content,
-    editingChatId: chatId,
+    chatInputText: content,
     editingChat: content,
   };
 }
@@ -137,17 +139,17 @@ export function handleSaveChat(state) {
     persons,
     details,
     chats,
-    chatContent,
+    chatInputText,
     editingChatIndex,
     personIndex,
   } = objectConstructor(state);
-  chats[editingChatIndex].self = chatContent;
+  chats[editingChatIndex].self = chatInputText;
 
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
 
   return {
     ...state,
-    chatContent: details.draft,
+    chatInputText: details.draft,
     isEditing: false,
     persons,
   };
@@ -168,9 +170,9 @@ export function handleSortPersons(persons) {
 }
 
 export function handleKeyPress(state, e) {
-  const { chatContent, isEditing } = state;
+  const { chatInputText, isEditing } = state;
 
-  if (chatContent) {
+  if (chatInputText) {
     if (e.key === "Enter" && !isEditing) return handleAddChat(state);
     if (e.key === "Enter" && isEditing) return handleSaveChat(state);
   }
@@ -178,20 +180,23 @@ export function handleKeyPress(state, e) {
   return state;
 }
 
-export function handleInputChange(state, chatContent) {
+export function handleInputChange(state, chatInputText) {
   return {
     ...state,
-    chatContent,
+    chatInputText,
   };
 }
 
 export function handleCloseChat(state) {
+  const newState = {
+    ...state,
+    selectedPersonId: null,
+    chatInputText: "",
+    isEditing: false,
+  };
   if (!state)
     return {
-      ...state,
-      selectedPersonId: null,
-      chatContent: "",
-      isEditing: false,
+      ...newState,
     };
 
   const {
@@ -199,16 +204,14 @@ export function handleCloseChat(state) {
     personIndex,
     details,
     chats,
-    chatContent,
+    chatInputText,
   } = objectConstructor(state);
-  handleDraftChange(details, chatContent);
+  handleDraftChange(details, chatInputText);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+
   return {
-    ...state,
-    selectedPersonId: null,
+    ...newState,
     persons,
-    chatContent: "",
-    isEditing: false,
   };
 }
 
@@ -218,7 +221,7 @@ export function handleCancelEdit(state) {
   return {
     ...state,
     isEditing: false,
-    chatContent: details.draft,
+    chatInputText: details.draft,
   };
 }
 
@@ -279,14 +282,7 @@ function toaster(type, details, text) {
 }
 
 export function objectConstructor(
-  {
-    selectedPersonId,
-    editingChatId,
-    chatContent,
-    persons,
-    editingChat,
-    isEditing,
-  },
+  { selectedPersonId, chatInputText, persons, editingChat, isEditing },
   chatId,
   personId
 ) {
@@ -311,10 +307,9 @@ export function objectConstructor(
 
     // STATES =>
     selectedPersonId,
-    editingChatId,
     persons: [...persons],
     isEditing,
     editingChat,
-    chatContent,
+    chatInputText,
   };
 }

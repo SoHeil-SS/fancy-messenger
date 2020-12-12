@@ -3,7 +3,7 @@ import { useImport } from "../../imports";
 function ChatContainer({
   details,
   chats,
-  chatContent,
+  chatInputText,
   isEditing,
   editingChat,
 }) {
@@ -29,7 +29,7 @@ function ChatContainer({
         <ChatList chats={chats} />
         <Editing isEditing={isEditing} editingChat={editingChat} />
         <ChatInput
-          chatContent={chatContent}
+          chatInputText={chatInputText}
           draft={details.draft}
           isEditing={isEditing}
         />

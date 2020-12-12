@@ -1,6 +1,6 @@
 import { useImport } from "../../imports";
 
-function ChatInput({ chatContent, isEditing }) {
+function ChatInput({ chatInputText, isEditing }) {
   const {
     React,
     svgPath,
@@ -20,12 +20,12 @@ function ChatInput({ chatContent, isEditing }) {
           type="text"
           placeholder="Write a message..."
           onChange={(e) => dispatch(onInputChange(e.target.value))}
-          value={chatContent}
+          value={chatInputText}
           onKeyPress={(e) => dispatch(onKeyPress(e))}
         />
         <span
           onClick={
-            chatContent
+            chatInputText
               ? () => dispatch(!isEditing ? addClicked() : saveClicked())
               : () => console.log("Pin Clicked")
           }
@@ -36,7 +36,7 @@ function ChatInput({ chatContent, isEditing }) {
             className="svg-inline--fa fa-paperclip fa-w-14 fa-lg chatDetail_send__1Gwlf chatDetail_pointer__1gYpZ"
             dataIcon="paperclip"
           >
-            <Path path={chatContent ? svgPath.send : svgPath.pin} />
+            <Path path={chatInputText ? svgPath.send : svgPath.pin} />
           </Svg>
         </span>
       </div>

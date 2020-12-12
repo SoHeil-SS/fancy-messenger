@@ -1,5 +1,3 @@
-import React from "react";
-
 import { handleDisplayMenu } from "../../stateManager/eventHandlers";
 
 function chatItem({ chatId, self, person, chatTime, chatDate, show }) {
