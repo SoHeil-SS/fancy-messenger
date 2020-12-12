@@ -1,11 +1,4 @@
-import React from "react";
-import { closeClicked } from "../../stateManager/actionCreator";
-import { useDispatch } from "../../stateManager/dispatch";
-import ChatTitleBar from "./ChatTitleBar";
-
-import ChatInput from "./ChatInput";
-import ChatList from "./ChatList";
-import Editing from "./Editing";
+import { useImport } from "../../imports";
 
 function ChatContainer({
   details,
@@ -14,6 +7,15 @@ function ChatContainer({
   isEditing,
   editingChat,
 }) {
+  const {
+    React,
+    useDispatch,
+    ChatTitleBar,
+    ChatList,
+    ChatInput,
+    Editing,
+    closeClicked,
+  } = useImport();
   const dispatch = useDispatch();
 
   return (

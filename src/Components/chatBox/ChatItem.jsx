@@ -1,7 +1,7 @@
-import React from "react";
-import { handleDisplayMenu } from "../../stateManager/eventHandlers";
+import { useImport } from "../../imports";
 
 function chatItem({ chatId, self, person, chatTime, chatDate, show }) {
+  const { React, handleDisplayMenu } = useImport();
   return (
     <div id={chatId} onContextMenu={(e) => handleDisplayMenu(e, show)}>
       {self && (

@@ -1,19 +1,18 @@
-// React components =>
-import React from "react";
+import { useImport } from "../../imports";
 import { Item, Menu, Separator, theme } from "react-contexify";
-// Custom scripts =>
-import { useDispatch } from "../../stateManager/dispatch";
-import {
-  copyClicked,
-  deleteClicked,
-  editClicked,
-  forwardClicked,
-} from "../../stateManager/actionCreator";
 
 function ContextMenu({ menuId }) {
+  const {
+    React,
+    useDispatch,
+    copyClicked,
+    editClicked,
+    deleteClicked,
+    forwardClicked,
+  } = useImport();
   const dispatch = useDispatch();
 
-  function handleItemClick({ event, props, data, triggerEvent }) {
+  function handleContextClick({ event, props, data, triggerEvent }) {
     const { id, text } = props;
     switch (event.currentTarget.id) {
       case "Copy":
@@ -33,32 +32,30 @@ function ContextMenu({ menuId }) {
         break;
 
       default:
-        console.log("what the heck ???");
+        break;
     }
   }
 
   return (
     <div>
       <main>
-        {/* <Portal> */}
         <Menu id={menuId} theme={theme.light}>
-          <Item id="Copy" onClick={handleItemClick}>
+          <Item id="Copy" onClick={handleContextClick}>
             Copy
           </Item>
           <Separator />
-          <Item id="Edit" onClick={handleItemClick}>
+          <Item id="Edit" onClick={handleContextClick}>
             Edit
           </Item>
           <Separator />
-          <Item id="Delete" onClick={handleItemClick}>
+          <Item id="Delete" onClick={handleContextClick}>
             Delete
           </Item>
           <Separator />
-          <Item id="Forward" onClick={handleItemClick}>
+          <Item id="Forward" onClick={handleContextClick}>
             Forward
           </Item>
         </Menu>
-        {/* </Portal> */}
       </main>
     </div>
   );

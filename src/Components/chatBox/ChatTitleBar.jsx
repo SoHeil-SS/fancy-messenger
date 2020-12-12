@@ -1,11 +1,7 @@
-import React from "react";
-
-import Path from "../Others/Path";
-import Svg from "../Others/Svg";
-
-import { svgPath } from "../../constants";
+import { useImport } from "../../imports";
 
 function ChatTitleBar({ avatar, personName, onCloseChat }) {
+  const { React, svgPath, Svg, Path } = useImport();
   return (
     <div className="titleBar_title-bar__3W5uP">
       <div className="titleBar_first__PIBdf">

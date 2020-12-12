@@ -1,6 +1,7 @@
-import React from "react";
+import { useImport } from "../../imports";
 
 function Svg({ children, className, dataIcon, onClick, viewBox }) {
+  const { React } = useImport();
   return (
     <svg
       onClick={onClick && onClick}

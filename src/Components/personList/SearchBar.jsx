@@ -1,9 +1,7 @@
-import React from "react";
-import { svgPath } from "../../constants";
-import Path from "../Others/Path";
-import Svg from "../Others/Svg";
+import { useImport } from "../../imports";
 
 function SearchBar() {
+  const { React, svgPath, Path, Svg } = useImport();
   return (
     <div>
       <div className="titleBar_title-bar__3W5uP">

@@ -1,18 +1,17 @@
-import React from "react";
-import { useDispatch } from "../../stateManager/dispatch";
-
-import {
-  addClicked,
-  saveClicked,
-  onInputChange,
-  onKeyPress,
-} from "../../stateManager/actionCreator";
-
-import Svg from "../Others/Svg";
-import { svgPath } from "../../constants";
-import Path from "../Others/Path";
+import { useImport } from "../../imports";
 
 function ChatInput({ chatContent, isEditing }) {
+  const {
+    React,
+    svgPath,
+    Svg,
+    Path,
+    useDispatch,
+    addClicked,
+    saveClicked,
+    onInputChange,
+    onKeyPress,
+  } = useImport();
   const dispatch = useDispatch();
   return (
     <div>

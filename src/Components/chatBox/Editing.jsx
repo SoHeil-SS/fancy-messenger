@@ -1,11 +1,8 @@
-import React from "react";
-
-import { useDispatch } from "../../stateManager/dispatch";
-import { editCloseClicked } from "../../stateManager/actionCreator";
-
 import Button from "../Buttons/Button";
+import { useImport } from "../../imports";
 
 function Editing({ isEditing, editingChat }) {
+  const { React, useDispatch, editCloseClicked } = useImport();
   const dispatch = useDispatch();
   return (
     <>

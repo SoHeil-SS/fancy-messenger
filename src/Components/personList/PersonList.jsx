@@ -1,12 +1,14 @@
-import React from "react";
-
-import PersonListItem from "./PersonListItem";
-
-import { handleGetTime } from "../../stateManager/eventHandlers";
-import { useDispatch } from "../../stateManager/dispatch";
-import { personClicked } from "../../stateManager/actionCreator";
+import { useImport } from "../../imports";
 
 function PersonList({ persons, selectedPersonId }) {
+  //CLEANUP
+  const {
+    React,
+    useDispatch,
+    PersonListItem,
+    handleGetTime,
+    personClicked,
+  } = useImport();
   const dispatch = useDispatch();
   const list = persons.map((personItem) => {
     const { chatTime, self, person } = personItem.chats[
