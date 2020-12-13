@@ -6,21 +6,30 @@ import { ToastContainer, toast } from "react-toastify";
 import { Item, Menu, Separator, theme } from "react-contexify";
 
 import DispatchContext, { useDispatch } from "./StateManager/dispatch";
-import SearchBar from "./Components/PersonContainer/SearchBar";
-import PersonList from "./Components/PersonContainer/PersonList";
-import PersonListItem from "./Components/PersonContainer/PersonListItem";
+
+import PersonContainer from "./Components/PersonBox/PersonContainer";
+import SearchBar from "./Components/PersonBox/SearchBar";
+import PersonList from "./Components/PersonBox/PersonList";
+import PersonListItem from "./Components/PersonBox/PersonListItem";
 
 import ChatContainer from "./Components/ChatBox/ChatContainer";
 import ChatTitleBar from "./Components/ChatBox/ChatTitleBar";
-import ChatInput from "./Components/ChatBox/ChatInput";
 import ChatList from "./Components/ChatBox/ChatList";
+import ChatItem from "./Components/ChatBox/ChatItem";
+import ChatInput from "./Components/ChatBox/ChatInput";
 import Editing from "./Components/ChatBox/Editing";
 
-import ChatItem from "./Components/ChatBox/ChatItem";
 import ContextMenu from "./Components/Others/ContextMenu";
 import Portal from "./Components/Others/Portal";
+
 import Svg from "./Components/Others/SvgComponents/Svg";
 import Path from "./Components/Others/SvgComponents/Path";
+
+import PinIcon from "./Components/Others/SvgComponents/SvgIcons/PinIcon";
+import SendIcon from "./Components/Others/SvgComponents/SvgIcons/SendIcon";
+import SearchIcon from "./Components/Others/SvgComponents/SvgIcons/SearchIcon";
+import CloseIcon from "./Components/Others/SvgComponents/SvgIcons/CloseIcon";
+import ThreeDotIcon from "./Components/Others/SvgComponents/SvgIcons/ThreeDotIcon";
 
 import { reducer } from "./StateManager/reducer";
 import {
@@ -33,9 +42,13 @@ import {
   forwardClicked,
   onInputChange,
   onKeyPress,
+  onChatMenuClick,
+  onSearchClick,
+  onPersonMenuClick,
   personClicked,
   saveClicked,
 } from "./StateManager/actionCreator";
+//
 import {
   handleAddChat,
   handleCancelEdit,
@@ -51,6 +64,10 @@ import {
   handlePersonClick,
   handleSaveChat,
   handleSortPersons,
+  handleChatMenuClick,
+  handleSearchClick,
+  handlePersonMenuClick,
+  toaster,
   idMaker,
 } from "./StateManager/eventHandlers";
 
@@ -64,24 +81,32 @@ const imports = createContext({
   // Installed react components =>
   ToastContainer,
   toast,
-  ContextMenu,
   Item,
   Menu,
   Separator,
-  theme,
   // Custom components =>
+  PersonContainer,
   SearchBar,
   PersonList,
   PersonListItem,
+
   ChatContainer,
   ChatTitleBar,
-  ChatInput,
   ChatList,
-  Editing,
   ChatItem,
+  ChatInput,
+  Editing,
+
+  ContextMenu,
   Portal,
   Path,
+
   Svg,
+  PinIcon,
+  SendIcon,
+  SearchIcon,
+  CloseIcon,
+  ThreeDotIcon,
   // Installed react hooks =>
   useThunkReducer,
   // Custom Hooks =>
@@ -103,7 +128,10 @@ const imports = createContext({
   handlePersonClick,
   handleSaveChat,
   handleSortPersons,
+  handleSearchClick,
+  toaster,
   idMaker,
+
   addClicked,
   closeClicked,
   copyClicked,
@@ -111,6 +139,9 @@ const imports = createContext({
   editClicked,
   editCloseClicked,
   forwardClicked,
+  onChatMenuClick,
+  onSearchClick,
+  onPersonMenuClick,
   onInputChange,
   onKeyPress,
   personClicked,
@@ -118,6 +149,7 @@ const imports = createContext({
   // Variables =>
   menuId,
   svgPath,
+  theme,
   tempPersons,
 });
 

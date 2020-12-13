@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 function MydModalWithGrid(props) {

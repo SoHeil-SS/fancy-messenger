@@ -3,7 +3,7 @@ import { useImport } from "../../imports";
 import { useContextMenu } from "react-contexify";
 
 function ChatList({ chats }) {
-  const { React, handleGetTime, ChatItem, menuId } = useImport();
+  const { handleGetTime, ChatItem, menuId } = useImport();
   const { show } = useContextMenu({
     id: menuId,
   });

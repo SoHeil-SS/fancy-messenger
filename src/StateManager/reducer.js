@@ -10,6 +10,9 @@ import {
   handleCloseChat,
   handleInputChange,
   handleKeyPress,
+  handleChatMenuClick,
+  handleSearchClick,
+  handlePersonMenuClick,
 } from "./eventHandlers";
 
 export function reducer(state, action) {
@@ -47,7 +50,16 @@ export function reducer(state, action) {
       return handleKeyPress(state, payload);
 
     case "CLOSE_CLICKED":
-      return handleCloseChat(state);
+      return handleCloseChat(state, payload);
+
+    case "CHAT_MENU_CLICKED":
+      return handleChatMenuClick(state);
+
+    case "SEARCH_CLICKED":
+      return handleSearchClick(state, payload);
+
+    case "PERSON_MENU_CLICKED":
+      return handlePersonMenuClick(state);
 
     default:
       return state;

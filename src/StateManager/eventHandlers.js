@@ -85,23 +85,16 @@ export function handleDeleteChat(state, chatId) {
     chats,
   } = objectConstructor(state, chatId);
   const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
-  const chatsLength = chatsAfterDelete.length;
-  if (chatsLength) {
-    handleFinallyPersons(
-      persons,
-      [personIndex],
-      [{ details, chats: chatsAfterDelete }]
-    );
-  } else {
-    persons.splice(personIndex, 1);
-    toaster("error", details, "removed from list .");
-    handleCloseChat();
-  }
+
+  handleFinallyPersons(
+    persons,
+    [personIndex],
+    [{ details, chats: chatsAfterDelete }]
+  );
 
   return {
     ...state,
     chatInputText: details.draft,
-    selectedPersonId: chatsLength ? selectedPersonId : null,
     isEditing: false,
     persons,
   };
@@ -180,38 +173,37 @@ export function handleKeyPress(state, e) {
   return state;
 }
 
-export function handleInputChange(state, chatInputText) {
+export function handleInputChange(state, { text, whichInput }) {
   return {
     ...state,
-    chatInputText,
+    [whichInput]: text,
   };
 }
 
 export function handleCloseChat(state) {
-  const newState = {
-    ...state,
-    selectedPersonId: null,
-    chatInputText: "",
-    isEditing: false,
-  };
-  if (!state)
-    return {
-      ...newState,
-    };
-
   const {
     persons,
     personIndex,
     details,
     chats,
     chatInputText,
+    searchMode,
+    searchInputText,
   } = objectConstructor(state);
+
+  const whichSearch = searchMode === "chats";
+
   handleDraftChange(details, chatInputText);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
-    ...newState,
+    ...state,
     persons,
+    selectedPersonId: null,
+    chatInputText: "",
+    searchInputText: whichSearch ? "" : searchInputText,
+    searchMode: whichSearch ? null : searchMode,
+    isEditing: false,
   };
 }
 
@@ -234,6 +226,7 @@ export function handleCancelEdit(state) {
  * @return {*}
  */
 export function handleGetTime(time, method1, method2, separator) {
+  if (!time) return "";
   const dateNow = new Date(time);
   const time1 = dateNow[method1]();
   const time2 = dateNow[method2]();
@@ -265,12 +258,12 @@ export function idMaker() {
   return Math.random();
 }
 
-function handleDraftChange(details, draft) {
+export function handleDraftChange(details, draft) {
   details.draft = draft;
 }
 
-function toaster(type, details, text) {
-  toast[type](`${details.personName} ${text}`, {
+export function toaster(type, detail, text) {
+  toast[type](`${detail} ${text}`, {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -281,8 +274,32 @@ function toaster(type, details, text) {
   });
 }
 
+export function handleSearchClick(state, value) {
+  console.log(value);
+  return {
+    ...state,
+    searchMode: value,
+  };
+}
+
+export function handlePersonMenuClick(state) {
+  return state;
+}
+
+export function handleChatMenuClick(state) {
+  return state;
+}
+
 export function objectConstructor(
-  { selectedPersonId, chatInputText, persons, editingChat, isEditing },
+  {
+    selectedPersonId,
+    chatInputText,
+    persons,
+    editingChat,
+    isEditing,
+    searchMode,
+    searchInputText,
+  },
   chatId,
   personId
 ) {
@@ -311,5 +328,7 @@ export function objectConstructor(
     isEditing,
     editingChat,
     chatInputText,
+    searchMode,
+    searchInputText,
   };
 }

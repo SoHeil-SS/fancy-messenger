@@ -23,9 +23,15 @@ export const saveClicked = () => actionCreator("SAVE_CLICKED");
 export const editCloseClicked = (chatId) =>
   actionCreator("EDIT_CLOSE_CLICKED", chatId);
 
-export const onInputChange = (chatInputText) =>
-  actionCreator("INPUT_CHANGED", chatInputText);
+export const onInputChange = (text, whichInput) =>
+  actionCreator("INPUT_CHANGED", { text, whichInput });
 
 export const onKeyPress = (e) => actionCreator("ENTER_CLICKED", e);
 
-export const closeClicked = () => actionCreator("CLOSE_CLICKED");
+export const closeClicked = () => actionCreator("CLOSE_CLICKED", true);
+
+export const onChatMenuClick = () => actionCreator("CHAT_MENU_CLICKED");
+
+export const onSearchClick = (value) => actionCreator("SEARCH_CLICKED", value);
+
+export const onPersonMenuClick = () => actionCreator("PERSON_MENU_CLICKED");

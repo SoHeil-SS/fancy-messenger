@@ -8,12 +8,16 @@ function ChatContainer({
   editingChat,
 }) {
   const {
-    useDispatch,
     ChatTitleBar,
     ChatList,
     ChatInput,
     Editing,
+    useDispatch,
     closeClicked,
+    onChatMenuClick,
+    onSearchClick,
+    onInputChange,
+    onKeyPress,
   } = useImport();
   const dispatch = useDispatch();
 
@@ -23,6 +27,8 @@ function ChatContainer({
         avatar={details.avatar}
         personName={details.personName}
         onCloseChat={() => dispatch(closeClicked())}
+        onChatMenuClick={() => dispatch(onChatMenuClick())}
+        onSearchClick={() => dispatch(onSearchClick("chats"))}
       />
       <div className="chatDetail_chat-box__3peJu">
         <ChatList chats={chats} />
@@ -31,6 +37,10 @@ function ChatContainer({
           chatInputText={chatInputText}
           draft={details.draft}
           isEditing={isEditing}
+          onInputChange={(e) =>
+            dispatch(onInputChange(e.target.value, "chatInputText"))
+          }
+          onKeyPress={(e) => dispatch(onKeyPress(e))}
         />
       </div>
     </div>

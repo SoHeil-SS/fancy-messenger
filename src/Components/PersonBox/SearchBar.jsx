@@ -1,21 +1,22 @@
 import { useImport } from "../../imports";
+import BarIcon from "../Others/SvgComponents/SvgIcons/BarIcon";
 
-import SearchIcon from "../Others/SvgComponents/SearchIcon";
-
-function SearchBar({ searchMode, onSearchClick }) {
-  const { React, svgPath, Path, Svg } = useImport();
+function SearchBar({
+  searchMode,
+  searchInputText,
+  onSearchClick,
+  onInputChange,
+  onBackSearchClick,
+  onPersonMenuClick,
+}) {
+  const { svgPath, Path, Svg, SearchIcon } = useImport();
   return (
+    //TODO cleanup
     <div>
       {!searchMode ? (
         <div className="titleBar_title-bar__3W5uP">
           <div className="titleBar_first__PIBdf">
-            <Svg
-              viewBox="0 0 448 512"
-              dataIcon="bars"
-              className="svg-inline--fa fa-bars fa-w-14 fa-lg appStatus_pointer__1vehB"
-            >
-              <Path path={svgPath.bars} />
-            </Svg>
+            <BarIcon onPersonMenuClick={onPersonMenuClick} />
           </div>
           <div className="titleBar_middle__220jH">
             <div className="appStatus_app-title__3Wu5j">Fancy Messenger</div>
@@ -28,23 +29,28 @@ function SearchBar({ searchMode, onSearchClick }) {
           </div>
         </div>
       ) : (
-        <div class="titleBar_title-bar__3W5uP">
-          <div class="titleBar_first__PIBdf">
+        <div className="titleBar_title-bar__3W5uP">
+          <div className="titleBar_first__PIBdf">
             <Svg
               className="svg-inline--fa fa-arrow-left fa-w-14 fa-lg appStatus_pointer__1vehB"
               dataIcon="arrow-left"
               viewBox="0 0 448 512"
-              onClick={onSearchClick}
+              onClick={onBackSearchClick}
             >
               <Path path={svgPath.backArrow} />
             </Svg>
           </div>
-          <div class="titleBar_middle__220jH">
-            <div class="appStatus_app-title__3Wu5j">
-              <input type="text" class="appStatus_search-text__3Fr_f" />
+          <div className="titleBar_middle__220jH">
+            <div className="appStatus_app-title__3Wu5j">
+              <input
+                type="text"
+                value={searchInputText}
+                onChange={onInputChange}
+                className="appStatus_search-text__3Fr_f"
+              />
             </div>
           </div>
-          <div class="titleBar_last__2vQ77"></div>
+          <div className="titleBar_last__2vQ77"></div>
         </div>
       )}
     </div>

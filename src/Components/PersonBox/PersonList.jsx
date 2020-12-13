@@ -10,9 +10,10 @@ function PersonList({ persons, selectedPersonId }) {
   const dispatch = useDispatch();
 
   const list = persons.map((personItem) => {
-    const { chatTime, self, person } = personItem.chats[
-      personItem.chats.length - 1
-    ];
+    const { chatTime, self, person } =
+      personItem.chats.length > 0
+        ? personItem.chats[personItem.chats.length - 1]
+        : { chatTime: "", self: "", person: "" };
     const {
       personId,
       avatar,
@@ -20,6 +21,7 @@ function PersonList({ persons, selectedPersonId }) {
       draft,
       unreadChatCounter,
     } = personItem.details;
+
     const condition = personId === selectedPersonId;
 
     function onClickPerson(dispatch) {

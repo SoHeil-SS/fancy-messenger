@@ -1,5 +1,3 @@
-import { useImport } from "../../imports";
-
 function PersonListItem({
   condition,
   draft,
@@ -11,7 +9,6 @@ function PersonListItem({
   unreadChatCounter,
   onPersonClick,
 }) {
-  const { React } = useImport();
   return (
     <div
       className={
