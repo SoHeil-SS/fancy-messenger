@@ -80,8 +80,8 @@ function App() {
             <div className="chat_layout__2YPVn messenger-box">
               <div className="chat_side__2kvyI">
                 <PersonContainer
-                  searchInputText={searchInputText}
                   selectedPersonId={selectedPersonId}
+                  searchInputText={searchInputText}
                   searchMode={searchMode}
                   persons={filteredPersons}
                 />

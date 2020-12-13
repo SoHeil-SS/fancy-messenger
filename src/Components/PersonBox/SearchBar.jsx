@@ -10,6 +10,12 @@ function SearchBar({
   onPersonMenuClick,
 }) {
   const { svgPath, Path, Svg, SearchIcon } = useImport();
+
+  const searchInputPlaceHolder =
+    searchMode === "chats"
+      ? "Type to search chats..."
+      : "Type to search persons ...";
+
   return (
     //TODO cleanup
     <div>
@@ -44,13 +50,19 @@ function SearchBar({
             <div className="appStatus_app-title__3Wu5j">
               <input
                 type="text"
+                placeholder={searchInputPlaceHolder}
                 value={searchInputText}
                 onChange={onInputChange}
                 className="appStatus_search-text__3Fr_f"
               />
             </div>
           </div>
-          <div className="titleBar_last__2vQ77"></div>
+          <div className="titleBar_last__2vQ77">
+            <SearchIcon
+              text="person search clicked"
+              onSearchClick={onSearchClick}
+            />
+          </div>
         </div>
       )}
     </div>
