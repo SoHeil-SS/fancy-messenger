@@ -3,7 +3,6 @@ import { Item, Menu, Separator, theme } from "react-contexify";
 
 function ContextMenu({ menuId }) {
   const {
-    React,
     useDispatch,
     copyClicked,
     editClicked,

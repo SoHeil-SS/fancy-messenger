@@ -2,7 +2,6 @@ import { useImport } from "../../imports";
 
 function ChatInput({ chatInputText, isEditing }) {
   const {
-    React,
     svgPath,
     Svg,
     Path,

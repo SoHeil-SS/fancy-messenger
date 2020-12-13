@@ -2,7 +2,6 @@ import { useImport } from "../../imports";
 
 function PersonList({ persons, selectedPersonId }) {
   const {
-    React,
     useDispatch,
     PersonListItem,
     handleGetTime,

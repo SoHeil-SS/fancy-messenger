@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import useThunkReducer from "react-hook-thunk-reducer";
@@ -57,7 +57,6 @@ import { menuId, tempPersons, svgPath } from "./constants";
 
 const imports = createContext({
   //React built-in components =>
-  React,
   createPortal,
   useEffect,
   useState,

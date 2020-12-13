@@ -2,7 +2,6 @@ import { useImport } from "./imports";
 
 function App() {
   const {
-    React,
     useThunkReducer,
     useEffect,
     toast,
@@ -25,7 +24,6 @@ function App() {
     persons: tempPersons,
     chatInputText: "",
     isEditing: false,
-    //TODO move to editing
     editingChat: "",
   });
 

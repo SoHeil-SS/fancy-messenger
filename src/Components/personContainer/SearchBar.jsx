@@ -1,4 +1,5 @@
 import { useImport } from "../../imports";
+import SearchIcon from "../Others/SearchIcon";
 
 function SearchBar() {
   const { React, svgPath, Path, Svg } = useImport();
@@ -18,14 +19,7 @@ function SearchBar() {
           <div className="appStatus_app-title__3Wu5j">Fancy Messenger</div>
         </div>
         <div className="titleBar_last__2vQ77">
-          <Svg
-            viewBox="0 0 512 512"
-            dataIcon="search"
-            onClick={() => console.log("search clicked")}
-            className="svg-inline--fa fa-search fa-w-16 fa-lg appStatus_pointer__1vehB"
-          >
-            <Path path={svgPath.search} />
-          </Svg>
+          <SearchIcon text="person search clicked" />
         </div>
       </div>
     </div>

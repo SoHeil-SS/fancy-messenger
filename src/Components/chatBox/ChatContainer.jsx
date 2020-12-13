@@ -8,7 +8,6 @@ function ChatContainer({
   editingChat,
 }) {
   const {
-    React,
     useDispatch,
     ChatTitleBar,
     ChatList,
