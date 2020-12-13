@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 import useThunkReducer from "react-hook-thunk-reducer";
 import { ToastContainer, toast } from "react-toastify";
-import { Item, Menu, Separator, theme } from "react-contexify";
+import { Item, Menu, Separator, theme, useContextMenu } from "react-contexify";
 
 import DispatchContext, { useDispatch } from "./StateManager/dispatch";
 
@@ -30,6 +30,8 @@ import SendIcon from "./Components/Others/SvgComponents/SvgIcons/SendIcon";
 import SearchIcon from "./Components/Others/SvgComponents/SvgIcons/SearchIcon";
 import CloseIcon from "./Components/Others/SvgComponents/SvgIcons/CloseIcon";
 import ThreeDotIcon from "./Components/Others/SvgComponents/SvgIcons/ThreeDotIcon";
+import BackArrow from "./Components/Others/SvgComponents/SvgIcons/BackArrow";
+import BarIcon from "./Components/Others/SvgComponents/SvgIcons/BarIcon";
 
 import { reducer } from "./StateManager/reducer";
 import {
@@ -84,6 +86,7 @@ const imports = createContext({
   Item,
   Menu,
   Separator,
+  useContextMenu,
   // Custom components =>
   PersonContainer,
   SearchBar,
@@ -107,6 +110,8 @@ const imports = createContext({
   SearchIcon,
   CloseIcon,
   ThreeDotIcon,
+  BackArrow,
+  BarIcon,
   // Installed react hooks =>
   useThunkReducer,
   // Custom Hooks =>

@@ -56,11 +56,13 @@ export function handleAddChat(state) {
     chatTime: newDate,
     chatId: idMaker(),
   });
-
+  details.lastChatTime = newDate;
   handleDraftChange(details, "");
 
   handleSortPersons(
-    handleFinallyPersons(persons, [personIndex], [{ details, chats }])
+    handleFinallyPersons(persons, [personIndex], [{ details, chats }]),
+    details,
+    chats
   );
 
   return {
@@ -84,12 +86,11 @@ export function handleDeleteChat(state, chatId) {
     details,
     chats,
   } = objectConstructor(state, chatId);
-  const chatsAfterDelete = chats.filter((chat) => chat.chatId !== chatId);
 
   handleFinallyPersons(
     persons,
     [personIndex],
-    [{ details, chats: chatsAfterDelete }]
+    [{ details, chats: chats.filter((chat) => chat.chatId !== chatId) }]
   );
 
   return {
@@ -157,8 +158,7 @@ export function handleForwardChat(state, chatId) {
 export function handleSortPersons(persons) {
   persons.sort(
     (a, b) =>
-      new Date(b.chats[b.chats.length - 1].chatTime) -
-      new Date(a.chats[a.chats.length - 1].chatTime)
+      new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
   );
 }
 

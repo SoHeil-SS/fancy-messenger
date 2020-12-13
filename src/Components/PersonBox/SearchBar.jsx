@@ -1,5 +1,4 @@
 import { useImport } from "../../imports";
-import BarIcon from "../Others/SvgComponents/SvgIcons/BarIcon";
 
 function SearchBar({
   searchMode,
@@ -9,8 +8,7 @@ function SearchBar({
   onBackSearchClick,
   onPersonMenuClick,
 }) {
-  const { svgPath, Path, Svg, SearchIcon } = useImport();
-
+  const { SearchIcon, BackArrow, BarIcon } = useImport();
   const searchInputPlaceHolder =
     searchMode === "chats"
       ? "Type to search chats..."
@@ -28,23 +26,13 @@ function SearchBar({
             <div className="appStatus_app-title__3Wu5j">Fancy Messenger</div>
           </div>
           <div className="titleBar_last__2vQ77">
-            <SearchIcon
-              text="person search clicked"
-              onSearchClick={onSearchClick}
-            />
+            <SearchIcon onSearchClick={onSearchClick} />
           </div>
         </div>
       ) : (
         <div className="titleBar_title-bar__3W5uP">
           <div className="titleBar_first__PIBdf">
-            <Svg
-              className="svg-inline--fa fa-arrow-left fa-w-14 fa-lg appStatus_pointer__1vehB"
-              dataIcon="arrow-left"
-              viewBox="0 0 448 512"
-              onClick={onBackSearchClick}
-            >
-              <Path path={svgPath.backArrow} />
-            </Svg>
+            <BackArrow onBackSearchClick={onBackSearchClick} />
           </div>
           <div className="titleBar_middle__220jH">
             <div className="appStatus_app-title__3Wu5j">
@@ -58,10 +46,7 @@ function SearchBar({
             </div>
           </div>
           <div className="titleBar_last__2vQ77">
-            <SearchIcon
-              text="person search clicked"
-              onSearchClick={onSearchClick}
-            />
+            <SearchIcon onSearchClick={onSearchClick} />
           </div>
         </div>
       )}
