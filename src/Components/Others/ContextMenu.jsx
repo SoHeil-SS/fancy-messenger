@@ -1,5 +1,4 @@
 import { useImport } from "../../imports";
-import { Item, Menu, Separator, theme } from "react-contexify";
 
 function ContextMenu({ menuId }) {
   const {
@@ -8,6 +7,9 @@ function ContextMenu({ menuId }) {
     editClicked,
     deleteClicked,
     forwardClicked,
+    Item,
+    Menu,
+    theme,
   } = useImport();
   const dispatch = useDispatch();
 
@@ -38,20 +40,17 @@ function ContextMenu({ menuId }) {
   return (
     <div>
       <main>
-        <Menu id={menuId} theme={theme.light}>
+        <Menu id={menuId} theme={theme.dark}>
           <Item id="Copy" onClick={handleContextClick}>
             Copy
           </Item>
-          <Separator />
           <Item id="Edit" onClick={handleContextClick}>
             Edit
           </Item>
-          <Separator />
           <Item id="Delete" onClick={handleContextClick}>
             Delete
           </Item>
-          <Separator />
-          <Item id="Forward" onClick={handleContextClick}>
+          <Item id="Forward" onClick={handleContextClick} disabled>
             Forward
           </Item>
         </Menu>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useImport } from "./imports";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     isEditing: false,
     editingChat: "",
   });
+  const [searchMode, setSearchMode] = useState(false);
 
   useEffect(() => {
     toast.dark(
@@ -37,6 +39,10 @@ function App() {
       }
     );
   }, [toast]);
+
+  function handleSearchClick() {
+    setSearchMode(!searchMode);
+  }
 
   const { details, chats } = selectedPersonId
     ? persons.find((person) => person.details.personId === selectedPersonId)
@@ -50,7 +56,10 @@ function App() {
           <div className="app_main__1NOZK  ">
             <div className="chat_layout__2YPVn messenger-box">
               <div className="chat_side__2kvyI">
-                <SearchBar />
+                <SearchBar
+                  searchMode={searchMode}
+                  onSearchClick={handleSearchClick}
+                />
                 <PersonList
                   selectedPersonId={selectedPersonId}
                   persons={persons}

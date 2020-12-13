@@ -1,5 +1,5 @@
 import { useImport } from "../../imports";
-import SearchIcon from "../Others/SearchIcon";
+import SearchIcon from "../Others/SvgComponents/SearchIcon";
 
 function ChatTitleBar({ avatar, personName, onCloseChat }) {
   const { React, svgPath, Svg, Path } = useImport();

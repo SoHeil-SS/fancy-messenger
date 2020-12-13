@@ -1,12 +1,12 @@
-import { useImport } from "../../imports";
+import { useImport } from "../../../imports";
 
-function SearchIcon({ text, onClick, style }) {
+function SearchIcon({ text, onSearchClick, style }) {
   const { svgPath, Svg, Path } = useImport();
   return (
     <Svg
       viewBox="0 0 512 512"
       dataIcon="search"
-      onClick={() => console.log(text)}
+      onClick={onSearchClick}
       className="svg-inline--fa fa-search fa-w-16 fa-lg appStatus_pointer__1vehB"
       style={style}
     >

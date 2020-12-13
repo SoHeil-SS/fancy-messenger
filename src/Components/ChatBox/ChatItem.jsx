@@ -1,4 +1,4 @@
-import { handleDisplayMenu } from "../../stateManager/eventHandlers";
+import { handleDisplayMenu } from "../../StateManager/eventHandlers";
 
 function chatItem({ chatId, self, person, chatTime, chatDate, show }) {
   return (

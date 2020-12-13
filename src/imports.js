@@ -3,25 +3,26 @@ import { createPortal } from "react-dom";
 
 import useThunkReducer from "react-hook-thunk-reducer";
 import { ToastContainer, toast } from "react-toastify";
+import { Item, Menu, Separator, theme } from "react-contexify";
 
-import DispatchContext, { useDispatch } from "./stateManager/dispatch";
-import SearchBar from "./Components/personContainer/SearchBar";
-import PersonList from "./Components/personContainer/PersonList";
-import PersonListItem from "./Components/personContainer/PersonListItem";
+import DispatchContext, { useDispatch } from "./StateManager/dispatch";
+import SearchBar from "./Components/PersonContainer/SearchBar";
+import PersonList from "./Components/PersonContainer/PersonList";
+import PersonListItem from "./Components/PersonContainer/PersonListItem";
 
-import ChatContainer from "./Components/chatBox/ChatContainer";
-import ChatTitleBar from "./Components/chatBox/ChatTitleBar";
-import ChatInput from "./Components/chatBox/ChatInput";
-import ChatList from "./Components/chatBox/ChatList";
-import Editing from "./Components/chatBox/Editing";
+import ChatContainer from "./Components/ChatBox/ChatContainer";
+import ChatTitleBar from "./Components/ChatBox/ChatTitleBar";
+import ChatInput from "./Components/ChatBox/ChatInput";
+import ChatList from "./Components/ChatBox/ChatList";
+import Editing from "./Components/ChatBox/Editing";
 
-import ChatItem from "./Components/chatBox/ChatItem";
+import ChatItem from "./Components/ChatBox/ChatItem";
 import ContextMenu from "./Components/Others/ContextMenu";
 import Portal from "./Components/Others/Portal";
-import Svg from "./Components/Others/Svg";
-import Path from "./Components/Others/Path";
+import Svg from "./Components/Others/SvgComponents/Svg";
+import Path from "./Components/Others/SvgComponents/Path";
 
-import { reducer } from "./stateManager/reducer";
+import { reducer } from "./StateManager/reducer";
 import {
   addClicked,
   closeClicked,
@@ -34,7 +35,7 @@ import {
   onKeyPress,
   personClicked,
   saveClicked,
-} from "./stateManager/actionCreator";
+} from "./StateManager/actionCreator";
 import {
   handleAddChat,
   handleCancelEdit,
@@ -51,7 +52,7 @@ import {
   handleSaveChat,
   handleSortPersons,
   idMaker,
-} from "./stateManager/eventHandlers";
+} from "./StateManager/eventHandlers";
 
 import { menuId, tempPersons, svgPath } from "./constants";
 
@@ -64,6 +65,10 @@ const imports = createContext({
   ToastContainer,
   toast,
   ContextMenu,
+  Item,
+  Menu,
+  Separator,
+  theme,
   // Custom components =>
   SearchBar,
   PersonList,
