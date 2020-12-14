@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 
 let editingChatId = null;
+let forwardContent = null;
 
 export function handlePersonClick(state, personId) {
   const {
@@ -146,13 +147,36 @@ export function handleSaveChat(state) {
   };
 }
 
-export function handleForwardChat(state, chatId) {
-  console.log("forward clicked", chatId);
+export function handleForwardClick(state, forwardText) {
+  const { details } = objectConstructor(state);
+  forwardContent = forwardText;
+  return {
+    ...state,
+    chatInputText: details.draft,
+    searchMode: "persons",
+    modalShow: true,
+    isEditing: false,
+  };
+}
+
+export function handleForwardChat(state, personId) {
+  const { persons, details, chats, personIndex } = objectConstructor(
+    state,
+    null,
+    personId
+  );
+
+  if (!details.showOnList) {
+    details.showOnList = true;
+    handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  }
 
   return {
     ...state,
-    searchMode: "persons",
-    modalShow: true,
+    persons,
+    selectedPersonId: personId,
+    chatInputText: forwardContent,
+    modalShow: false,
   };
 }
 
@@ -249,9 +273,9 @@ function handleFinallyPersons(persons, index, person) {
   return persons;
 }
 
-export function handleDisplayMenu(e, show) {
+export function handleDisplayMenu(e, show, content) {
   show(e, {
-    props: { id: Number(e.currentTarget.id), text: e.target.textContent },
+    props: { id: Number(e.currentTarget.id), text: content },
   });
 }
 

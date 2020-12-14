@@ -1,5 +1,5 @@
 import { useImport } from "./imports";
-
+//TODO lastSeen ,sort persons by name ,contextMenu on persons
 function App() {
   const {
     useThunkReducer,
@@ -103,6 +103,7 @@ function App() {
             <ToastContainer />
             <ContextMenu menuId={menuId} />
             <ForwardModal
+              persons={persons}
               searchinputtext={searchInputText}
               show={modalShow}
               onHide={onCloseModalClick}

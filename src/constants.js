@@ -160,30 +160,9 @@ export const tempPersons = [
       personName: "Nahid",
       lastChatTime: 1606111165489,
       draft: "",
-      unreadChatCounter: 2,
+      unreadChatCounter: "",
     },
-    chats: [
-      {
-        self: "Hello there...",
-        chatTime: 1606111115489,
-        chatId: idMaker(),
-      },
-      {
-        self: "nock.. nock...",
-        chatTime: 1606111125489,
-        chatId: idMaker(),
-      },
-      {
-        person: "Hi :) how are u... ?",
-        chatTime: 1606111135489,
-        chatId: idMaker(),
-      },
-      {
-        self: "dont ask ...",
-        chatTime: 1606111165489,
-        chatId: idMaker(),
-      },
-    ],
+    chats: [],
   },
   {
     details: {
@@ -226,29 +205,8 @@ export const tempPersons = [
       personName: "Sajjad",
       lastChatTime: 1506888860258,
       draft: "",
-      unreadChatCounter: 3,
+      unreadChatCounter: "",
     },
-    chats: [
-      {
-        self: "Hello there...",
-        chatTime: 1506888810258,
-        chatId: idMaker(),
-      },
-      {
-        self: "nock.. nock...",
-        chatTime: 1506888820258,
-        chatId: idMaker(),
-      },
-      {
-        person: "Hi :) how are u... ?",
-        chatTime: 1506888830258,
-        chatId: idMaker(),
-      },
-      {
-        self: "yey im good!",
-        chatTime: 1506888860258,
-        chatId: idMaker(),
-      },
-    ],
+    chats: [],
   },
 ];

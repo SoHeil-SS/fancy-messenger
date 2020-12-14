@@ -28,7 +28,7 @@ function ContextMenu({ menuId }) {
         break;
 
       case "Forward":
-        dispatch(forwardClicked(id));
+        dispatch(forwardClicked(text));
         break;
 
       default:

@@ -51,6 +51,7 @@ import {
   onSearchClick,
   onPersonMenuClick,
   onCloseModalClick,
+  onForwardChat,
   personClicked,
   saveClicked,
 } from "./StateManager/actionCreator";
@@ -64,6 +65,7 @@ import {
   handleDisplayMenu,
   handleEditChat,
   handleForwardChat,
+  handleForwardClick,
   handleGetTime,
   handleInputChange,
   handleKeyPress,
@@ -145,6 +147,7 @@ export function useImport() {
     handleDeleteChat,
     handleDisplayMenu,
     handleEditChat,
+    handleForwardClick,
     handleForwardChat,
     handleGetTime,
     handleInputChange,
@@ -177,6 +180,7 @@ export function useImport() {
     personClicked,
     saveClicked,
     onCloseModalClick,
+    onForwardChat,
     // Variables =>
     menuId,
     svgPath,

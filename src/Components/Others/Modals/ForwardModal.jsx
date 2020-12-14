@@ -4,13 +4,33 @@ function ForwardModal(props) {
   const {
     dispatch,
     Button,
-    Col,
     Container,
     Modal,
     Row,
+    PersonListItem,
     SearchIcon,
     onInputChange,
+    onForwardChat,
   } = useImport();
+
+  function onClickPerson(dispatch, personId) {
+    dispatch(onForwardChat(personId));
+  }
+
+  const list = props.persons.map((person) => {
+    const { personId, avatar, personName } = person.details;
+
+    return (
+      <PersonListItem
+        key={personId}
+        personId={personId}
+        condition={false}
+        avatar={avatar}
+        personName={personName}
+        onPersonClick={() => onClickPerson(dispatch, personId)}
+      />
+    );
+  });
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
@@ -21,7 +41,7 @@ function ForwardModal(props) {
             <SearchIcon />
             <input
               type="text"
-              placeholder="Type to search users..."
+              placeholder="Type to search persons..."
               value={props.searchinputtext}
               onChange={(e) =>
                 dispatch(onInputChange(e.target.value, "searchInputText"))
@@ -34,26 +54,7 @@ function ForwardModal(props) {
       </Modal.Header>
       <Modal.Body className="show-grid">
         <Container>
-          <Row>
-            <Col xs={12} md={8}>
-              .col-xs-12 .col-md-8
-            </Col>
-            <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-            </Col>
-          </Row>
-
-          <Row>
-            <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-            </Col>
-            <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-            </Col>
-            <Col xs={6} md={4}>
-              .col-xs-6 .col-md-4
-            </Col>
-          </Row>
+          <Row>{list}</Row>
         </Container>
       </Modal.Body>
       <Modal.Footer>
@@ -69,3 +70,19 @@ function ForwardModal(props) {
 }
 
 export default ForwardModal;
+
+//   <Col xs={12} md={8}>
+//               .col-xs-12 .col-md-8
+//             </Col>
+//             <Col xs={6} md={4}>
+//               .col-xs-6 .col-md-4
+//             </Col>
+//  <Col xs={6} md={4}>
+//               .col-xs-6 .col-md-4
+//             </Col>
+//             <Col xs={6} md={4}>
+//               .col-xs-6 .col-md-4
+//             </Col>
+//             <Col xs={6} md={4}>
+//               .col-xs-6 .col-md-4
+//             </Col>

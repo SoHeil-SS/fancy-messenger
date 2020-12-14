@@ -8,11 +8,14 @@ function PersonList({ persons, selectedPersonId }) {
     personClicked,
   } = useImport();
 
+  //TODO cleanup
+
   const list = persons.map((personItem) => {
     const { chatTime, self, person } =
       personItem.chats.length > 0
         ? personItem.chats[personItem.chats.length - 1]
-        : { chatTime: "", self: "", person: "" };
+        : {};
+
     const {
       personId,
       avatar,

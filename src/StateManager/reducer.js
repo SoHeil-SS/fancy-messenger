@@ -5,6 +5,7 @@ import {
   handleEditChat,
   handleSaveChat,
   handleCancelEdit,
+  handleForwardClick,
   handleForwardChat,
   handleDeleteChat,
   handleCloseChat,
@@ -39,6 +40,9 @@ export function reducer(state, action) {
       return handleSaveChat(state);
 
     case "FORWARD_CLICKED":
+      return handleForwardClick(state, payload);
+
+    case "FORWARD_TO_PERSON_CLICKED":
       return handleForwardChat(state, payload);
 
     case "DELETE_CLICKED":
