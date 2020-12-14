@@ -62,8 +62,7 @@ export function handleAddChat(state) {
 
   handleSortPersons(
     handleFinallyPersons(persons, [personIndex], [{ details, chats }]),
-    details,
-    chats
+    "lastChatTime"
   );
 
   return {
@@ -112,6 +111,7 @@ export function handleEditChat(state, chatId) {
   const content = chats[chatIndex].self;
   // when clicking on person edit option. //FIXME contextMenu
   if (!content) return state;
+
   if (!isEditing) handleDraftChange(details, chatInputText);
 
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
@@ -153,7 +153,7 @@ export function handleForwardClick(state, forwardText) {
   return {
     ...state,
     chatInputText: details.draft,
-    searchMode: "persons",
+    searchMode: "forward",
     modalShow: true,
     isEditing: false,
   };
@@ -175,6 +175,8 @@ export function handleForwardChat(state, personId) {
     ...state,
     persons,
     selectedPersonId: personId,
+    searchInputText: "",
+    searchMode: null,
     chatInputText: forwardContent,
     modalShow: false,
   };
@@ -212,13 +214,14 @@ export function handleCloseChat(state) {
     details,
     chats,
     chatInputText,
+    isEditing,
     searchMode,
     searchInputText,
   } = objectConstructor(state);
 
   const whichSearch = searchMode === "chats";
 
-  handleDraftChange(details, chatInputText);
+  if (!isEditing) handleDraftChange(details, chatInputText);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
@@ -373,8 +376,18 @@ export function handleFilterChats(
     : chats;
 }
 
-export function handleFilterPerson(searchMode, persons, searchInputText) {
+export function handleFilterPersons(searchMode, persons, searchInputText) {
   return searchMode === "persons"
+    ? persons.filter((person) =>
+        person.details.personName
+          .toLowerCase()
+          .includes(searchInputText.toLowerCase())
+      )
+    : persons;
+}
+
+export function filteredForwardPersons(searchMode, persons, searchInputText) {
+  return searchMode === "forward"
     ? persons.filter((person) =>
         person.details.personName
           .toLowerCase()
@@ -392,6 +405,7 @@ export function handleSelectedPerson(selectedPersonId, persons) {
 export function handleCloseModalClick(state) {
   return {
     ...state,
+    searchInputText: "",
     searchMode: null,
     modalShow: false,
   };

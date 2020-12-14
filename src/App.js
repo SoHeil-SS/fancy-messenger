@@ -15,7 +15,8 @@ function App() {
     reducer,
     onCloseModalClick,
     handleFilterChats,
-    handleFilterPerson,
+    handleFilterPersons,
+    filteredForwardPersons,
     handleSelectedPerson,
     tempPersons,
     menuId,
@@ -63,9 +64,15 @@ function App() {
     selectedPersonId
   );
 
-  const filteredPersons = handleFilterPerson(
+  const filteredPersons = handleFilterPersons(
     searchMode,
     persons.filter((person) => person.details.showOnList === true),
+    searchInputText
+  );
+
+  const filteredPersonsToForward = filteredForwardPersons(
+    searchMode,
+    persons,
     searchInputText
   );
 
@@ -103,7 +110,7 @@ function App() {
             <ToastContainer />
             <ContextMenu menuId={menuId} />
             <ForwardModal
-              persons={persons}
+              persons={filteredPersonsToForward}
               searchinputtext={searchInputText}
               show={modalShow}
               onHide={onCloseModalClick}

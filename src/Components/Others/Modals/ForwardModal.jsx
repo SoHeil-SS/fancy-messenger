@@ -16,6 +16,11 @@ function ForwardModal(props) {
   function onClickPerson(dispatch, personId) {
     dispatch(onForwardChat(personId));
   }
+  // console.log(props.persons);
+  // const sortPersons = props.persons.sort(
+  //   (a, b) => b.details.personName - a.details.personName
+  // );
+  // console.log(sortPersons);
 
   const list = props.persons.map((person) => {
     const { personId, avatar, personName } = person.details;
@@ -31,6 +36,7 @@ function ForwardModal(props) {
       />
     );
   });
+  console.log(list);
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
