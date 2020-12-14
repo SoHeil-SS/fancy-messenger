@@ -79,13 +79,10 @@ export function handleCopyChat(state, chatText) {
 }
 
 export function handleDeleteChat(state, chatId) {
-  const {
-    selectedPersonId,
-    persons,
-    personIndex,
-    details,
-    chats,
-  } = objectConstructor(state, chatId);
+  const { persons, personIndex, details, chats } = objectConstructor(
+    state,
+    chatId
+  );
 
   handleFinallyPersons(
     persons,

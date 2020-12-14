@@ -137,6 +137,8 @@ const imports = createContext({
   handleSaveChat,
   handleSortPersons,
   handleSearchClick,
+  handleChatMenuClick,
+  handlePersonMenuClick,
   handleFilterChats,
   handleFilterPerson,
   handleSelectedPerson,
