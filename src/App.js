@@ -65,7 +65,7 @@ function App() {
 
   const filteredPersons = handleFilterPerson(
     searchMode,
-    persons,
+    persons.filter((person) => person.details.showOnList === true),
     searchInputText
   );
 
@@ -102,13 +102,12 @@ function App() {
           <Portal>
             <ToastContainer />
             <ContextMenu menuId={menuId} />
+            <ForwardModal
+              searchinputtext={searchInputText}
+              show={modalShow}
+              onHide={onCloseModalClick}
+            />
           </Portal>
-
-          <ForwardModal
-            searchInputText={searchInputText}
-            show={modalShow}
-            onHide={onCloseModalClick}
-          />
         </div>
       </DispatchContext.Provider>
     </>

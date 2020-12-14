@@ -7,15 +7,14 @@ function PersonContainer({
   searchInputText,
 }) {
   const {
+    dispatch,
     SearchBar,
     PersonList,
-    useDispatch,
     onSearchClick,
     onInputChange,
     onPersonMenuClick,
   } = useImport();
 
-  const dispatch = useDispatch();
   return (
     <>
       <SearchBar

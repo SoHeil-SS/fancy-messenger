@@ -1,14 +1,7 @@
 import { useImport } from "../../imports";
 
 function ChatInput({ chatInputText, isEditing, onInputChange, onKeyPress }) {
-  const {
-    useDispatch,
-    PinIcon,
-    SendIcon,
-    addClicked,
-    saveClicked,
-  } = useImport();
-  const dispatch = useDispatch();
+  const { dispatch, PinIcon, SendIcon, addClicked, saveClicked } = useImport();
   const condition = !!chatInputText;
   return (
     <div>

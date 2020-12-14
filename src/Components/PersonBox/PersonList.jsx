@@ -2,12 +2,11 @@ import { useImport } from "../../imports";
 
 function PersonList({ persons, selectedPersonId }) {
   const {
-    useDispatch,
+    dispatch,
     PersonListItem,
     handleGetTime,
     personClicked,
   } = useImport();
-  const dispatch = useDispatch();
 
   const list = persons.map((personItem) => {
     const { chatTime, self, person } =

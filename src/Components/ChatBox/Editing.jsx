@@ -2,8 +2,7 @@ import Button from "../Buttons/Button";
 import { useImport } from "../../imports";
 
 function Editing({ isEditing, editingChat }) {
-  const { useDispatch, editCloseClicked } = useImport();
-  const dispatch = useDispatch();
+  const { dispatch, editCloseClicked } = useImport();
   return (
     <>
       {isEditing && (

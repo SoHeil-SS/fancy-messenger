@@ -2,31 +2,34 @@ import { useImport } from "../../../imports";
 
 function ForwardModal(props) {
   const {
+    dispatch,
     Button,
     Col,
     Container,
     Modal,
     Row,
-    useDispatch,
+    SearchIcon,
     onInputChange,
   } = useImport();
-  const dispatch = useDispatch();
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Choose a recipient...
-          <input
-            type="text"
-            placeholder="Type to search users..."
-            value={props.searchInputText}
-            onChange={(e) =>
-              dispatch(onInputChange(e.target.value, "searchInputText"))
-            }
-            style={{ width: "70%", marginLeft: "30px" }}
-            className="appStatus_search-text__3Fr_f"
-          />
+          <div>
+            <SearchIcon />
+            <input
+              type="text"
+              placeholder="Type to search users..."
+              value={props.searchinputtext}
+              onChange={(e) =>
+                dispatch(onInputChange(e.target.value, "searchInputText"))
+              }
+              style={{ width: "70%", marginLeft: "30px" }}
+              className="appStatus_search-text__3Fr_f"
+            />
+          </div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="show-grid">
@@ -54,7 +57,12 @@ function ForwardModal(props) {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(props.onHide())}>Close</Button>
+        <Button
+          className="btn btn-danger"
+          onClick={() => dispatch(props.onHide())}
+        >
+          Cancel
+        </Button>
       </Modal.Footer>
     </Modal>
   );

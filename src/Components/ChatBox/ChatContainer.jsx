@@ -12,14 +12,13 @@ function ChatContainer({
     ChatList,
     ChatInput,
     Editing,
-    useDispatch,
+    dispatch,
     closeClicked,
     onChatMenuClick,
     onSearchClick,
     onInputChange,
     onKeyPress,
   } = useImport();
-  const dispatch = useDispatch();
 
   return (
     <div>

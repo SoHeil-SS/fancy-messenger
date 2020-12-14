@@ -22,6 +22,7 @@ export const tempPersons = [
   {
     details: {
       personId: "soheila",
+      showOnList: true,
       avatar: "./personPictures/soheila.jpg",
       personName: "Soheila",
       lastChatTime: 1606577774127,
@@ -54,12 +55,13 @@ export const tempPersons = [
   {
     details: {
       personId: "parvaneh",
+      showOnList: true,
       avatar: "./personPictures/parvaneh.jpg",
       personName: "Parvaneh",
       lastChatTime: 1606444467412,
 
-      draft: "",
-      unreadChatCounter: 1,
+      draft: "how u doing ?",
+      unreadChatCounter: "",
     },
     chats: [
       {
@@ -87,38 +89,40 @@ export const tempPersons = [
   {
     details: {
       personId: "kitty",
+      showOnList: true,
       avatar: "./personPictures/kitty.jpg",
       personName: "Kitty",
       lastChatTime: 1606333362326,
       draft: "",
-      unreadChatCounter: 2,
+      unreadChatCounter: "",
     },
     chats: [
-      {
-        self: "Hello there...",
-        chatTime: 1606333062326,
-        chatId: idMaker(),
-      },
-      {
-        self: "nock.. nock...",
-        chatTime: 1606333162326,
-        chatId: idMaker(),
-      },
-      {
-        person: "Hi :) how are u... ?",
-        chatTime: 1606333262326,
-        chatId: idMaker(),
-      },
-      {
-        self: "thanks...",
-        chatTime: 1606333362326,
-        chatId: idMaker(),
-      },
+      // {
+      //   self: "Hello there...",
+      //   chatTime: 1606333062326,
+      //   chatId: idMaker(),
+      // },
+      // {
+      //   self: "nock.. nock...",
+      //   chatTime: 1606333162326,
+      //   chatId: idMaker(),
+      // },
+      // {
+      //   person: "Hi :) how are u... ?",
+      //   chatTime: 1606333262326,
+      //   chatId: idMaker(),
+      // },
+      // {
+      //   self: "thanks...",
+      //   chatTime: 1606333362326,
+      //   chatId: idMaker(),
+      // },
     ],
   },
   {
     details: {
       personId: "love",
+      showOnList: true,
       avatar: "./personPictures/love.jpg",
       personName: "Love",
       lastChatTime: 1606222261324,
@@ -151,6 +155,7 @@ export const tempPersons = [
   {
     details: {
       personId: "nahid",
+      showOnList: false,
       avatar: "./personPictures/nahid.jpg",
       personName: "Nahid",
       lastChatTime: 1606111165489,
@@ -183,6 +188,7 @@ export const tempPersons = [
   {
     details: {
       personId: "sahar",
+      showOnList: true,
       avatar: "./personPictures/sahar.jpg",
       personName: "Sahar",
       lastChatTime: 1506999998654,
@@ -215,6 +221,7 @@ export const tempPersons = [
   {
     details: {
       personId: "sajjad",
+      showOnList: false,
       avatar: "./personPictures/sajad.jpg",
       personName: "Sajjad",
       lastChatTime: 1506888860258,

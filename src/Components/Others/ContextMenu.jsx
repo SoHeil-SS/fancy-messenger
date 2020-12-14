@@ -2,7 +2,7 @@ import { useImport } from "../../imports";
 
 function ContextMenu({ menuId }) {
   const {
-    useDispatch,
+    dispatch,
     copyClicked,
     editClicked,
     deleteClicked,
@@ -11,7 +11,6 @@ function ContextMenu({ menuId }) {
     Menu,
     theme,
   } = useImport();
-  const dispatch = useDispatch();
 
   function handleContextClick({ event, props, data, triggerEvent }) {
     const { id, text } = props;
