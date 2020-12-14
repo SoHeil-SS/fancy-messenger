@@ -13,6 +13,7 @@ import {
   handleChatMenuClick,
   handleSearchClick,
   handlePersonMenuClick,
+  handleCloseModalClick,
 } from "./eventHandlers";
 
 export function reducer(state, action) {
@@ -60,6 +61,9 @@ export function reducer(state, action) {
 
     case "PERSON_MENU_CLICKED":
       return handlePersonMenuClick(state);
+
+    case "CLOSE_MODAL_CLICKED":
+      return handleCloseModalClick(state);
 
     default:
       return state;

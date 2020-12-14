@@ -6,19 +6,20 @@ function App() {
     useEffect,
     toast,
     DispatchContext,
+    Portal,
     PersonContainer,
     ChatContainer,
-    Portal,
-    menuId,
+    ForwardModal,
     ToastContainer,
     ContextMenu,
     reducer,
-    tempPersons,
+    onCloseModalClick,
     handleFilterChats,
     handleFilterPerson,
     handleSelectedPerson,
+    tempPersons,
+    menuId,
   } = useImport();
-
   const [
     {
       selectedPersonId,
@@ -28,6 +29,7 @@ function App() {
       isEditing,
       editingChat,
       searchMode,
+      modalShow,
     },
     dispatch,
   ] = useThunkReducer(reducer, {
@@ -38,6 +40,7 @@ function App() {
     isEditing: false,
     editingChat: "",
     searchMode: false,
+    modalShow: false,
   });
 
   useEffect(() => {
@@ -65,6 +68,8 @@ function App() {
     persons,
     searchInputText
   );
+
+  console.log("render");
 
   return (
     <>
@@ -98,6 +103,12 @@ function App() {
             <ToastContainer />
             <ContextMenu menuId={menuId} />
           </Portal>
+
+          <ForwardModal
+            searchInputText={searchInputText}
+            show={modalShow}
+            onHide={onCloseModalClick}
+          />
         </div>
       </DispatchContext.Provider>
     </>

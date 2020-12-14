@@ -23,10 +23,15 @@ function ChatInput({ chatInputText, isEditing, onInputChange, onKeyPress }) {
         <span
           onClick={
             condition
-              ? () => dispatch(!isEditing ? addClicked() : saveClicked())
+              ? () => dispatch(isEditing ? saveClicked() : addClicked())
               : () => console.log("Pin Clicked")
           }
-          style={{ border: "0px", fontSize: "20px", padding: "11px" }}
+          style={{
+            border: "0px",
+            fontSize: "20px",
+            padding: "11px",
+            cursor: "pointer",
+          }}
         >
           {condition ? <SendIcon /> : <PinIcon />}
         </span>

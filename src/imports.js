@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import useThunkReducer from "react-hook-thunk-reducer";
 import { ToastContainer, toast } from "react-toastify";
 import { Item, Menu, Separator, theme, useContextMenu } from "react-contexify";
+import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
 import DispatchContext, { useDispatch } from "./StateManager/dispatch";
 
@@ -24,6 +25,8 @@ import Portal from "./Components/Others/Portal";
 
 import Svg from "./Components/Others/SvgComponents/Svg";
 import Path from "./Components/Others/SvgComponents/Path";
+
+import ForwardModal from "./Components/Others/Modals/ForwardModal";
 
 import PinIcon from "./Components/Others/SvgComponents/SvgIcons/PinIcon";
 import SendIcon from "./Components/Others/SvgComponents/SvgIcons/SendIcon";
@@ -47,6 +50,7 @@ import {
   onChatMenuClick,
   onSearchClick,
   onPersonMenuClick,
+  onCloseModalClick,
   personClicked,
   saveClicked,
 } from "./StateManager/actionCreator";
@@ -72,6 +76,7 @@ import {
   handleFilterChats,
   handleFilterPerson,
   handleSelectedPerson,
+  handleCloseModalClick,
   toaster,
   idMaker,
 } from "./StateManager/eventHandlers";
@@ -90,6 +95,11 @@ const imports = createContext({
   Menu,
   Separator,
   useContextMenu,
+  Button,
+  Col,
+  Container,
+  Modal,
+  Row,
   // Custom components =>
   PersonContainer,
   SearchBar,
@@ -106,6 +116,8 @@ const imports = createContext({
   ContextMenu,
   Portal,
   Path,
+
+  ForwardModal,
 
   Svg,
   PinIcon,
@@ -142,6 +154,7 @@ const imports = createContext({
   handleFilterChats,
   handleFilterPerson,
   handleSelectedPerson,
+  handleCloseModalClick,
   toaster,
   idMaker,
 
@@ -159,6 +172,7 @@ const imports = createContext({
   onKeyPress,
   personClicked,
   saveClicked,
+  onCloseModalClick,
   // Variables =>
   menuId,
   svgPath,

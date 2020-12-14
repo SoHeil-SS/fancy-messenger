@@ -50,7 +50,7 @@ function ContextMenu({ menuId }) {
           <Item id="Delete" onClick={handleContextClick}>
             Delete
           </Item>
-          <Item id="Forward" onClick={handleContextClick} disabled>
+          <Item id="Forward" onClick={handleContextClick}>
             Forward
           </Item>
         </Menu>

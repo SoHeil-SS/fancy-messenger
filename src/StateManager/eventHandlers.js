@@ -106,13 +106,13 @@ export function handleEditChat(state, chatId) {
     details,
     chats,
     chatIndex,
+    isEditing,
   } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
   // when clicking on person edit option. //FIXME contextMenu
-  if (!content) {
-    return state;
-  }
-  handleDraftChange(details, chatInputText);
+  if (!content) return state;
+  if (!isEditing) handleDraftChange(details, chatInputText);
+
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   editingChatId = chatId;
@@ -149,7 +149,11 @@ export function handleSaveChat(state) {
 export function handleForwardChat(state, chatId) {
   console.log("forward clicked", chatId);
 
-  return state;
+  return {
+    ...state,
+    searchMode: "persons",
+    modalShow: true,
+  };
 }
 
 export function handleSortPersons(persons) {
@@ -359,4 +363,12 @@ export function handleSelectedPerson(selectedPersonId, persons) {
   return selectedPersonId
     ? persons.find((person) => person.details.personId === selectedPersonId)
     : {};
+}
+
+export function handleCloseModalClick(state) {
+  return {
+    ...state,
+    searchMode: null,
+    modalShow: false,
+  };
 }
