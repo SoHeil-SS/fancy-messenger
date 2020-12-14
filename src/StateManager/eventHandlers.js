@@ -275,10 +275,10 @@ export function toaster(type, detail, text) {
 }
 
 export function handleSearchClick(state, value) {
-  console.log(value);
   return {
     ...state,
     searchMode: value,
+    searchInputText: "",
   };
 }
 
@@ -331,4 +331,35 @@ export function objectConstructor(
     searchMode,
     searchInputText,
   };
+}
+
+export function handleFilterChats(
+  chats,
+  searchInputText,
+  searchMode,
+  selectedPersonId
+) {
+  return searchMode === "chats" && selectedPersonId
+    ? chats.filter((chat) =>
+        chat.self
+          ? chat.self.toLowerCase().includes(searchInputText.toLowerCase())
+          : chat.person.toLowerCase().includes(searchInputText.toLowerCase())
+      )
+    : chats;
+}
+
+export function handleFilterPerson(searchMode, persons, searchInputText) {
+  return searchMode === "persons"
+    ? persons.filter((person) =>
+        person.details.personName
+          .toLowerCase()
+          .includes(searchInputText.toLowerCase())
+      )
+    : persons;
+}
+
+export function handleSelectedPerson(selectedPersonId, persons) {
+  return selectedPersonId
+    ? persons.find((person) => person.details.personId === selectedPersonId)
+    : {};
 }

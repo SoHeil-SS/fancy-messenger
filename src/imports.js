@@ -69,6 +69,9 @@ import {
   handleChatMenuClick,
   handleSearchClick,
   handlePersonMenuClick,
+  handleFilterChats,
+  handleFilterPerson,
+  handleSelectedPerson,
   toaster,
   idMaker,
 } from "./StateManager/eventHandlers";
@@ -134,6 +137,9 @@ const imports = createContext({
   handleSaveChat,
   handleSortPersons,
   handleSearchClick,
+  handleFilterChats,
+  handleFilterPerson,
+  handleSelectedPerson,
   toaster,
   idMaker,
 

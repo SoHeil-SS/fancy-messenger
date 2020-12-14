@@ -4,7 +4,7 @@ function App() {
   const {
     useThunkReducer,
     useEffect,
-    toaster,
+    toast,
     DispatchContext,
     PersonContainer,
     ChatContainer,
@@ -14,7 +14,11 @@ function App() {
     ContextMenu,
     reducer,
     tempPersons,
+    handleFilterChats,
+    handleFilterPerson,
+    handleSelectedPerson,
   } = useImport();
+
   const [
     {
       selectedPersonId,
@@ -37,9 +41,7 @@ function App() {
   });
 
   useEffect(() => {
-    toaster(
-      "dark",
-      "",
+    toast.dark(
       `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `,
       {
         position: "top-right",
@@ -47,29 +49,22 @@ function App() {
         autoClose: 8800,
       }
     );
-  }, [toaster]);
+  }, [toast]);
 
-  const { details, chats } = selectedPersonId
-    ? persons.find((person) => person.details.personId === selectedPersonId)
-    : {};
+  const { details, chats } = handleSelectedPerson(selectedPersonId, persons);
 
-  const filteredChats =
-    searchMode === "chats" && selectedPersonId
-      ? chats.filter((chat) =>
-          chat.self
-            ? chat.self.toLowerCase().includes(searchInputText.toLowerCase())
-            : chat.person.toLowerCase().includes(searchInputText.toLowerCase())
-        )
-      : chats;
+  const filteredChats = handleFilterChats(
+    chats,
+    searchInputText,
+    searchMode,
+    selectedPersonId
+  );
 
-  const filteredPersons =
-    searchMode === "persons"
-      ? persons.filter((person) =>
-          person.details.personName
-            .toLowerCase()
-            .includes(searchInputText.toLowerCase())
-        )
-      : persons;
+  const filteredPersons = handleFilterPerson(
+    searchMode,
+    persons,
+    searchInputText
+  );
 
   return (
     <>
