@@ -1,4 +1,4 @@
-import { useImport } from "../../../imports";
+import { useImport } from "../../../Imports/imports";
 
 function ForwardModal({ show, searchMode, persons, searchinputtext, onHide }) {
   const {

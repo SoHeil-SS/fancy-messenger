@@ -1,8 +1,8 @@
-import { actionImports } from "./Imports/actionImports";
-import { asyncHandlerImports } from "./Imports/asyncHandlerImports";
-import { componentImports } from "./Imports/componentImports";
-import { handlerImports } from "./Imports/handlerImports";
-import { otherImports } from "./Imports/otherImports";
+import { actionImports } from "./actionImports";
+import { asyncHandlerImports } from "./asyncHandlerImports";
+import { componentImports } from "./componentImports";
+import { handlerImports } from "./handlerImports";
+import { otherImports } from "./otherImports";
 
 export function useImport() {
   const {

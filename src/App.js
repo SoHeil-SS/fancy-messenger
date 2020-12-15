@@ -1,4 +1,4 @@
-import { useImport } from "./imports";
+import { useImport } from "./Imports/imports";
 //TODO lastSeen ,sort persons by name ,contextMenu on persons, pin persons,
 function App() {
   const {

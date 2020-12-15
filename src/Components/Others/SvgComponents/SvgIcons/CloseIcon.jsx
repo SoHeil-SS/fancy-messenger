@@ -1,4 +1,4 @@
-import { useImport } from "../../../../imports";
+import { useImport } from "../../../../Imports/imports";
 
 function CloseIcon({ onCloseChat }) {
   const { svgPath, Svg, Path } = useImport();
