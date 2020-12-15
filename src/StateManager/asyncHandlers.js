@@ -1,4 +1,4 @@
-import { personClicked } from "./actionCreator";
+import { personClicked } from "../StateManager/actionCreator";
 
 export function onClickPerson(personId) {
   return (dispatch, getState) => {
