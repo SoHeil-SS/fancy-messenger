@@ -15,10 +15,17 @@ function PersonContainer({
     onPersonMenuClick,
   } = useImport();
 
+  const searchInputPlaceHolder =
+    searchMode === "chats"
+      ? "Type to search chats..."
+      : "Type to search persons ...";
+  const isSearchOn = searchMode === "chats" || searchMode === "persons";
+
   return (
     <>
       <SearchBar
-        searchMode={searchMode}
+        isSearchOn={isSearchOn}
+        searchInputPlaceHolder={searchInputPlaceHolder}
         searchInputText={searchInputText}
         onInputChange={(e) =>
           dispatch(onInputChange(e.target.value, "searchInputText"))

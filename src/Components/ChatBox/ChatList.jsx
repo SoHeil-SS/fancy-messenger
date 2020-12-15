@@ -1,26 +1,26 @@
 import { useImport } from "../../imports";
 
 function ChatList({ chats }) {
-  const { handleGetTime, ChatItem, menuId, useContextMenu } = useImport();
-  const { show } = useContextMenu({
-    id: menuId,
+  const { handleGetTime, ChatItem, show, handleDisplayMenu } = useImport();
+
+  const chatList = chats.map((chat) => {
+    const { chatId, self, person, chatTime } = chat;
+
+    return (
+      <ChatItem
+        key={chatId}
+        self={self}
+        person={person}
+        chatTime={handleGetTime(chatTime, "getHours", "getMinutes", ":")}
+        chatDate={handleGetTime(chatTime, "getMonth", "getDate", "/")}
+        onContextMenu={(e) =>
+          handleDisplayMenu(e, show, chatId, self ? self : person)
+        }
+      />
+    );
   });
-  const chatList = chats.map((chat) => (
-    <ChatItem
-      key={chat.chatId}
-      chatId={chat.chatId}
-      self={chat.self}
-      person={chat.person}
-      chatTime={handleGetTime(chat.chatTime, "getHours", "getMinutes", ":")}
-      chatDate={handleGetTime(chat.chatTime, "getMonth", "getDate", "/")}
-      show={show}
-    />
-  ));
-  return (
-    <>
-      <ul className="chatDetail_messages-panel__3aOw8">{chatList}</ul>
-    </>
-  );
+
+  return <ul className="chatDetail_messages-panel__3aOw8">{chatList}</ul>;
 }
 
 export default ChatList;

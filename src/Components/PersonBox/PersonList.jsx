@@ -8,8 +8,6 @@ function PersonList({ persons, selectedPersonId }) {
     personClicked,
   } = useImport();
 
-  //TODO cleanup
-
   const list = persons.map((personItem) => {
     const { chatTime, self, person } =
       personItem.chats.length > 0
@@ -25,7 +23,7 @@ function PersonList({ persons, selectedPersonId }) {
     } = personItem.details;
 
     const condition = personId === selectedPersonId;
-
+    //TODO ?????
     function onClickPerson(dispatch) {
       dispatch(personClicked(personId));
     }
@@ -33,17 +31,22 @@ function PersonList({ persons, selectedPersonId }) {
     return (
       <PersonListItem
         key={personId}
-        personId={personId}
-        selectedPersonId={selectedPersonId}
-        condition={condition}
+        personItemClassName={
+          condition
+            ? "listItem_list-item__1mnZB listItem_selected__3Q6PN  "
+            : "listItem_list-item__1mnZB listItem_bg "
+        }
         avatar={avatar}
         personName={personName}
         lastChatText={self ? self : person}
         draft={draft}
-        lastChatTime={handleGetTime(chatTime, "getHours", "getMinutes", ":")}
-        lastChatDate={handleGetTime(chatTime, "getMonth", "getDate", "/")}
+        lastChatTime={
+          Date.now() - chatTime > 86400000
+            ? handleGetTime(chatTime, "getMonth", "getDate", "/")
+            : handleGetTime(chatTime, "getHours", "getMinutes", ":")
+        }
         unreadChatCounter={unreadChatCounter}
-        onPersonClick={() => onClickPerson(dispatch)}
+        onPersonClick={() => !condition && onClickPerson(dispatch)}
       />
     );
   });

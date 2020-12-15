@@ -1,11 +1,6 @@
-import { handleDisplayMenu } from "../../StateManager/eventHandlers";
-
-function chatItem({ chatId, self, person, chatTime, chatDate, show }) {
+function chatItem({ self, person, chatTime, chatDate, onContextMenu }) {
   return (
-    <div
-      id={chatId}
-      onContextMenu={(e) => handleDisplayMenu(e, show, self ? self : person)}
-    >
+    <div onContextMenu={onContextMenu}>
       {self && (
         <div className="message-row self-message hoverItem">
           <div className="message-content-self">

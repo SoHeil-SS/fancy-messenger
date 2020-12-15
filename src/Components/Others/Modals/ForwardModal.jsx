@@ -12,15 +12,10 @@ function ForwardModal(props) {
     onInputChange,
     onForwardChat,
   } = useImport();
-
+  //TODO ????
   function onClickPerson(dispatch, personId) {
     dispatch(onForwardChat(personId));
   }
-  // console.log(props.persons);
-  // const sortPersons = props.persons.sort(
-  //   (a, b) => b.details.personName - a.details.personName
-  // );
-  // console.log(sortPersons);
 
   const list = props.persons.map((person) => {
     const { personId, avatar, personName } = person.details;
@@ -29,14 +24,13 @@ function ForwardModal(props) {
       <PersonListItem
         key={personId}
         personId={personId}
-        condition={false}
+        personItemClassName={"listItem_list-item__1mnZB listItem_bg "}
         avatar={avatar}
         personName={personName}
         onPersonClick={() => onClickPerson(dispatch, personId)}
       />
     );
   });
-  console.log(list);
 
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
@@ -52,8 +46,7 @@ function ForwardModal(props) {
               onChange={(e) =>
                 dispatch(onInputChange(e.target.value, "searchInputText"))
               }
-              style={{ width: "70%", marginLeft: "30px" }}
-              className="appStatus_search-text__3Fr_f"
+              className="appStatus_search-text__3Fr_f forward-input"
             />
           </div>
         </Modal.Title>
@@ -76,19 +69,3 @@ function ForwardModal(props) {
 }
 
 export default ForwardModal;
-
-//   <Col xs={12} md={8}>
-//               .col-xs-12 .col-md-8
-//             </Col>
-//             <Col xs={6} md={4}>
-//               .col-xs-6 .col-md-4
-//             </Col>
-//  <Col xs={6} md={4}>
-//               .col-xs-6 .col-md-4
-//             </Col>
-//             <Col xs={6} md={4}>
-//               .col-xs-6 .col-md-4
-//             </Col>
-//             <Col xs={6} md={4}>
-//               .col-xs-6 .col-md-4
-//             </Col>

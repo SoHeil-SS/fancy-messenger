@@ -20,14 +20,11 @@ function ChatTitleBar({
             <img src={avatar} alt={personName} />
           </div>
           <div className="chatDetail_name__LVfMo">{personName}</div>
-          <div style={{ fontSize: "17px", padding: "10px" }}>
-            <span>last seen 36 minutes ago</span>
-          </div>
+          <span className="lastSeenSpan">last seen 36 minutes ago</span>
         </div>
       </div>
       <div className="titleBar_last__2vQ77">
         <SearchIcon onSearchClick={onSearchClick} />
-
         <ThreeDotIcon onChatMenuClick={onChatMenuClick} />
       </div>
     </div>

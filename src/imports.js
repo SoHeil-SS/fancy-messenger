@@ -88,6 +88,9 @@ import { menuId, tempPersons, svgPath } from "./constants";
 
 export function useImport() {
   const dispatch = useDispatch();
+  const { show } = useContextMenu({
+    id: menuId,
+  });
 
   const imports = createContext({
     //React built-in components =>
@@ -100,7 +103,6 @@ export function useImport() {
     Item,
     Menu,
     Separator,
-    useContextMenu,
     Button,
     Col,
     Container,
@@ -135,6 +137,7 @@ export function useImport() {
     BarIcon,
     // Installed react hooks =>
     useThunkReducer,
+    useContextMenu,
     // Custom Hooks =>
     DispatchContext,
     useDispatch,
@@ -184,6 +187,7 @@ export function useImport() {
     onCloseModalClick,
     onForwardChat,
     // Variables =>
+    show,
     menuId,
     svgPath,
     theme,

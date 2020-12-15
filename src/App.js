@@ -1,5 +1,5 @@
 import { useImport } from "./imports";
-//TODO lastSeen ,sort persons by name ,contextMenu on persons
+//TODO lastSeen ,sort persons by name ,contextMenu on persons, pin persons,
 function App() {
   const {
     useThunkReducer,
@@ -21,6 +21,7 @@ function App() {
     tempPersons,
     menuId,
   } = useImport();
+
   const [
     {
       selectedPersonId,
@@ -96,8 +97,8 @@ function App() {
               {selectedPersonId ? (
                 <ChatContainer
                   details={details}
-                  chats={filteredChats}
                   chatInputText={chatInputText}
+                  chats={filteredChats}
                   isEditing={isEditing}
                   editingChat={editingChat}
                 />

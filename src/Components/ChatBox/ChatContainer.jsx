@@ -11,6 +11,8 @@ function ChatContainer({
     ChatTitleBar,
     ChatList,
     ChatInput,
+    SendIcon,
+    PinIcon,
     Editing,
     dispatch,
     closeClicked,
@@ -18,7 +20,12 @@ function ChatContainer({
     onSearchClick,
     onInputChange,
     onKeyPress,
+    editCloseClicked,
+    addClicked,
+    saveClicked,
   } = useImport();
+
+  const condition = !!chatInputText;
 
   return (
     <div>
@@ -29,17 +36,27 @@ function ChatContainer({
         onChatMenuClick={() => dispatch(onChatMenuClick())}
         onSearchClick={() => dispatch(onSearchClick("chats"))}
       />
+
       <div className="chatDetail_chat-box__3peJu">
         <ChatList chats={chats} />
-        <Editing isEditing={isEditing} editingChat={editingChat} />
+        <Editing
+          isEditing={isEditing}
+          editingChat={editingChat}
+          editCloseClicked={() => dispatch(editCloseClicked())}
+        />
         <ChatInput
           chatInputText={chatInputText}
           draft={details.draft}
-          isEditing={isEditing}
+          spanIcon={condition ? <SendIcon /> : <PinIcon />}
+          onKeyPress={(e) => dispatch(onKeyPress(e))}
           onInputChange={(e) =>
             dispatch(onInputChange(e.target.value, "chatInputText"))
           }
-          onKeyPress={(e) => dispatch(onKeyPress(e))}
+          onSpanClick={
+            condition
+              ? () => dispatch(isEditing ? saveClicked() : addClicked())
+              : () => console.log("Pin Clicked")
+          }
         />
       </div>
     </div>

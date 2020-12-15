@@ -73,8 +73,7 @@ export function handleAddChat(state) {
 }
 
 export function handleCopyChat(state, chatText) {
-  console.log(chatText);
-
+  navigator.clipboard.writeText(chatText);
   return state;
 }
 
@@ -148,10 +147,21 @@ export function handleSaveChat(state) {
 }
 
 export function handleForwardClick(state, forwardText) {
-  const { details } = objectConstructor(state);
+  const {
+    persons,
+    personIndex,
+    chatInputText,
+    details,
+    chats,
+  } = objectConstructor(state);
+
   forwardContent = forwardText;
+  handleDraftChange(details, chatInputText);
+  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+
   return {
     ...state,
+    persons,
     chatInputText: details.draft,
     searchMode: "forward",
     modalShow: true,
@@ -276,9 +286,9 @@ function handleFinallyPersons(persons, index, person) {
   return persons;
 }
 
-export function handleDisplayMenu(e, show, content) {
+export function handleDisplayMenu(e, show, chatId, content) {
   show(e, {
-    props: { id: Number(e.currentTarget.id), text: content },
+    props: { id: Number(chatId), text: content },
   });
 }
 

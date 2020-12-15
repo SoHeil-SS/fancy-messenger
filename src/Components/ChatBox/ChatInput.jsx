@@ -1,8 +1,10 @@
-import { useImport } from "../../imports";
-
-function ChatInput({ chatInputText, isEditing, onInputChange, onKeyPress }) {
-  const { dispatch, PinIcon, SendIcon, addClicked, saveClicked } = useImport();
-  const condition = !!chatInputText;
+function ChatInput({
+  chatInputText,
+  spanIcon,
+  onKeyPress,
+  onInputChange,
+  onSpanClick,
+}) {
   return (
     <div>
       <div className="chatDetail_input-section__2qoiR">
@@ -13,20 +15,8 @@ function ChatInput({ chatInputText, isEditing, onInputChange, onKeyPress }) {
           value={chatInputText}
           onKeyPress={onKeyPress}
         />
-        <span
-          onClick={
-            condition
-              ? () => dispatch(isEditing ? saveClicked() : addClicked())
-              : () => console.log("Pin Clicked")
-          }
-          style={{
-            border: "0px",
-            fontSize: "20px",
-            padding: "11px",
-            cursor: "pointer",
-          }}
-        >
-          {condition ? <SendIcon /> : <PinIcon />}
+        <span className="span-input-area" onClick={onSpanClick}>
+          {spanIcon}
         </span>
       </div>
     </div>
