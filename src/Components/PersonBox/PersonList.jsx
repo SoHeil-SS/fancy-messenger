@@ -4,8 +4,8 @@ function PersonList({ persons, selectedPersonId }) {
   const {
     dispatch,
     PersonListItem,
+    onClickPerson,
     handleGetTime,
-    personClicked,
   } = useImport();
 
   const list = persons.map((personItem) => {
@@ -23,10 +23,6 @@ function PersonList({ persons, selectedPersonId }) {
     } = personItem.details;
 
     const condition = personId === selectedPersonId;
-    //TODO ?????
-    function onClickPerson(dispatch) {
-      dispatch(personClicked(personId));
-    }
 
     return (
       <PersonListItem
@@ -46,7 +42,7 @@ function PersonList({ persons, selectedPersonId }) {
             : handleGetTime(chatTime, "getHours", "getMinutes", ":")
         }
         unreadChatCounter={unreadChatCounter}
-        onPersonClick={() => !condition && onClickPerson(dispatch)}
+        onPersonClick={() => !condition && dispatch(onClickPerson(personId))}
       />
     );
   });

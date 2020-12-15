@@ -12,7 +12,6 @@ function SearchBar({
   const { SearchIcon, BackArrow, BarIcon } = useImport();
 
   return (
-    //TODO cleanup
     <div>
       <div className="titleBar_title-bar__3W5uP">
         <div className="titleBar_first__PIBdf">

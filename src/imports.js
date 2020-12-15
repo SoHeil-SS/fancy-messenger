@@ -36,6 +36,8 @@ import ThreeDotIcon from "./Components/Others/SvgComponents/SvgIcons/ThreeDotIco
 import BackArrow from "./Components/Others/SvgComponents/SvgIcons/BackArrow";
 import BarIcon from "./Components/Others/SvgComponents/SvgIcons/BarIcon";
 
+import { onClickPerson } from "./StateManager/middle";
+
 import { reducer } from "./StateManager/reducer";
 import {
   addClicked,
@@ -186,6 +188,8 @@ export function useImport() {
     saveClicked,
     onCloseModalClick,
     onForwardChat,
+
+    onClickPerson,
     // Variables =>
     show,
     menuId,
