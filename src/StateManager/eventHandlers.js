@@ -178,15 +178,17 @@ export function handleForwardChat(state, personId) {
     personId
   );
 
+  details.unreadChatCounter = "";
   if (!details.showOnList) {
     details.showOnList = true;
-    handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   }
+
+  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
-    persons,
     selectedPersonId: personId,
+    persons,
     searchInputText: "",
     searchMode: null,
     chatInputText: forwardContent,
@@ -355,7 +357,11 @@ export function handleFilterPersons(searchMode, persons, searchInputText) {
     : persons;
 }
 
-export function filteredForwardPersons(searchMode, persons, searchInputText) {
+export function handleFilterForwardPersons(
+  searchMode,
+  persons,
+  searchInputText
+) {
   return searchMode === "forward"
     ? persons.filter((person) =>
         person.details.personName

@@ -14,10 +14,6 @@ function App() {
     ContextMenu,
     reducer,
     onCloseModalClick,
-    handleFilterChats,
-    handleFilterPersons,
-    filteredForwardPersons,
-    handleSelectedPerson,
     tempPersons,
     menuId,
   } = useImport();
@@ -56,29 +52,6 @@ function App() {
     );
   }, [toast]);
 
-  const { details, chats } = handleSelectedPerson(selectedPersonId, persons);
-
-  const filteredChats = handleFilterChats(
-    chats,
-    searchInputText,
-    searchMode,
-    selectedPersonId
-  );
-
-  const filteredPersons = handleFilterPersons(
-    searchMode,
-    persons.filter((person) => person.details.showOnList === true),
-    searchInputText
-  );
-
-  const filteredPersonsToForward = filteredForwardPersons(
-    searchMode,
-    persons,
-    searchInputText
-  );
-
-  console.log("render");
-
   return (
     <>
       <DispatchContext.Provider value={dispatch}>
@@ -91,14 +64,16 @@ function App() {
                   selectedPersonId={selectedPersonId}
                   searchInputText={searchInputText}
                   searchMode={searchMode}
-                  persons={filteredPersons}
+                  persons={persons}
                 />
               </div>
               {selectedPersonId ? (
                 <ChatContainer
-                  details={details}
+                  selectedPersonId={selectedPersonId}
+                  persons={persons}
+                  searchInputText={searchInputText}
                   chatInputText={chatInputText}
-                  chats={filteredChats}
+                  searchMode={searchMode}
                   isEditing={isEditing}
                   editingChat={editingChat}
                 />
@@ -111,7 +86,8 @@ function App() {
             <ToastContainer />
             <ContextMenu menuId={menuId} />
             <ForwardModal
-              persons={filteredPersonsToForward}
+              searchMode={searchMode}
+              persons={persons}
               searchinputtext={searchInputText}
               show={modalShow}
               onHide={onCloseModalClick}

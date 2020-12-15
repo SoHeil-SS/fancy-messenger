@@ -1,6 +1,6 @@
 import { useImport } from "../../../imports";
 
-function ForwardModal(props) {
+function ForwardModal({ show, searchMode, persons, searchinputtext, onHide }) {
   const {
     dispatch,
     Button,
@@ -9,15 +9,22 @@ function ForwardModal(props) {
     Row,
     PersonListItem,
     SearchIcon,
+    handleFilterForwardPersons,
     onInputChange,
     onForwardChat,
   } = useImport();
-  //TODO ????
+
+  const filteredPersonsToForward = handleFilterForwardPersons(
+    searchMode,
+    persons,
+    searchinputtext
+  );
+
   function onClickPerson(dispatch, personId) {
     dispatch(onForwardChat(personId));
   }
 
-  const list = props.persons.map((person) => {
+  const list = filteredPersonsToForward.map((person) => {
     const { personId, avatar, personName } = person.details;
 
     return (
@@ -33,7 +40,7 @@ function ForwardModal(props) {
   });
 
   return (
-    <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
+    <Modal show={show} aria-labelledby="contained-modal-title-vcenter">
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Choose a recipient...
@@ -42,7 +49,7 @@ function ForwardModal(props) {
             <input
               type="text"
               placeholder="Type to search persons..."
-              value={props.searchinputtext}
+              value={searchinputtext}
               onChange={(e) =>
                 dispatch(onInputChange(e.target.value, "searchInputText"))
               }
@@ -57,10 +64,7 @@ function ForwardModal(props) {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          className="btn btn-danger"
-          onClick={() => dispatch(props.onHide())}
-        >
+        <Button className="btn btn-danger" onClick={() => dispatch(onHide())}>
           Cancel
         </Button>
       </Modal.Footer>

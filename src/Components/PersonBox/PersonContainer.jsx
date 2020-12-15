@@ -13,7 +13,14 @@ function PersonContainer({
     onSearchClick,
     onInputChange,
     onPersonMenuClick,
+    handleFilterPersons,
   } = useImport();
+
+  const filteredPersons = handleFilterPersons(
+    searchMode,
+    persons.filter((person) => person.details.showOnList === true),
+    searchInputText
+  );
 
   const searchInputPlaceHolder =
     searchMode === "chats"
@@ -34,7 +41,10 @@ function PersonContainer({
         onBackSearchClick={() => dispatch(onSearchClick(null))}
         onPersonMenuClick={() => dispatch(onPersonMenuClick())}
       />
-      <PersonList selectedPersonId={selectedPersonId} persons={persons} />
+      <PersonList
+        selectedPersonId={selectedPersonId}
+        persons={filteredPersons}
+      />
     </>
   );
 }

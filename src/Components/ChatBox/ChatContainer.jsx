@@ -1,8 +1,10 @@
 import { useImport } from "../../imports";
 
 function ChatContainer({
-  details,
-  chats,
+  selectedPersonId,
+  persons,
+  searchInputText,
+  searchMode,
   chatInputText,
   isEditing,
   editingChat,
@@ -20,25 +22,37 @@ function ChatContainer({
     onSearchClick,
     onInputChange,
     onKeyPress,
+    handleFilterChats,
+    handleSelectedPerson,
     editCloseClicked,
     addClicked,
     saveClicked,
   } = useImport();
 
+  const { details, chats } = handleSelectedPerson(selectedPersonId, persons);
+
+  const filteredChats = handleFilterChats(
+    chats,
+    searchInputText,
+    searchMode,
+    selectedPersonId
+  );
+
+  const { avatar, personName, draft } = details;
   const condition = !!chatInputText;
 
   return (
     <div>
       <ChatTitleBar
-        avatar={details.avatar}
-        personName={details.personName}
+        avatar={avatar}
+        personName={personName}
         onCloseChat={() => dispatch(closeClicked())}
         onChatMenuClick={() => dispatch(onChatMenuClick())}
         onSearchClick={() => dispatch(onSearchClick("chats"))}
       />
 
       <div className="chatDetail_chat-box__3peJu">
-        <ChatList chats={chats} />
+        <ChatList chats={filteredChats} />
         <Editing
           isEditing={isEditing}
           editingChat={editingChat}
@@ -46,7 +60,7 @@ function ChatContainer({
         />
         <ChatInput
           chatInputText={chatInputText}
-          draft={details.draft}
+          draft={draft}
           spanIcon={condition ? <SendIcon /> : <PinIcon />}
           onKeyPress={(e) => dispatch(onKeyPress(e))}
           onInputChange={(e) =>
