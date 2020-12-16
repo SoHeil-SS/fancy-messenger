@@ -125,7 +125,7 @@ export function handleEditChat(state, chatId) {
 }
 
 export function handleSaveChat(state) {
-  const {
+  let {
     persons,
     details,
     chats,
@@ -133,9 +133,8 @@ export function handleSaveChat(state) {
     editingChatIndex,
     personIndex,
   } = objectConstructor(state);
-  //TODO state test
-  chats[editingChatIndex].self = chatInputText;
 
+  handleFinallyChats(chats, [editingChatIndex], [chatInputText]);
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
 
   return {
@@ -353,6 +352,16 @@ export function handleFilterPersons(searchMode, persons, searchInputText) {
           .includes(searchInputText.toLowerCase())
       )
     : persons;
+}
+
+export function handleFinallyChats(chats, chatIndex, newChatContent) {
+  for (let i = 0; i < chatIndex.length; i++) {
+    const chat = {
+      ...chats[chatIndex[i]],
+    };
+    chat.self = newChatContent[i];
+    chats.splice(chatIndex[i], 1, chat);
+  }
 }
 
 export function handleFilterForwardPersons(
