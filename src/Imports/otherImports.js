@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { createPortal } from "react-dom";
 
 import useThunkReducer from "react-hook-thunk-reducer";
@@ -18,6 +18,7 @@ export const otherImports = {
   useContext,
   useEffect,
   useState,
+  useMemo,
   ToastContainer,
   toast,
   Item,
