@@ -60,11 +60,11 @@ export function handleAddChat(state) {
       ? [chatInputText, details.draft]
       : [chatInputText]
   );
-
   details.lastChatTime = newDate;
   handleDraftChange(details, "", isEditing);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   handleSortPersons(persons, "lastChatTime");
+
   return {
     ...state,
     chatInputText: "",
@@ -74,6 +74,7 @@ export function handleAddChat(state) {
 
 export function handleCopyChat(state, chatText) {
   navigator.clipboard.writeText(chatText);
+
   return state;
 }
 
@@ -108,7 +109,7 @@ export function handleEditChat(state, chatId) {
     isEditing,
   } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
-  // when clicking on person edit option. //FIXME contextMenu
+  // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
 
   handleDraftChange(details, chatInputText, isEditing);
@@ -136,6 +137,7 @@ export function handleSaveChat(state) {
 
   handleFinallyChats(chats, [editingChatIndex], [chatInputText]);
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
+  editingChatId = null;
 
   return {
     ...state,
@@ -155,9 +157,9 @@ export function handleForwardClick(state, forwardText) {
     chats,
   } = objectConstructor(state);
 
-  forwardContent = forwardText;
   handleDraftChange(details, chatInputText, isEditing);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  forwardContent = forwardText;
 
   return {
     ...state,
@@ -182,6 +184,7 @@ export function handleForwardChat(state, personId) {
   }
 
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+
   return {
     ...state,
     selectedPersonId: personId,
@@ -230,7 +233,7 @@ export function handleCloseChat(state) {
     searchInputText,
   } = objectConstructor(state);
 
-  const whichSearch = searchMode === "chats";
+  const isSearchChats = searchMode === "chats";
 
   handleDraftChange(details, chatInputText, isEditing);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
@@ -240,8 +243,8 @@ export function handleCloseChat(state) {
     persons,
     selectedPersonId: null,
     chatInputText: "",
-    searchInputText: whichSearch ? "" : searchInputText,
-    searchMode: whichSearch ? null : searchMode,
+    searchInputText: isSearchChats ? "" : searchInputText,
+    searchMode: isSearchChats ? null : searchMode,
     isEditing: false,
   };
 }
@@ -283,8 +286,6 @@ function handleFinallyPersons(persons, index, person) {
   for (let i = 0; i < index.length; i++) {
     persons.splice(index[i], 1, person[i]);
   }
-
-  return persons;
 }
 
 export function handleDisplayMenu(e, show, chatId, content) {
@@ -313,10 +314,10 @@ export function toaster(type, detail, text) {
   });
 }
 
-export function handleSearchClick(state, value) {
+export function handleSearchClick(state, searchMode) {
   return {
     ...state,
-    searchMode: value,
+    searchMode,
     searchInputText: "",
   };
 }
@@ -379,9 +380,7 @@ export function handleFilterForwardPersons(
 }
 
 export function handleSelectedPerson(selectedPersonId, persons) {
-  return selectedPersonId
-    ? persons.find((person) => person.details.personId === selectedPersonId)
-    : {};
+  return persons.find((person) => person.details.personId === selectedPersonId);
 }
 
 export function handleCloseModalClick(state) {
@@ -392,7 +391,13 @@ export function handleCloseModalClick(state) {
     modalShow: false,
   };
 }
-
+/**
+ * @export
+ * @param {*} state
+ * @param {*} chatId
+ * @param {*} personId
+ * @return {*}
+ */
 export function objectConstructor(
   {
     selectedPersonId,
