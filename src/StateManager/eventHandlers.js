@@ -46,7 +46,6 @@ export function handlePersonClick(state, personId) {
 export function handleAddChat(state) {
   const {
     isEditing,
-    searchMode,
     personIndex,
     persons,
     details,
@@ -184,7 +183,6 @@ export function handleForwardChat(state, personId) {
   }
 
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
-  console.log(details.draft);
   return {
     ...state,
     selectedPersonId: personId,
