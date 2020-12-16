@@ -38,9 +38,12 @@ function ForwardModal({ show, searchMode, persons, searchinputtext, onHide }) {
       />
     );
   });
-
   return (
-    <Modal show={show} aria-labelledby="contained-modal-title-vcenter">
+    <Modal
+      show={show}
+      onHide={onHide}
+      aria-labelledby="contained-modal-title-vcenter"
+    >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Choose a recipient...

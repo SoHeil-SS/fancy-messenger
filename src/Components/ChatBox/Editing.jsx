@@ -1,3 +1,5 @@
+import { Button } from "react-bootstrap";
+
 function Editing({ isEditing, editingChat, editCloseClicked }) {
   return (
     <>
@@ -5,9 +7,12 @@ function Editing({ isEditing, editingChat, editCloseClicked }) {
         <div className="editContainer">
           <div>
             <span className="editContainerSpan">edit message :</span>
-            <button className="editContainerButton" onClick={editCloseClicked}>
+            <Button
+              className="editContainerButton btn btn-dark"
+              onClick={editCloseClicked}
+            >
               X
-            </button>
+            </Button>
           </div>
           <p className="editContainerPara">{editingChat} </p>
         </div>

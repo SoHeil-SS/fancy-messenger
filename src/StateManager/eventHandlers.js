@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-
+//TODO forward panel
 let editingChatId = null;
 let forwardContent = null;
 
@@ -46,6 +46,7 @@ export function handlePersonClick(state, personId) {
 export function handleAddChat(state) {
   const {
     isEditing,
+    searchMode,
     personIndex,
     persons,
     details,
@@ -54,19 +55,17 @@ export function handleAddChat(state) {
     newDate,
   } = objectConstructor(state);
 
-  chats.push({
-    self: chatInputText,
-    chatTime: newDate,
-    chatId: idMaker(),
-  });
-  details.lastChatTime = newDate;
-  handleDraftChange(details, "", isEditing);
-
-  handleSortPersons(
-    handleFinallyPersons(persons, [personIndex], [{ details, chats }]),
-    "lastChatTime"
+  handleChatMaker(
+    chats,
+    forwardContent && details.draft
+      ? [chatInputText, details.draft]
+      : [chatInputText]
   );
 
+  details.lastChatTime = newDate;
+  handleDraftChange(details, "", isEditing);
+  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  handleSortPersons(persons, "lastChatTime");
   return {
     ...state,
     chatInputText: "",
@@ -135,6 +134,7 @@ export function handleSaveChat(state) {
     editingChatIndex,
     personIndex,
   } = objectConstructor(state);
+  //TODO state test
   chats[editingChatIndex].self = chatInputText;
 
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
@@ -184,7 +184,7 @@ export function handleForwardChat(state, personId) {
   }
 
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
-
+  console.log(details.draft);
   return {
     ...state,
     selectedPersonId: personId,
@@ -427,4 +427,15 @@ export function objectConstructor(
     searchMode,
     searchInputText,
   };
+}
+
+export function handleChatMaker(chats, chatContent) {
+  forwardContent = null;
+  for (let i = 0; i < chatContent.length; i++) {
+    chats.push({
+      self: chatContent[i],
+      chatTime: Date.now(),
+      chatId: idMaker(),
+    });
+  }
 }
