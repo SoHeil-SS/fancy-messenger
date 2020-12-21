@@ -409,6 +409,7 @@ export function handleChatMaker(chats, chatContent) {
 export function handleLoadComplete(state) {
   toaster(
     "dark",
+    "",
     `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `
   );
   return {
