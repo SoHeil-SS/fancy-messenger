@@ -1,4 +1,4 @@
-import { idMaker } from "./StateManager/eventHandlers";
+import { idMaker } from "../StateManager/eventHandlers";
 
 export const menuId = "customContextMenu";
 

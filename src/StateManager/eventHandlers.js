@@ -233,18 +233,18 @@ export function handleCloseChat(state) {
     searchInputText,
   } = objectConstructor(state);
 
-  const isSearchChats = searchMode === "chats";
+  const isModeChats = searchMode === "chats";
 
   handleDraftChange(details, chatInputText, isEditing);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
-    persons,
     selectedPersonId: null,
+    persons,
     chatInputText: "",
-    searchInputText: isSearchChats ? "" : searchInputText,
-    searchMode: isSearchChats ? null : searchMode,
+    searchInputText: isModeChats ? "" : searchInputText,
+    searchMode: isModeChats ? null : searchMode,
     isEditing: false,
   };
 }
@@ -450,4 +450,9 @@ export function handleChatMaker(chats, chatContent) {
       chatId: idMaker(),
     });
   }
+}
+
+export function stateTest(state, others) {
+  console.log(others);
+  console.log(state);
 }

@@ -10,7 +10,7 @@ import DispatchContext, { useDispatch } from "../StateManager/dispatch";
 
 import { reducer } from "../StateManager/reducer";
 
-import { menuId, tempPersons, svgPath } from "../constants";
+import { menuId, tempPersons, svgPath } from "../Others/constants";
 
 export const otherImports = {
   createPortal,
