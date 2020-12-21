@@ -13,7 +13,10 @@ export function handlePersonClick(state, personId) {
     details,
     chats,
     chatInputText,
+    loading,
   } = objectConstructor(state, null, personId);
+
+  if (loading) return state;
 
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
@@ -391,6 +394,34 @@ export function handleCloseModalClick(state) {
     modalShow: false,
   };
 }
+
+export function handleChatMaker(chats, chatContent) {
+  forwardContent = null;
+  for (let i = 0; i < chatContent.length; i++) {
+    chats.push({
+      self: chatContent[i],
+      chatTime: Date.now(),
+      chatId: idMaker(),
+    });
+  }
+}
+
+export function handleLoadComplete(state) {
+  toaster(
+    "dark",
+    `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `
+  );
+  return {
+    ...state,
+    loading: false,
+  };
+}
+
+export function stateTest(state, others) {
+  console.log(others);
+  console.log(state);
+}
+
 /**
  * @export
  * @param {*} state
@@ -407,6 +438,7 @@ export function objectConstructor(
     isEditing,
     searchMode,
     searchInputText,
+    loading,
   },
   chatId,
   personId
@@ -438,21 +470,6 @@ export function objectConstructor(
     chatInputText,
     searchMode,
     searchInputText,
+    loading,
   };
-}
-
-export function handleChatMaker(chats, chatContent) {
-  forwardContent = null;
-  for (let i = 0; i < chatContent.length; i++) {
-    chats.push({
-      self: chatContent[i],
-      chatTime: Date.now(),
-      chatId: idMaker(),
-    });
-  }
-}
-
-export function stateTest(state, others) {
-  console.log(others);
-  console.log(state);
 }

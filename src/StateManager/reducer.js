@@ -15,6 +15,7 @@ import {
   handleSearchClick,
   handlePersonMenuClick,
   handleCloseModalClick,
+  handleLoadComplete,
 } from "./eventHandlers";
 
 export function reducer(state, action) {
@@ -68,6 +69,9 @@ export function reducer(state, action) {
 
     case "CLOSE_MODAL_CLICKED":
       return handleCloseModalClick(state);
+
+    case "LOAD_COMPLETED":
+      return handleLoadComplete(state);
 
     default:
       return state;

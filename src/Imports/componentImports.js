@@ -17,6 +17,7 @@ import Svg from "../Components/Others/SvgComponents/Svg";
 import Path from "../Components/Others/SvgComponents/Path";
 
 import ForwardModal from "../Components/Others/Modals/ForwardModal";
+import Loader from "../Components/Others/Loader";
 
 import PinIcon from "../Components/Others/SvgComponents/SvgIcons/PinIcon";
 import SendIcon from "../Components/Others/SvgComponents/SvgIcons/SendIcon";
@@ -38,6 +39,7 @@ export const componentImports = {
   Svg,
   Path,
   ForwardModal,
+  Loader,
   PinIcon,
   PersonContainer,
   SearchBar,

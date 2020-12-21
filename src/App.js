@@ -1,5 +1,5 @@
 import { useImport } from "./Imports/imports";
-//TODO lastSeen ,sort persons by name ,contextMenu on persons, pin persons,
+
 function App() {
   const {
     useThunkReducer,
@@ -10,10 +10,12 @@ function App() {
     PersonContainer,
     ChatContainer,
     ForwardModal,
+    Loader,
     ToastContainer,
     ContextMenu,
     reducer,
     onCloseModalClick,
+    onLoadComplete,
     tempPersons,
     menuId,
   } = useImport();
@@ -28,6 +30,7 @@ function App() {
       editingChat,
       searchMode,
       modalShow,
+      loading,
     },
     dispatch,
   ] = useThunkReducer(reducer, {
@@ -39,18 +42,14 @@ function App() {
     editingChat: "",
     searchMode: false,
     modalShow: false,
+    loading: true,
   });
 
   useEffect(() => {
-    toast.dark(
-      `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `,
-      {
-        position: "top-right",
-        closeOnClick: true,
-        autoClose: 8800,
-      }
-    );
-  }, [toast]);
+    setTimeout(() => {
+      dispatch(onLoadComplete());
+    }, 3000);
+  }, [toast, dispatch, onLoadComplete]);
 
   return (
     <>
@@ -67,6 +66,15 @@ function App() {
                   persons={persons}
                 />
               </div>
+              {loading && (
+                <Loader
+                  style={{
+                    margin: "33%",
+                    width: "250px",
+                    height: "250px",
+                  }}
+                />
+              )}
               {selectedPersonId ? (
                 <ChatContainer
                   selectedPersonId={selectedPersonId}

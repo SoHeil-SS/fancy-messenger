@@ -13,6 +13,7 @@ import {
   onPersonMenuClick,
   onCloseModalClick,
   onForwardChat,
+  onLoadComplete,
   personClicked,
   saveClicked,
 } from "../StateManager/actionCreator";
@@ -32,6 +33,7 @@ export const actionImports = {
   onPersonMenuClick,
   onCloseModalClick,
   onForwardChat,
+  onLoadComplete,
   personClicked,
   saveClicked,
 };
