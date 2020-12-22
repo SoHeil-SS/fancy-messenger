@@ -16,7 +16,10 @@ export function handlePersonClick(state, personId) {
     loading,
   } = objectConstructor(state, null, personId);
 
-  if (loading) return state;
+  if (loading) {
+    toaster("dark", "", "لطفا تا کامل شدن بارگذاری صبر کنید ");
+    return state;
+  }
 
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";

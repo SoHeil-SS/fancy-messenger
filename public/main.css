@@ -865,6 +865,10 @@ svg:not(:root).svg-inline--fa {
   color: red;
 }
 .forward-input {
-  width: 70%;
-  margin-left: 30px;
+  width: 82%;
+  height: 45px;
+  margin-left: 15px;
+  color: rgb(214, 221, 201);
+  background-color: rgb(32, 32, 32);
+  border: 1px solid rgba(255, 0, 0, 0.349);
 }
