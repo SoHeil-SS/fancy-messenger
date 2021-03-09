@@ -326,11 +326,24 @@ export function toaster(type, detail, text) {
   });
 }
 
-export function handleSearchClick(state, mode) {
-  const { details, chatInputText } = objectConstructor(state);
+export function handleSearchClick(state, searchMode) {
+  const {
+    details,
+    chats,
+    mode,
+    chatInputText,
+    persons,
+    personIndex,
+  } = objectConstructor(state);
+  console.log(mode);
+  if (mode !== "edit") details.draft = chatInputText;
+
+  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+
   return {
     ...state,
-    mode,
+    mode: searchMode,
+    persons,
     searchInputText: "",
     chatInputText: details.draft ? details.draft : chatInputText,
   };
