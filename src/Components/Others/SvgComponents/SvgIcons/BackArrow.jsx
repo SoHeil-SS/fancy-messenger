@@ -1,6 +1,6 @@
 import { useImport } from "../../../../Imports/imports";
 
-function BackArrow({ onBackSearchClick }) {
+function BackArrow({ onClick }) {
   const { svgPath, Svg, Path } = useImport();
 
   return (
@@ -8,7 +8,7 @@ function BackArrow({ onBackSearchClick }) {
       className="svg-inline--fa fa-arrow-left fa-w-14 fa-lg appStatus_pointer__1vehB"
       dataIcon="arrow-left"
       viewBox="0 0 448 512"
-      onClick={onBackSearchClick}
+      onClick={onClick}
     >
       <Path path={svgPath.backArrow} />
     </Svg>

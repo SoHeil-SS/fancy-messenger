@@ -4,8 +4,7 @@ function App() {
   const {
     useThunkReducer,
     useEffect,
-    toast,
-    DispatchContext,
+    Context,
     Portal,
     PersonContainer,
     ChatContainer,
@@ -34,14 +33,14 @@ function App() {
     },
     dispatch,
   ] = useThunkReducer(reducer, {
-    selectedPersonId: null,
+    selectedPersonId: "",
     persons: tempPersons,
     chatInputText: "",
     searchInputText: "",
     chatContent: "",
-    modalMode: false,
-    chatMode: null,
-    searchMode: null,
+    modalMode: "",
+    chatMode: "",
+    searchMode: "",
     loading: true,
   });
 
@@ -49,22 +48,24 @@ function App() {
     setTimeout(() => {
       dispatch(onLoadComplete());
     }, 3000);
-  }, [toast, dispatch, onLoadComplete]);
+  }, [dispatch, onLoadComplete]);
 
   return (
     <>
-      <DispatchContext.Provider value={dispatch}>
+      <Context.Provider
+        value={{
+          dispatch,
+          selectedPersonId,
+          persons,
+          searchInputText,
+        }}
+      >
         <div className="app_app__3mk8F">
           <div className="app_head__1Nu6Y"></div>
           <div className="app_main__1NOZK  ">
             <div className="chat_layout__2YPVn messenger-box">
               <div className="chat_side__2kvyI">
-                <PersonContainer
-                  selectedPersonId={selectedPersonId}
-                  searchInputText={searchInputText}
-                  searchMode={searchMode}
-                  persons={persons}
-                />
+                <PersonContainer searchMode={searchMode} />
               </div>
               {loading && (
                 <Loader
@@ -78,9 +79,6 @@ function App() {
               {selectedPersonId ? (
                 <ChatContainer
                   chatMode={chatMode}
-                  selectedPersonId={selectedPersonId}
-                  persons={persons}
-                  searchInputText={searchInputText}
                   chatInputText={chatInputText}
                   chatContent={chatContent}
                 />
@@ -92,15 +90,10 @@ function App() {
           <Portal>
             <ToastContainer />
             <ContextMenu menuId={menuId} />
-            <Contacts
-              modalMode={modalMode}
-              persons={persons}
-              searchinputtext={searchInputText}
-              onHide={onCloseModalClick}
-            />
+            <Contacts modalMode={modalMode} onHide={onCloseModalClick} />
           </Portal>
         </div>
-      </DispatchContext.Provider>
+      </Context.Provider>
     </>
   );
 }

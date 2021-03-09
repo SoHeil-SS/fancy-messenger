@@ -1,14 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function ChatContainer({
-  chatMode,
-  selectedPersonId,
-  persons,
-  searchInputText,
-  searchMode,
-  chatInputText,
-  chatContent,
-}) {
+function ChatContainer({ chatMode, chatInputText, chatContent }) {
   const {
     ChatTitleBar,
     ChatList,
@@ -19,22 +11,24 @@ function ChatContainer({
     dispatch,
     closeClicked,
     onChatMenuClick,
-    onSearchClick,
+    searchInputState,
     onInputChange,
     onKeyPress,
-    handleFilterChats,
+    handleSearchChats,
     handleSelectedPerson,
     editCloseClicked,
     addClicked,
     saveClicked,
+    selectedPersonId,
+    searchInputText,
+    persons,
   } = useImport();
 
   const { details, chats } = handleSelectedPerson(selectedPersonId, persons);
 
-  const filteredChats = handleFilterChats(
+  const filteredChats = handleSearchChats(
     chats,
     searchInputText,
-    searchMode,
     selectedPersonId
   );
 
@@ -48,7 +42,7 @@ function ChatContainer({
         personName={personName}
         onCloseChat={() => dispatch(closeClicked())}
         onChatMenuClick={() => dispatch(onChatMenuClick())}
-        onSearchClick={() => dispatch(onSearchClick("chats"))}
+        onSearchIconClick={() => dispatch(searchInputState("chats"))}
       />
 
       <div className="chatDetail_chat-box__3peJu">

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Item, Menu, Separator, theme, useContextMenu } from "react-contexify";
 import { Button, Col, Container, Modal, Row } from "react-bootstrap";
 
-import DispatchContext, { useDispatch } from "../StateManager/dispatch";
+import Context, { useMyContext } from "../StateManager/dispatch";
 
 import { reducer } from "../StateManager/reducer";
 
@@ -31,8 +31,8 @@ export const otherImports = {
   Row,
   useThunkReducer,
   useContextMenu,
-  DispatchContext,
-  useDispatch,
+  Context,
+  useMyContext,
   reducer,
   menuId,
   svgPath,

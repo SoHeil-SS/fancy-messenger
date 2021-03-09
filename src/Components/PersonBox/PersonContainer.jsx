@@ -1,50 +1,37 @@
 import { useImport } from "../../Imports/imports";
 
-function PersonContainer({
-  selectedPersonId,
-  persons,
-  searchMode,
-  searchInputText,
-}) {
+function PersonContainer({ searchMode }) {
   const {
     dispatch,
     SearchBar,
     PersonList,
-    onSearchClick,
+    searchInputState,
     onInputChange,
     onPersonMenuClick,
-    handleFilterPersons,
+    handleShowablePersons,
+    useMemo,
+    searchInputText,
+    persons,
   } = useImport();
 
-  const filteredPersons = handleFilterPersons(
-    searchMode,
-    persons.filter((person) => person.details.showOnList === true),
-    searchInputText
+  const showablePersons = useMemo(
+    () => handleShowablePersons(searchMode, persons, searchInputText),
+    [searchMode, persons, searchInputText, handleShowablePersons]
   );
-
-  const searchInputPlaceHolder =
-    searchMode === "chats"
-      ? "Type to search chats..."
-      : "Type to search persons ...";
-  const isSearchOn = searchMode === "chats" || searchMode === "persons";
 
   return (
     <>
       <SearchBar
-        isSearchOn={isSearchOn}
-        searchInputPlaceHolder={searchInputPlaceHolder}
+        searchMode={searchMode}
         searchInputText={searchInputText}
         onInputChange={(e) =>
           dispatch(onInputChange(e.target.value, "searchInputText"))
         }
-        onSearchClick={() => dispatch(onSearchClick("persons"))}
-        onBackSearchClick={() => dispatch(onSearchClick(null))}
+        onSearchIconClick={() => dispatch(searchInputState("persons"))}
+        onBackArrowIconClick={() => dispatch(searchInputState(""))}
         onPersonMenuClick={() => dispatch(onPersonMenuClick())}
       />
-      <PersonList
-        selectedPersonId={selectedPersonId}
-        persons={filteredPersons}
-      />
+      <PersonList showablePersons={showablePersons} />
     </>
   );
 }

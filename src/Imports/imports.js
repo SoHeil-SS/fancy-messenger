@@ -6,19 +6,27 @@ import { otherImports } from "./otherImports";
 
 export function useImport() {
   const {
-    useDispatch,
+    useMyContext,
     menuId,
     useContextMenu,
     createContext,
     useContext,
   } = otherImports;
-  const dispatch = useDispatch();
+  const {
+    dispatch,
+    selectedPersonId,
+    searchInputText,
+    persons,
+  } = useMyContext();
   const { show } = useContextMenu({
     id: menuId,
   });
 
   const imports = createContext({
     dispatch,
+    selectedPersonId,
+    searchInputText,
+    persons,
     show,
     ...otherImports,
     ...handlerImports,

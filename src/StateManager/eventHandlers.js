@@ -336,30 +336,22 @@ export function handleChatMenuClick(state) {
   return state;
 }
 
-export function handleFilterChats(
-  chats,
-  searchInputText,
-  searchMode,
-  selectedPersonId
-) {
-  return searchMode === "chats" && selectedPersonId
-    ? chats.filter((chat) =>
-        (chat.self || chat.person)
-          .toLowerCase()
-          .includes(searchInputText.toLowerCase())
-      )
-    : chats;
+export function handleSearchChats(chats, searchInputText) {
+  return chats.filter((chat) =>
+    (chat.self || chat.person)
+      .toLowerCase()
+      .includes(searchInputText.toLowerCase())
+  );
 }
 
-export function handleFilterPersons(searchMode, persons, searchInputText) {
-  return searchMode === "persons"
+export const handleShowablePersons = (searchMode, persons, searchInputText) =>
+  searchMode === "persons" && searchInputText !== ""
     ? persons.filter((person) =>
         person.details.personName
           .toLowerCase()
           .includes(searchInputText.toLowerCase())
       )
-    : persons;
-}
+    : persons.filter((person) => person.details.showOnList === true);
 
 export function handleFinallyChats(chats, chatIndex, newChatContent) {
   for (let i = 0; i < chatIndex.length; i++) {

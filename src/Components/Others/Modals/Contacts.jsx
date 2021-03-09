@@ -1,6 +1,6 @@
 import { useImport } from "../../../Imports/imports";
 
-function ForwardModal({ modalMode, persons, searchinputtext, onHide }) {
+function Contacts({ modalMode, onHide }) {
   const {
     dispatch,
     Button,
@@ -12,12 +12,14 @@ function ForwardModal({ modalMode, persons, searchinputtext, onHide }) {
     handleFilterForwardPersons,
     onInputChange,
     onForwardChat,
+    persons,
+    searchInputText,
   } = useImport();
 
   const filteredPersonsToForward = handleFilterForwardPersons(
     modalMode,
     persons,
-    searchinputtext
+    searchInputText
   );
 
   const list = filteredPersonsToForward.map((person) => {
@@ -49,7 +51,7 @@ function ForwardModal({ modalMode, persons, searchinputtext, onHide }) {
               <input
                 type="text"
                 placeholder="Type to search persons..."
-                value={searchinputtext}
+                value={searchInputText}
                 onChange={(e) =>
                   dispatch(onInputChange(e.target.value, "searchInputText"))
                 }
@@ -75,4 +77,4 @@ function ForwardModal({ modalMode, persons, searchinputtext, onHide }) {
   );
 }
 
-export default ForwardModal;
+export default Contacts;

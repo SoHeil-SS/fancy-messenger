@@ -1,8 +1,9 @@
 import { createContext, useContext } from "react";
 
-const DispatchContext = createContext(() => null);
-export default DispatchContext;
+const Context = createContext(() => null);
 
-export function useDispatch() {
-  return useContext(DispatchContext);
+export default Context;
+
+export function useMyContext() {
+  return useContext(Context);
 }

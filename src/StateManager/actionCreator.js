@@ -35,7 +35,8 @@ export const closeClicked = () => actionCreator("CLOSE_CLICKED", true);
 
 export const onChatMenuClick = () => actionCreator("CHAT_MENU_CLICKED");
 
-export const onSearchClick = (value) => actionCreator("SEARCH_CLICKED", value);
+export const searchInputState = (value) =>
+  actionCreator("SEARCH_CLICKED", value);
 
 export const onPersonMenuClick = () => actionCreator("PERSON_MENU_CLICKED");
 

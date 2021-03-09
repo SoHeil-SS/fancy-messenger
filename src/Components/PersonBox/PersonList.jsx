@@ -1,14 +1,15 @@
 import { useImport } from "../../Imports/imports";
 
-function PersonList({ persons, selectedPersonId }) {
+function PersonList({ showablePersons }) {
   const {
     dispatch,
     PersonListItem,
     onClickPerson,
     handleGetTime,
+    selectedPersonId,
   } = useImport();
 
-  const list = persons.map((personItem) => {
+  const list = showablePersons.map((personItem) => {
     const { chatTime, self, person } =
       personItem.chats.length > 0
         ? personItem.chats[personItem.chats.length - 1]
