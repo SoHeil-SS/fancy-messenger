@@ -15,19 +15,19 @@ function ContextMenu({ menuId }) {
   function handleContextClick({ event, props, data, triggerEvent }) {
     const { id, text } = props;
     switch (event.currentTarget.id) {
-      case "Copy":
+      case "copy":
         dispatch(copyClicked(text));
         break;
 
-      case "Edit":
+      case "edit":
         dispatch(editClicked(id));
         break;
 
-      case "Delete":
+      case "delete":
         dispatch(deleteClicked(id));
         break;
 
-      case "Forward":
+      case "forward":
         dispatch(forwardClicked(text));
         break;
 
@@ -40,17 +40,17 @@ function ContextMenu({ menuId }) {
     <div>
       <main>
         <Menu id={menuId} theme={theme.dark}>
-          <Item id="Copy" onClick={handleContextClick}>
-            Copy
-          </Item>
-          <Item id="Edit" onClick={handleContextClick}>
+          <Item id="edit" onClick={handleContextClick}>
             Edit
           </Item>
-          <Item id="Delete" onClick={handleContextClick}>
-            Delete
+          <Item id="copy" onClick={handleContextClick}>
+            Copy Text
           </Item>
-          <Item id="Forward" onClick={handleContextClick}>
-            Forward
+          <Item id="forward" onClick={handleContextClick}>
+            Forward Message
+          </Item>
+          <Item id="delete" onClick={handleContextClick}>
+            Delete Message
           </Item>
         </Menu>
       </main>

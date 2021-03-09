@@ -1,6 +1,6 @@
 import { useImport } from "../../../Imports/imports";
 
-function ForwardModal({ show, searchMode, persons, searchinputtext, onHide }) {
+function ForwardModal({ mode, persons, searchinputtext, onHide }) {
   const {
     dispatch,
     Button,
@@ -15,14 +15,10 @@ function ForwardModal({ show, searchMode, persons, searchinputtext, onHide }) {
   } = useImport();
 
   const filteredPersonsToForward = handleFilterForwardPersons(
-    searchMode,
+    mode,
     persons,
     searchinputtext
   );
-
-  function onClickPerson(dispatch, personId) {
-    dispatch(onForwardChat(personId));
-  }
 
   const list = filteredPersonsToForward.map((person) => {
     const { personId, avatar, personName } = person.details;
@@ -34,13 +30,13 @@ function ForwardModal({ show, searchMode, persons, searchinputtext, onHide }) {
         personItemClassName={"listItem_list-item__1mnZB listItem_bg "}
         avatar={avatar}
         personName={personName}
-        onPersonClick={() => onClickPerson(dispatch, personId)}
+        onPersonClick={() => dispatch(onForwardChat(personId))}
       />
     );
   });
   return (
     <Modal
-      show={show}
+      show={mode === "forward" ? true : false}
       onHide={onHide}
       aria-labelledby="contained-modal-title-vcenter"
     >

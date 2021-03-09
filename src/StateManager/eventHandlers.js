@@ -1,12 +1,11 @@
 import { toast } from "react-toastify";
 //TODO forward panel
-let editingChatId = null;
-let forwardContent = null;
+let chatContentId,
+  forwardContent = null;
 
 export function handlePersonClick(state, personId) {
   const {
     selectedPersonId,
-    isEditing,
     personIndex,
     prevPersonIndex,
     persons,
@@ -14,6 +13,7 @@ export function handlePersonClick(state, personId) {
     chats,
     chatInputText,
     loading,
+    chatContent,
   } = objectConstructor(state, null, personId);
 
   if (loading) {
@@ -29,7 +29,7 @@ export function handlePersonClick(state, personId) {
   if (selectedPersonId) {
     const prevPerson = { ...persons[prevPersonIndex] };
     const prevDetails = { ...prevPerson.details };
-    handleDraftChange(prevDetails, chatInputText, isEditing);
+    handleDraftChange(prevDetails, chatInputText, chatContent);
     handleFinallyPersons(
       persons,
       [personIndex, prevPersonIndex],
@@ -44,14 +44,14 @@ export function handlePersonClick(state, personId) {
     ...state,
     selectedPersonId: personId,
     chatInputText: details.draft,
-    isEditing: false,
+    chatContent: null,
     persons,
   };
 }
 
 export function handleAddChat(state) {
   const {
-    isEditing,
+    chatContent,
     personIndex,
     persons,
     details,
@@ -67,7 +67,7 @@ export function handleAddChat(state) {
       : [chatInputText]
   );
   details.lastChatTime = newDate;
-  handleDraftChange(details, "", isEditing);
+  handleDraftChange(details, "", chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   handleSortPersons(persons, "lastChatTime");
 
@@ -99,7 +99,7 @@ export function handleDeleteChat(state, chatId) {
   return {
     ...state,
     chatInputText: details.draft,
-    isEditing: false,
+    chatContent: null,
     persons,
   };
 }
@@ -112,22 +112,21 @@ export function handleEditChat(state, chatId) {
     details,
     chats,
     chatIndex,
-    isEditing,
+    chatContent,
   } = objectConstructor(state, chatId);
   const content = chats[chatIndex].self;
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
 
-  handleDraftChange(details, chatInputText, isEditing);
+  handleDraftChange(details, chatInputText, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
-  editingChatId = chatId;
+  chatContentId = chatId;
   return {
     ...state,
     persons,
-    isEditing: true,
     chatInputText: content,
-    editingChat: content,
+    chatContent: content,
   };
 }
 
@@ -137,25 +136,25 @@ export function handleSaveChat(state) {
     details,
     chats,
     chatInputText,
-    editingChatIndex,
+    chatContentIndex,
     personIndex,
   } = objectConstructor(state);
 
-  handleFinallyChats(chats, [editingChatIndex], [chatInputText]);
+  handleFinallyChats(chats, [chatContentIndex], [chatInputText]);
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
-  editingChatId = null;
+  chatContentId = null;
 
   return {
     ...state,
     chatInputText: details.draft,
-    isEditing: false,
+    chatContent: null,
     persons,
   };
 }
 
 export function handleForwardClick(state, forwardText) {
   const {
-    isEditing,
+    chatContent,
     personIndex,
     persons,
     chatInputText,
@@ -163,7 +162,7 @@ export function handleForwardClick(state, forwardText) {
     chats,
   } = objectConstructor(state);
 
-  handleDraftChange(details, chatInputText, isEditing);
+  handleDraftChange(details, chatInputText, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   forwardContent = forwardText;
 
@@ -171,9 +170,8 @@ export function handleForwardClick(state, forwardText) {
     ...state,
     persons,
     chatInputText: details.draft,
-    searchMode: "forward",
-    modalShow: true,
-    isEditing: false,
+    mode: "forward",
+    chatContent: null,
   };
 }
 
@@ -196,9 +194,8 @@ export function handleForwardChat(state, personId) {
     selectedPersonId: personId,
     persons,
     searchInputText: "",
-    searchMode: null,
-    chatInputText: forwardContent,
-    modalShow: false,
+    mode: null,
+    chatContent: forwardContent,
   };
 }
 
@@ -210,11 +207,11 @@ export function handleSortPersons(persons) {
 }
 
 export function handleKeyPress(state, e) {
-  const { chatInputText, isEditing } = state;
+  const { chatInputText, chatContent } = state;
 
   if (chatInputText) {
-    if (e.key === "Enter" && !isEditing) return handleAddChat(state);
-    if (e.key === "Enter" && isEditing) return handleSaveChat(state);
+    if (e.key === "Enter" && !chatContent) return handleAddChat(state);
+    if (e.key === "Enter" && chatContent) return handleSaveChat(state);
   }
 
   return state;
@@ -234,14 +231,14 @@ export function handleCloseChat(state) {
     details,
     chats,
     chatInputText,
-    isEditing,
-    searchMode,
+    chatContent,
+    mode,
     searchInputText,
   } = objectConstructor(state);
 
-  const isModeChats = searchMode === "chats";
+  const isModeChats = mode === "chats";
 
-  handleDraftChange(details, chatInputText, isEditing);
+  handleDraftChange(details, chatInputText, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
@@ -250,8 +247,8 @@ export function handleCloseChat(state) {
     persons,
     chatInputText: "",
     searchInputText: isModeChats ? "" : searchInputText,
-    searchMode: isModeChats ? null : searchMode,
-    isEditing: false,
+    mode: isModeChats ? null : mode,
+    chatContent: null,
   };
 }
 
@@ -260,7 +257,7 @@ export function handleCancelEdit(state) {
 
   return {
     ...state,
-    isEditing: false,
+    chatContent: false,
     chatInputText: details.draft,
   };
 }
@@ -304,8 +301,8 @@ export function idMaker() {
   return Math.random();
 }
 
-export function handleDraftChange(details, draft, isEditing) {
-  if (!isEditing) details.draft = draft;
+export function handleDraftChange(details, draft, chatContent) {
+  if (!chatContent) details.draft = draft;
 }
 
 export function toaster(type, detail, text) {
@@ -320,10 +317,10 @@ export function toaster(type, detail, text) {
   });
 }
 
-export function handleSearchClick(state, searchMode) {
+export function handleSearchClick(state, mode) {
   return {
     ...state,
-    searchMode,
+    mode,
     searchInputText: "",
   };
 }
@@ -339,10 +336,10 @@ export function handleChatMenuClick(state) {
 export function handleFilterChats(
   chats,
   searchInputText,
-  searchMode,
+  mode,
   selectedPersonId
 ) {
-  return searchMode === "chats" && selectedPersonId
+  return mode === "chats" && selectedPersonId
     ? chats.filter((chat) =>
         chat.self
           ? chat.self.toLowerCase().includes(searchInputText.toLowerCase())
@@ -351,8 +348,8 @@ export function handleFilterChats(
     : chats;
 }
 
-export function handleFilterPersons(searchMode, persons, searchInputText) {
-  return searchMode === "persons"
+export function handleFilterPersons(mode, persons, searchInputText) {
+  return mode === "persons"
     ? persons.filter((person) =>
         person.details.personName
           .toLowerCase()
@@ -371,12 +368,8 @@ export function handleFinallyChats(chats, chatIndex, newChatContent) {
   }
 }
 
-export function handleFilterForwardPersons(
-  searchMode,
-  persons,
-  searchInputText
-) {
-  return searchMode === "forward"
+export function handleFilterForwardPersons(mode, persons, searchInputText) {
+  return mode === "forward"
     ? persons.filter((person) =>
         person.details.personName
           .toLowerCase()
@@ -393,8 +386,7 @@ export function handleCloseModalClick(state) {
   return {
     ...state,
     searchInputText: "",
-    searchMode: null,
-    modalShow: false,
+    mode: null,
   };
 }
 
@@ -438,9 +430,8 @@ export function objectConstructor(
     selectedPersonId,
     chatInputText,
     persons,
-    editingChat,
-    isEditing,
-    searchMode,
+    chatContent,
+    mode,
     searchInputText,
     loading,
   },
@@ -464,15 +455,14 @@ export function objectConstructor(
       (person) => person.details.personId === selectedPersonId
     ),
     chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
-    editingChatIndex: chats.findIndex((chat) => chat.chatId === editingChatId),
+    chatContentIndex: chats.findIndex((chat) => chat.chatId === chatContentId),
 
     // STATES =>
     selectedPersonId,
     persons: [...persons],
-    isEditing,
-    editingChat,
+    chatContent,
     chatInputText,
-    searchMode,
+    mode,
     searchInputText,
     loading,
   };

@@ -6,8 +6,7 @@ function ChatContainer({
   searchInputText,
   searchMode,
   chatInputText,
-  isEditing,
-  editingChat,
+  chatContent,
 }) {
   const {
     ChatTitleBar,
@@ -53,11 +52,12 @@ function ChatContainer({
 
       <div className="chatDetail_chat-box__3peJu">
         <ChatList chats={filteredChats} />
+
         <Editing
-          isEditing={isEditing}
-          editingChat={editingChat}
+          chatContent={chatContent}
           editCloseClicked={() => dispatch(editCloseClicked())}
         />
+
         <ChatInput
           chatInputText={chatInputText}
           draft={draft}
@@ -68,7 +68,7 @@ function ChatContainer({
           }
           onSpanClick={
             condition
-              ? () => dispatch(isEditing ? saveClicked() : addClicked())
+              ? () => dispatch(chatContent ? saveClicked() : addClicked())
               : () => console.log("Pin Clicked")
           }
         />
