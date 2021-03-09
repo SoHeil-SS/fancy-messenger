@@ -45,6 +45,7 @@ export function handlePersonClick(state, personId) {
     selectedPersonId: personId,
     chatInputText: details.draft,
     chatContent: null,
+    mode: null,
     persons,
   };
 }
@@ -62,10 +63,11 @@ export function handleAddChat(state) {
 
   handleChatMaker(
     chats,
-    forwardContent && details.draft
-      ? [chatInputText, details.draft]
+    forwardContent && (details.draft || chatInputText)
+      ? [chatContent, details.draft || chatInputText]
       : [chatInputText]
   );
+  details.draft = "";
   details.lastChatTime = newDate;
   handleDraftChange(details, "", chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
@@ -74,6 +76,8 @@ export function handleAddChat(state) {
   return {
     ...state,
     chatInputText: "",
+    chatContent: "",
+    mode: null,
     persons,
   };
 }
@@ -100,6 +104,7 @@ export function handleDeleteChat(state, chatId) {
     ...state,
     chatInputText: details.draft,
     chatContent: null,
+    mode: null,
     persons,
   };
 }
@@ -127,6 +132,7 @@ export function handleEditChat(state, chatId) {
     persons,
     chatInputText: content,
     chatContent: content,
+    mode: "edit",
   };
 }
 
@@ -148,6 +154,7 @@ export function handleSaveChat(state) {
     ...state,
     chatInputText: details.draft,
     chatContent: null,
+    mode: null,
     persons,
   };
 }
@@ -193,8 +200,9 @@ export function handleForwardChat(state, personId) {
     ...state,
     selectedPersonId: personId,
     persons,
+    chatInputText: details.draft,
     searchInputText: "",
-    mode: null,
+    mode: "forwardContentToPanel",
     chatContent: forwardContent,
   };
 }
@@ -257,7 +265,8 @@ export function handleCancelEdit(state) {
 
   return {
     ...state,
-    chatContent: false,
+    chatContent: null,
+    mode: null,
     chatInputText: details.draft,
   };
 }
@@ -318,10 +327,12 @@ export function toaster(type, detail, text) {
 }
 
 export function handleSearchClick(state, mode) {
+  const { details, chatInputText } = objectConstructor(state);
   return {
     ...state,
     mode,
     searchInputText: "",
+    chatInputText: details.draft ? details.draft : chatInputText,
   };
 }
 

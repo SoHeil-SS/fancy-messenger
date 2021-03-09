@@ -8,7 +8,7 @@ import ChatTitleBar from "../Components/ChatBox/ChatTitleBar";
 import ChatList from "../Components/ChatBox/ChatList";
 import ChatItem from "../Components/ChatBox/ChatItem";
 import ChatInput from "../Components/ChatBox/ChatInput";
-import Editing from "../Components/ChatBox/Editing";
+import ChatDetailPanel from "../Components/ChatBox/ChatDetailPanel";
 
 import ContextMenu from "../Components/Others/ContextMenu";
 import Portal from "../Components/Others/Portal";
@@ -50,5 +50,5 @@ export const componentImports = {
   ChatList,
   ChatItem,
   ChatInput,
-  Editing,
+  ChatDetailPanel,
 };

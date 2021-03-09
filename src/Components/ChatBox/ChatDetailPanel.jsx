@@ -1,12 +1,14 @@
 import { Button } from "react-bootstrap";
 
-function Editing({ chatContent, editCloseClicked }) {
+function Editing({ chatContent, editCloseClicked, mode }) {
   return (
     <>
-      {chatContent && (
+      {(mode === "edit" || mode === "forwardContentToPanel") && (
         <div className="editContainer">
           <div>
-            <span className="editContainerSpan">edit message :</span>
+            <span className="editContainerSpan">
+              {mode === "forwardContentToPanel" ? "Forward" : "Edit"} message
+            </span>
             <Button
               className="editContainerButton btn btn-dark"
               onClick={editCloseClicked}

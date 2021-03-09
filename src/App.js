@@ -37,7 +37,7 @@ function App() {
     chatInputText: "",
     searchInputText: "",
     chatContent: "",
-    mode: false,
+    mode: null,
     loading: true,
   });
 
@@ -73,6 +73,7 @@ function App() {
               )}
               {selectedPersonId ? (
                 <ChatContainer
+                  mode={mode}
                   selectedPersonId={selectedPersonId}
                   persons={persons}
                   searchInputText={searchInputText}
