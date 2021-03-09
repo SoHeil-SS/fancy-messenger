@@ -1,7 +1,7 @@
 import { useImport } from "../../Imports/imports";
 
 function ChatContainer({
-  mode,
+  chatMode,
   selectedPersonId,
   persons,
   searchInputText,
@@ -38,8 +38,8 @@ function ChatContainer({
     selectedPersonId
   );
 
+  const condition = !!chatInputText || !!chatContent;
   const { avatar, personName, draft } = details;
-  const condition = !!chatInputText;
 
   return (
     <div>
@@ -55,7 +55,7 @@ function ChatContainer({
         <ChatList chats={filteredChats} />
 
         <ChatDetailPanel
-          mode={mode}
+          chatMode={chatMode}
           chatContent={chatContent}
           editCloseClicked={() => dispatch(editCloseClicked())}
         />
@@ -70,7 +70,8 @@ function ChatContainer({
           }
           onSpanClick={
             condition
-              ? () => dispatch(mode === "edit" ? saveClicked() : addClicked())
+              ? () =>
+                  dispatch(chatMode === "edit" ? saveClicked() : addClicked())
               : () => console.log("Pin Clicked")
           }
         />

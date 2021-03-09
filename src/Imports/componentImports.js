@@ -16,7 +16,7 @@ import Portal from "../Components/Others/Portal";
 import Svg from "../Components/Others/SvgComponents/Svg";
 import Path from "../Components/Others/SvgComponents/Path";
 
-import ForwardModal from "../Components/Others/Modals/ForwardModal";
+import Contacts from "../Components/Others/Modals/Contacts";
 import Loader from "../Components/Others/Loader";
 
 import PinIcon from "../Components/Others/SvgComponents/SvgIcons/PinIcon";
@@ -38,7 +38,7 @@ export const componentImports = {
   Portal,
   Svg,
   Path,
-  ForwardModal,
+  Contacts,
   Loader,
   PinIcon,
   PersonContainer,

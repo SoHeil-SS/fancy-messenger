@@ -9,7 +9,7 @@ function App() {
     Portal,
     PersonContainer,
     ChatContainer,
-    ForwardModal,
+    Contacts,
     Loader,
     ToastContainer,
     ContextMenu,
@@ -27,7 +27,9 @@ function App() {
       chatInputText,
       searchInputText,
       chatContent,
-      mode,
+      modalMode,
+      chatMode,
+      searchMode,
       loading,
     },
     dispatch,
@@ -37,7 +39,9 @@ function App() {
     chatInputText: "",
     searchInputText: "",
     chatContent: "",
-    mode: null,
+    modalMode: false,
+    chatMode: null,
+    searchMode: null,
     loading: true,
   });
 
@@ -58,7 +62,7 @@ function App() {
                 <PersonContainer
                   selectedPersonId={selectedPersonId}
                   searchInputText={searchInputText}
-                  searchMode={mode}
+                  searchMode={searchMode}
                   persons={persons}
                 />
               </div>
@@ -73,12 +77,11 @@ function App() {
               )}
               {selectedPersonId ? (
                 <ChatContainer
-                  mode={mode}
+                  chatMode={chatMode}
                   selectedPersonId={selectedPersonId}
                   persons={persons}
                   searchInputText={searchInputText}
                   chatInputText={chatInputText}
-                  searchMode={mode}
                   chatContent={chatContent}
                 />
               ) : (
@@ -89,8 +92,8 @@ function App() {
           <Portal>
             <ToastContainer />
             <ContextMenu menuId={menuId} />
-            <ForwardModal
-              mode={mode}
+            <Contacts
+              modalMode={modalMode}
               persons={persons}
               searchinputtext={searchInputText}
               onHide={onCloseModalClick}

@@ -1,6 +1,6 @@
 import { useImport } from "../../../Imports/imports";
 
-function ForwardModal({ mode, persons, searchinputtext, onHide }) {
+function ForwardModal({ modalMode, persons, searchinputtext, onHide }) {
   const {
     dispatch,
     Button,
@@ -15,7 +15,7 @@ function ForwardModal({ mode, persons, searchinputtext, onHide }) {
   } = useImport();
 
   const filteredPersonsToForward = handleFilterForwardPersons(
-    mode,
+    modalMode,
     persons,
     searchinputtext
   );
@@ -36,7 +36,7 @@ function ForwardModal({ mode, persons, searchinputtext, onHide }) {
   });
   return (
     <Modal
-      show={mode === "forward" ? true : false}
+      show={modalMode === "forward" ? true : false}
       onHide={onHide}
       aria-labelledby="contained-modal-title-vcenter"
     >
