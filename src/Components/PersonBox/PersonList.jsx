@@ -7,13 +7,11 @@ function PersonList({ showablePersons }) {
     onClickPerson,
     handleGetTime,
     selectedPersonId,
+    handlePersonItems,
   } = useImport();
 
   const list = showablePersons.map((personItem) => {
-    const { chatTime, self, person } =
-      personItem.chats.length > 0
-        ? personItem.chats[personItem.chats.length - 1]
-        : {};
+    const { chatTime, self, person } = handlePersonItems(personItem);
 
     const {
       personId,
@@ -35,7 +33,7 @@ function PersonList({ showablePersons }) {
         }
         avatar={avatar}
         personName={personName}
-        lastChatText={self ? self : person}
+        lastChatText={self || person}
         draft={draft}
         lastChatTime={
           Date.now() - chatTime > 86400000

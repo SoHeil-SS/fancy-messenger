@@ -3,6 +3,7 @@ import { asyncHandlerImports } from "./asyncHandlerImports";
 import { componentImports } from "./componentImports";
 import { handlerImports } from "./handlerImports";
 import { otherImports } from "./otherImports";
+import { utilsFunctions } from "./utilsFunctionsImports";
 
 export function useImport() {
   const {
@@ -33,6 +34,7 @@ export function useImport() {
     ...componentImports,
     ...asyncHandlerImports,
     ...actionImports,
+    ...utilsFunctions,
   });
   return useContext(imports);
 }
