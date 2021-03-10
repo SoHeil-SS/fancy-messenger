@@ -14,12 +14,12 @@ function Contacts({ modalMode, onHide }) {
     onForwardChat,
     persons,
     searchInputText,
+    useMemo,
   } = useImport();
 
-  const filteredPersonsToForward = handleFilterForwardPersons(
-    modalMode,
-    persons,
-    searchInputText
+  const filteredPersonsToForward = useMemo(
+    () => handleFilterForwardPersons(modalMode, persons, searchInputText),
+    [modalMode, persons, searchInputText, handleFilterForwardPersons]
   );
 
   const list = filteredPersonsToForward.map((person) => {

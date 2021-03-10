@@ -1,4 +1,6 @@
-import {
+import { stateHandlers } from "./stateHandlers";
+
+const {
   handlePersonClick,
   handleAddChat,
   handleCopyChat,
@@ -16,7 +18,7 @@ import {
   handlePersonMenuClick,
   handleCloseModalClick,
   handleLoadComplete,
-} from "./eventHandlers";
+} = stateHandlers;
 
 export function reducer(state, action) {
   const { type, payload } = action;

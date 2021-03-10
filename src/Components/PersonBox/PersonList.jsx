@@ -4,7 +4,7 @@ function PersonList({ showablePersons }) {
   const {
     dispatch,
     PersonListItem,
-    onClickPerson,
+    personClicked,
     handleGetTime,
     selectedPersonId,
     handlePersonItems,
@@ -41,7 +41,7 @@ function PersonList({ showablePersons }) {
             : handleGetTime(chatTime, "getHours", "getMinutes", ":")
         }
         unreadChatCounter={unreadChatCounter}
-        onPersonClick={() => !condition && dispatch(onClickPerson(personId))}
+        onPersonClick={() => !condition && dispatch(personClicked(personId))}
       />
     );
   });

@@ -27,7 +27,7 @@ import ThreeDotIcon from "../Components/Others/SvgComponents/SvgIcons/ThreeDotIc
 import BackArrow from "../Components/Others/SvgComponents/SvgIcons/BackArrow";
 import BarIcon from "../Components/Others/SvgComponents/SvgIcons/BarIcon";
 
-export const componentImports = {
+export const userComponentsImports = {
   SendIcon,
   SearchIcon,
   CloseIcon,

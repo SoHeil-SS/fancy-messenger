@@ -22,14 +22,17 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     selectedPersonId,
     searchInputText,
     persons,
+    useMemo,
   } = useImport();
 
-  const { details, chats } = handleSelectedPerson(selectedPersonId, persons);
+  const { details, chats } = useMemo(
+    () => handleSelectedPerson(selectedPersonId, persons),
+    [selectedPersonId, persons, handleSelectedPerson]
+  );
 
-  const filteredChats = handleSearchChats(
-    chats,
-    searchInputText,
-    selectedPersonId
+  const filteredChats = useMemo(
+    () => handleSearchChats(chats, searchInputText, selectedPersonId),
+    [chats, searchInputText, selectedPersonId, handleSearchChats]
   );
 
   const condition = !!chatInputText || !!chatContent;

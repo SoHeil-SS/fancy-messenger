@@ -1,40 +1,30 @@
-import { actionImports } from "./actionImports";
-import { asyncHandlerImports } from "./asyncHandlerImports";
-import { componentImports } from "./componentImports";
-import { handlerImports } from "./handlerImports";
-import { otherImports } from "./otherImports";
-import { utilsFunctions } from "./utilsFunctionsImports";
+import { stateHandlers } from "../Functions/StateManagers/stateHandlers";
+import { stateActions } from "../Functions/StateManagers/stateActions";
+import { constants } from "../Others/constants";
+import { reactComponentsImports } from "./reactComponentsImports";
+import { userComponentsImports } from "./userComponentsImports";
+import { reactFunctionsImports } from "./reactFunctionsImports";
+import { utilsFunctions } from "../Functions/utilsFunctions";
+import { reducer } from "../Functions/StateManagers/reducer";
 
 export function useImport() {
-  const {
-    useMyContext,
-    menuId,
-    useContextMenu,
-    createContext,
-    useContext,
-  } = otherImports;
-  const {
-    dispatch,
-    selectedPersonId,
-    searchInputText,
-    persons,
-  } = useMyContext();
-  const { show } = useContextMenu({
-    id: menuId,
-  });
+  const { createContext, useContext, useContextMenu } = reactFunctionsImports;
+  const { useMyContext } = utilsFunctions;
+  const { menuId } = constants;
 
   const imports = createContext({
-    dispatch,
-    selectedPersonId,
-    searchInputText,
-    persons,
-    show,
-    ...otherImports,
-    ...handlerImports,
-    ...componentImports,
-    ...asyncHandlerImports,
-    ...actionImports,
+    ...useMyContext(),
+    ...useContextMenu({
+      id: menuId,
+    }),
+    ...stateHandlers,
+    ...stateActions,
+    reducer,
+    ...constants,
     ...utilsFunctions,
+    ...userComponentsImports,
+    ...reactComponentsImports,
+    ...reactFunctionsImports,
   });
   return useContext(imports);
 }
