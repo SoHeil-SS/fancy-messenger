@@ -1,10 +1,15 @@
-import { toast } from "react-toastify";
 import { utilsFunctions } from "../utilsFunctions";
 
-const { idMaker } = utilsFunctions;
-
-let chatContentId,
-  forwardContent = null;
+const {
+  objectConstructor,
+  handleSortPersons,
+  handleGetTime,
+  handleFinallyPersons,
+  handleFinallyChats,
+  handleChatMaker,
+  handleDraftChange,
+  toaster,
+} = utilsFunctions;
 
 function handlePersonClick(state, personId) {
   const {
@@ -75,9 +80,11 @@ function handleAddChat(state) {
     chatContent: "",
     chatMode: null,
     persons,
+    forwardContent: "",
   };
 }
 
+//TODO forward to utilsFunctions
 function handleCopyChat(state, chatText) {
   navigator.clipboard.writeText(chatText);
 
@@ -122,13 +129,13 @@ function handleEditChat(state, chatId) {
   handleDraftChange(details, chatInputText, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
-  chatContentId = chatId;
   return {
     ...state,
     persons,
     chatInputText: content,
     chatContent: content,
     chatMode: "edit",
+    chatContentId: chatId,
   };
 }
 
@@ -144,14 +151,13 @@ function handleSaveChat(state) {
 
   handleFinallyChats(chats, [chatContentIndex], [chatInputText]);
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
-  chatContentId = null;
-
   return {
     ...state,
+    persons,
     chatInputText: details.draft,
     chatContent: null,
     chatMode: null,
-    persons,
+    chatContentId: "",
   };
 }
 
@@ -167,23 +173,24 @@ function handleForwardClick(state, forwardText) {
 
   handleDraftChange(details, chatInputText, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
-  forwardContent = forwardText;
-
   return {
     ...state,
     persons,
     chatInputText: details.draft,
     modalMode: "forward",
     chatContent: null,
+    forwardContent: forwardText,
   };
 }
 
 function handleForwardChat(state, personId) {
-  const { persons, details, chats, personIndex } = objectConstructor(
-    state,
-    null,
-    personId
-  );
+  const {
+    persons,
+    details,
+    chats,
+    personIndex,
+    forwardContent,
+  } = objectConstructor(state, null, personId);
 
   details.unreadChatCounter = "";
   if (!details.showOnList) {
@@ -204,13 +211,7 @@ function handleForwardChat(state, personId) {
   };
 }
 
-function handleSortPersons(persons) {
-  persons.sort(
-    (a, b) =>
-      new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
-  );
-}
-
+//TODO what is this !!!
 function handleKeyPress(state, e) {
   const { chatInputText, chatContent } = state;
 
@@ -268,57 +269,6 @@ function handleCancelEdit(state) {
   };
 }
 
-/**
- * @
- * @param {*} time date by millisecond
- * @param {*} method1 string value like  : "getMonth","getHours",...
- * @param {*} method2 string value like : "getDate","getMinutes",...
- * @param {*} separator time separator like "/" , ":"
- * @return {*}
- */
-function handleGetTime(time, method1, method2, separator) {
-  if (!time) return "";
-  const dateNow = new Date(time);
-  const time1 = dateNow[method1]();
-  const time2 = dateNow[method2]();
-
-  return `${method1 === "getMonth" ? time1 + 1 : time1}${separator}${time2}`;
-}
-
-/**
- *  @param {*} persons
- * @param {*} index array
- * @param {*} person array
- * @return {*} persons in arrays
- */
-function handleFinallyPersons(persons, index, person) {
-  for (let i = 0; i < index.length; i++) {
-    persons.splice(index[i], 1, person[i]);
-  }
-}
-
-function handleDisplayMenu(e, show, chatId, content) {
-  show(e, {
-    props: { id: Number(chatId), text: content },
-  });
-}
-
-function handleDraftChange(details, draft, chatContent) {
-  if (!chatContent) details.draft = draft;
-}
-
-function toaster(type, detail, text) {
-  toast[type](`${detail} ${text}`, {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-}
-
 function handleSearchClick(state, searchMode) {
   return {
     ...state,
@@ -335,65 +285,12 @@ function handleChatMenuClick(state) {
   return state;
 }
 
-function handleSearchChats(chats, searchInputText) {
-  return chats.filter((chat) =>
-    (chat.self || chat.person)
-      .toLowerCase()
-      .includes(searchInputText.toLowerCase())
-  );
-}
-
-const handleShowablePersons = (searchMode, persons, searchInputText) =>
-  searchMode === "persons" && searchInputText !== ""
-    ? persons.filter((person) =>
-        person.details.personName
-          .toLowerCase()
-          .includes(searchInputText.toLowerCase())
-      )
-    : persons.filter((person) => person.details.showOnList === true);
-
-function handleFinallyChats(chats, chatIndex, newChatContent) {
-  for (let i = 0; i < chatIndex.length; i++) {
-    const chat = {
-      ...chats[chatIndex[i]],
-    };
-    chat.self = newChatContent[i];
-    chats.splice(chatIndex[i], 1, chat);
-  }
-}
-
-function handleFilterForwardPersons(modalMode, persons, searchInputText) {
-  return modalMode === "forward"
-    ? persons.filter((person) =>
-        person.details.personName
-          .toLowerCase()
-          .includes(searchInputText.toLowerCase())
-      )
-    : persons;
-}
-
-function handleSelectedPerson(selectedPersonId, persons) {
-  return persons.find((person) => person.details.personId === selectedPersonId);
-}
-
 function handleCloseModalClick(state) {
   return {
     ...state,
     searchInputText: "",
     modalMode: false,
   };
-}
-
-function handleChatMaker(chats, newChats) {
-  forwardContent = null;
-  for (let i = 0; i < newChats.length; i++) {
-    if (!newChats[i]) continue;
-    chats.push({
-      self: newChats[i],
-      chatTime: Date.now(),
-      chatId: idMaker(),
-    });
-  }
 }
 
 function handleLoadComplete(state) {
@@ -408,80 +305,12 @@ function handleLoadComplete(state) {
   };
 }
 
-function stateTest(state, others) {
-  console.log(others);
-  console.log(state);
-}
-
-/**
- * @
- * @param {*} state
- * @param {*} chatId
- * @param {*} personId
- * @return {*}
- */
-function objectConstructor(
-  {
-    selectedPersonId,
-    chatInputText,
-    persons,
-    chatContent,
-    chatMode,
-    modalMOde,
-    searchMode,
-    searchInputText,
-    loading,
-  },
-  chatId,
-  personId
-) {
-  const id = personId ? personId : selectedPersonId;
-  const { details, chats } = persons.find(
-    (person) => person.details.personId === id
-  );
-
-  return {
-    // VARIABLES =>
-    details: { ...details },
-    chats: [...chats],
-    newDate: Date.now(),
-    personIndex: persons.findIndex(
-      (person) => person.details.personId === details.personId
-    ),
-    prevPersonIndex: persons.findIndex(
-      (person) => person.details.personId === selectedPersonId
-    ),
-    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
-    chatContentIndex: chats.findIndex((chat) => chat.chatId === chatContentId),
-
-    // STATES =>
-    selectedPersonId,
-    persons: [...persons],
-    chatContent,
-    chatInputText,
-    chatMode,
-    modalMOde,
-    searchMode,
-    searchInputText,
-    loading,
-  };
-}
-
-// import { personClicked } from "../StateManager/actionCreator";
-
-//  function onClickPerson(personId) {
-//   return (dispatch, getState) => {
-//     dispatch(personClicked(personId));
-//   };
-// }
-
 export const stateHandlers = {
   handleAddChat,
   handleCancelEdit,
   handleCloseChat,
   handleCopyChat,
   handleDeleteChat,
-  handleDisplayMenu,
   handleEditChat,
   handleForwardChat,
   handleForwardClick,
@@ -494,12 +323,15 @@ export const stateHandlers = {
   handleChatMenuClick,
   handleSearchClick,
   handlePersonMenuClick,
-  handleSearchChats,
-  handleShowablePersons,
-  handleFilterForwardPersons,
-  handleSelectedPerson,
   handleCloseModalClick,
   toaster,
   handleLoadComplete,
-  stateTest,
 };
+
+// import { personClicked } from "../StateManager/actionCreator";
+
+//  function onClickPerson(personId) {
+//   return (dispatch, getState) => {
+//     dispatch(personClicked(personId));
+//   };
+// }
