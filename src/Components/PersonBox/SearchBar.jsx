@@ -1,14 +1,13 @@
 import { useImport } from "../../Imports/imports";
 
 function SearchBar({
-  searchInputText,
   searchMode,
   onSearchIconClick,
   onInputChange,
   onBackArrowIconClick,
   onPersonMenuClick,
 }) {
-  const { SearchIcon, BackArrow, BarIcon } = useImport();
+  const { SearchIcon, BackArrow, BarIcon, searchInputText } = useImport();
 
   return (
     <div>

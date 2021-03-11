@@ -833,37 +833,45 @@ svg:not(:root).svg-inline--fa {
   background-color: #2f2f2f;
   height: 3.5rem;
 }
+
 .editContainerSpan {
   margin-right: auto;
   padding-left: 25px;
   color: wheat;
   font-size: 27px;
+  text-transform: capitalize;
 }
+
 .editContainerButton {
   font-size: 30px;
   margin-left: auto;
   float: right;
 }
+
 .editContainerPara {
   float: left;
   padding-left: 40px;
   color: lightsalmon;
   font-size: 25px;
 }
+
 .lastSeenSpan {
   font-size: 17px;
   margin-top: 10px;
   padding: 15px;
 }
+
 .span-input-area {
   border: 0px;
   font-size: 20px;
   padding: 11px;
   cursor: pointer;
 }
+
 .person-list-item-span-draft {
   color: red;
 }
+
 .forward-input {
   width: 82%;
   height: 45px;

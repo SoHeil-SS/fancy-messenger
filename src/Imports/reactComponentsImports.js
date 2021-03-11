@@ -1,4 +1,4 @@
-import { Button, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Col, Container, Modal, Row, Spinner } from "react-bootstrap";
 
 import { Item, Menu, Separator } from "react-contexify";
 import { ToastContainer } from "react-toastify";
@@ -9,6 +9,7 @@ export const reactComponentsImports = {
   Container,
   Modal,
   Row,
+  Spinner,
   Item,
   Menu,
   Separator,

@@ -23,7 +23,6 @@ function PersonContainer({ searchMode }) {
     <>
       <SearchBar
         searchMode={searchMode}
-        searchInputText={searchInputText}
         onInputChange={(e) =>
           dispatch(onInputChange(e.target.value, "searchInputText"))
         }

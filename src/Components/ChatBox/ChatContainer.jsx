@@ -15,7 +15,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     onInputChange,
     onKeyPress,
     handleSearchChats,
-    handleSelectedPerson,
+    handleSelectedPersonItems,
     editCloseClicked,
     addClicked,
     saveClicked,
@@ -26,16 +26,16 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
   } = useImport();
 
   const { details, chats } = useMemo(
-    () => handleSelectedPerson(selectedPersonId, persons),
-    [selectedPersonId, persons, handleSelectedPerson]
+    () => handleSelectedPersonItems(selectedPersonId, persons),
+    [selectedPersonId, persons, handleSelectedPersonItems]
   );
 
-  const filteredChats = useMemo(
-    () => handleSearchChats(chats, searchInputText, selectedPersonId),
-    [chats, searchInputText, selectedPersonId, handleSearchChats]
+  const showableChats = useMemo(
+    () => handleSearchChats(chats, searchInputText),
+    [chats, searchInputText, handleSearchChats]
   );
 
-  const condition = !!chatInputText || !!chatContent;
+  const condition = chatInputText || chatContent;
   const { avatar, personName, draft } = details;
 
   return (
@@ -49,13 +49,15 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
       />
 
       <div className="chatDetail_chat-box__3peJu">
-        <ChatList chats={filteredChats} />
+        <ChatList showableChats={showableChats} />
 
-        <ChatDetailPanel
-          chatMode={chatMode}
-          chatContent={chatContent}
-          editCloseClicked={() => dispatch(editCloseClicked())}
-        />
+        {chatMode && (
+          <ChatDetailPanel
+            chatMode={chatMode}
+            chatContent={chatContent}
+            editCloseClicked={() => dispatch(editCloseClicked())}
+          />
+        )}
 
         <ChatInput
           chatInputText={chatInputText}

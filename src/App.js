@@ -13,10 +13,9 @@ function App() {
     ToastContainer,
     ContextMenu,
     reducer,
-    onCloseModalClick,
     onLoadComplete,
     tempPersons,
-    menuId,
+    loaderStyle,
   } = useImport();
 
   const [
@@ -28,7 +27,6 @@ function App() {
       chatContent,
       modalMode,
       chatMode,
-      forwardContent,
       searchMode,
       loading,
     },
@@ -70,15 +68,7 @@ function App() {
               <div className="chat_side__2kvyI">
                 <PersonContainer searchMode={searchMode} />
               </div>
-              {loading && (
-                <Loader
-                  style={{
-                    margin: "33%",
-                    width: "250px",
-                    height: "250px",
-                  }}
-                />
-              )}
+              {loading && <Loader style={loaderStyle.main} />}
               {selectedPersonId ? (
                 <ChatContainer
                   chatMode={chatMode}
@@ -92,8 +82,11 @@ function App() {
           </div>
           <Portal>
             <ToastContainer />
-            <ContextMenu menuId={menuId} />
-            <Contacts modalMode={modalMode} onHide={onCloseModalClick} />
+            <ContextMenu />
+            <Contacts
+              modalMode={modalMode}
+              // onHide={}
+            />
           </Portal>
         </div>
       </Context.Provider>

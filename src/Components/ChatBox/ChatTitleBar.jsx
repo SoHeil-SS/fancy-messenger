@@ -20,7 +20,7 @@ function ChatTitleBar({
             <img src={avatar} alt={personName} />
           </div>
           <div className="chatDetail_name__LVfMo">{personName}</div>
-          <span className="lastSeenSpan">last seen 36 minutes ago</span>
+          <span className="lastSeenSpan">last seen 666 minutes ago</span>
         </div>
       </div>
       <div className="titleBar_last__2vQ77">

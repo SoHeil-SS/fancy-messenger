@@ -1,9 +1,9 @@
 import { useImport } from "../../Imports/imports";
 
-function ChatList({ chats }) {
+function ChatList({ showableChats }) {
   const { handleGetTime, ChatItem, show, handleDisplayMenu } = useImport();
 
-  const chatList = chats.map((chat) => {
+  const chatList = showableChats.map((chat) => {
     const { chatId, self, person, chatTime } = chat;
 
     return (
@@ -14,7 +14,7 @@ function ChatList({ chats }) {
         chatTime={handleGetTime(chatTime, "getHours", "getMinutes", ":")}
         chatDate={handleGetTime(chatTime, "getMonth", "getDate", "/")}
         onContextMenu={(e) =>
-          handleDisplayMenu(e, show, chatId, self ? self : person)
+          handleDisplayMenu(e, show, chatId, self || person)
         }
       />
     );

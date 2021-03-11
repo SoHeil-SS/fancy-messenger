@@ -4,7 +4,7 @@ import { reactFunctionsImports } from "../Imports/reactFunctionsImports";
 
 const { toast } = reactFunctionsImports;
 
-const handlePersonItems = (personItem) =>
+const handleLastChatDetails = (personItem) =>
   personItem.chats.length > 0
     ? personItem.chats[personItem.chats.length - 1]
     : {};
@@ -155,7 +155,7 @@ function handleFilterForwardPersons(modalMode, persons, searchInputText) {
     : persons;
 }
 
-function handleSelectedPerson(selectedPersonId, persons) {
+function handleSelectedPersonItems(selectedPersonId, persons) {
   return persons.find((person) => person.details.personId === selectedPersonId);
 }
 
@@ -170,8 +170,13 @@ function handleChatMaker(chats, newChats) {
   }
 }
 
+const handleLastChatTime = (chatTime) =>
+  Date.now() - chatTime > 86400000
+    ? handleGetTime(chatTime, "getMonth", "getDate", "/")
+    : handleGetTime(chatTime, "getHours", "getMinutes", ":");
+
 export const utilsFunctions = {
-  handlePersonItems,
+  handleLastChatDetails,
   Context,
   objectConstructor,
   useMyContext,
@@ -187,6 +192,7 @@ export const utilsFunctions = {
   handleShowablePersons,
   handleFinallyChats,
   handleFilterForwardPersons,
-  handleSelectedPerson,
+  handleSelectedPersonItems,
   handleChatMaker,
+  handleLastChatTime,
 };

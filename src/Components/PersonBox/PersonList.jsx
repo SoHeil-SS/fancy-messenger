@@ -5,13 +5,13 @@ function PersonList({ showablePersons }) {
     dispatch,
     PersonListItem,
     personClicked,
-    handleGetTime,
+    handleLastChatTime,
     selectedPersonId,
-    handlePersonItems,
+    handleLastChatDetails,
   } = useImport();
 
   const list = showablePersons.map((personItem) => {
-    const { chatTime, self, person } = handlePersonItems(personItem);
+    const { chatTime, self, person } = handleLastChatDetails(personItem);
 
     const {
       personId,
@@ -21,13 +21,13 @@ function PersonList({ showablePersons }) {
       unreadChatCounter,
     } = personItem.details;
 
-    const condition = personId === selectedPersonId;
+    const selectedPersonIsSame = personId === selectedPersonId;
 
     return (
       <PersonListItem
         key={personId}
         personItemClassName={
-          condition
+          selectedPersonIsSame
             ? "listItem_list-item__1mnZB listItem_selected__3Q6PN  "
             : "listItem_list-item__1mnZB listItem_bg "
         }
@@ -35,13 +35,11 @@ function PersonList({ showablePersons }) {
         personName={personName}
         lastChatText={self || person}
         draft={draft}
-        lastChatTime={
-          Date.now() - chatTime > 86400000
-            ? handleGetTime(chatTime, "getMonth", "getDate", "/")
-            : handleGetTime(chatTime, "getHours", "getMinutes", ":")
-        }
+        lastChatTime={handleLastChatTime(chatTime)}
         unreadChatCounter={unreadChatCounter}
-        onPersonClick={() => !condition && dispatch(personClicked(personId))}
+        onPersonClick={() =>
+          !selectedPersonIsSame && dispatch(personClicked(personId))
+        }
       />
     );
   });

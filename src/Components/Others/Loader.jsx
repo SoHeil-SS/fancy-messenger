@@ -1,6 +1,7 @@
-import { Spinner } from "react-bootstrap";
+import { useImport } from "../../Imports/imports";
 
 const Loader = ({ style }) => {
+  const { Spinner } = useImport();
   return (
     <div>
       <Spinner style={style} animation="border" role="status" variant="danger">

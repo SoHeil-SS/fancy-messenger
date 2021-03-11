@@ -3,13 +3,17 @@ import { theme } from "react-contexify";
 
 const { idMaker } = utilsFunctions;
 
+const avatarUrl = "./Assets/Pictures/PersonPictures";
+
 export const constants = {
+  menuId: "customContextMenu",
+  theme,
   tempPersons: [
     {
       details: {
         personId: "soheila",
         showOnList: true,
-        avatar: "./personPictures/soheila.jpg",
+        avatar: `${avatarUrl}/soheila.jpg`,
         personName: "Soheila",
         lastChatTime: 1606577774127,
         draft: "",
@@ -42,7 +46,7 @@ export const constants = {
       details: {
         personId: "parvaneh",
         showOnList: true,
-        avatar: "./personPictures/parvaneh.jpg",
+        avatar: `${avatarUrl}/parvaneh.jpg`,
         personName: "Parvaneh",
         lastChatTime: 1606444467412,
 
@@ -76,7 +80,7 @@ export const constants = {
       details: {
         personId: "kitty",
         showOnList: true,
-        avatar: "./personPictures/kitty.jpg",
+        avatar: `${avatarUrl}/kitty.jpg`,
         personName: "Kitty",
         lastChatTime: 1606333362326,
         draft: "",
@@ -109,7 +113,7 @@ export const constants = {
       details: {
         personId: "love",
         showOnList: true,
-        avatar: "./personPictures/love.jpg",
+        avatar: `${avatarUrl}/love.jpg`,
         personName: "Love",
         lastChatTime: 1606222261324,
         draft: "",
@@ -142,7 +146,7 @@ export const constants = {
       details: {
         personId: "nahid",
         showOnList: false,
-        avatar: "./personPictures/nahid.jpg",
+        avatar: `${avatarUrl}/nahid.jpg`,
         personName: "Nahid",
         lastChatTime: 1606111165489,
         draft: "",
@@ -154,7 +158,7 @@ export const constants = {
       details: {
         personId: "sahar",
         showOnList: true,
-        avatar: "./personPictures/sahar.jpg",
+        avatar: `${avatarUrl}/sahar.jpg`,
         personName: "Sahar",
         lastChatTime: 1506999998654,
         draft: "",
@@ -187,7 +191,7 @@ export const constants = {
       details: {
         personId: "sajjad",
         showOnList: false,
-        avatar: "./personPictures/sajad.jpg",
+        avatar: `${avatarUrl}/sajad.jpg`,
         personName: "Sajjad",
         lastChatTime: 1506888860258,
         draft: "",
@@ -212,6 +216,11 @@ export const constants = {
     backArrow:
       "M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z",
   },
-  menuId: "customContextMenu",
-  theme,
+  loaderStyle: {
+    main: {
+      margin: "33%",
+      width: "250px",
+      height: "250px",
+    },
+  },
 };

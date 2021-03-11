@@ -1,6 +1,6 @@
 import { useImport } from "../../../Imports/imports";
 
-function Contacts({ modalMode, onHide }) {
+function Contacts({ modalMode }) {
   const {
     dispatch,
     Button,
@@ -15,6 +15,7 @@ function Contacts({ modalMode, onHide }) {
     persons,
     searchInputText,
     useMemo,
+    onCloseModalClick,
   } = useImport();
 
   const filteredPersonsToForward = useMemo(
@@ -39,7 +40,7 @@ function Contacts({ modalMode, onHide }) {
   return (
     <Modal
       show={modalMode === "forward" ? true : false}
-      onHide={onHide}
+      onHide={onCloseModalClick}
       aria-labelledby="contained-modal-title-vcenter"
     >
       <div style={{ backgroundColor: " rgb(39, 39, 39)" }}>
@@ -68,7 +69,10 @@ function Contacts({ modalMode, onHide }) {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button className="btn btn-danger" onClick={() => dispatch(onHide())}>
+          <Button
+            className="btn btn-danger"
+            onClick={() => dispatch(onCloseModalClick())}
+          >
             Cancel
           </Button>
         </Modal.Footer>

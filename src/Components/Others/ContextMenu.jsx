@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function ContextMenu({ menuId }) {
+function ContextMenu() {
   const {
     dispatch,
     copyClicked,
@@ -10,6 +10,7 @@ function ContextMenu({ menuId }) {
     Item,
     Menu,
     theme,
+    menuId,
   } = useImport();
 
   function handleContextClick({ event, props, data, triggerEvent }) {
