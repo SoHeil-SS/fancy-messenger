@@ -14,7 +14,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     searchInputState,
     onInputChange,
     onKeyPress,
-    handleSearchChats,
+    handleShowableChats,
     handleSelectedPersonItems,
     editCloseClicked,
     addClicked,
@@ -23,6 +23,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     searchInputText,
     persons,
     useMemo,
+    searchMode,
   } = useImport();
 
   const { details, chats } = useMemo(
@@ -31,8 +32,8 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
   );
 
   const showableChats = useMemo(
-    () => handleSearchChats(chats, searchInputText),
-    [chats, searchInputText, handleSearchChats]
+    () => handleShowableChats(chats, searchInputText, searchMode),
+    [chats, searchInputText, searchMode, handleShowableChats]
   );
 
   const condition = chatInputText || chatContent;

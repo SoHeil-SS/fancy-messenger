@@ -9,18 +9,18 @@ function Contacts({ modalMode }) {
     Row,
     PersonListItem,
     SearchIcon,
-    handleFilterForwardPersons,
     onInputChange,
     onForwardChat,
     persons,
     searchInputText,
     useMemo,
     onCloseModalClick,
+    handleShowablePersons,
   } = useImport();
 
   const filteredPersonsToForward = useMemo(
-    () => handleFilterForwardPersons(modalMode, persons, searchInputText),
-    [modalMode, persons, searchInputText, handleFilterForwardPersons]
+    () => handleShowablePersons("persons", persons, searchInputText),
+    [persons, searchInputText, handleShowablePersons]
   );
 
   const list = filteredPersonsToForward.map((person) => {
@@ -39,7 +39,7 @@ function Contacts({ modalMode }) {
   });
   return (
     <Modal
-      show={modalMode === "forward" ? true : false}
+      show={!!modalMode}
       onHide={onCloseModalClick}
       aria-labelledby="contained-modal-title-vcenter"
     >

@@ -315,7 +315,7 @@ code {
   overflow-y: hidden;
 }
 .forBackground {
-  background-image: url(./backgrounds/Facebook_Messenger_logo_2013.svg);
+  background-image: url("../Assets/Pictures/Backgrounds/Facebook_Messenger_logo_2013.svg");
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;

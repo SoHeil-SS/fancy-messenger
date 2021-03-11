@@ -1,8 +1,6 @@
-import { createContext, useContext } from "react";
-
 import { reactFunctionsImports } from "../Imports/reactFunctionsImports";
 
-const { toast } = reactFunctionsImports;
+const { toast, createContext, useContext } = reactFunctionsImports;
 
 const handleLastChatDetails = (personItem) =>
   personItem.chats.length > 0
@@ -65,43 +63,6 @@ function handleFinallyPersons(persons, index, person) {
   }
 }
 
-/**
- * @
- * @param {*} state
- * @param {*} chatId
- * @param {*} personId
- * @return {*}
- */
-function objectConstructor(
-  { persons, selectedPersonId, chatContentId, ...rest },
-  chatId,
-  personId
-) {
-  const id = personId || selectedPersonId;
-  const { details, chats } = persons.find(
-    (person) => person.details.personId === id
-  );
-
-  return {
-    // VARIABLES =>
-    details: { ...details },
-    chats: [...chats],
-    newDate: Date.now(),
-    personIndex: persons.findIndex(
-      (person) => person.details.personId === details.personId
-    ),
-    prevPersonIndex: persons.findIndex(
-      (person) => person.details.personId === selectedPersonId
-    ),
-    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
-    chatContentIndex: chats.findIndex((chat) => chat.chatId === chatContentId),
-
-    // STATES =>
-    ...rest,
-    persons: [...persons],
-  };
-}
-
 function toaster(type, detail, text) {
   toast[type](`${detail} ${text}`, {
     position: "top-right",
@@ -118,16 +79,18 @@ function handleDraftChange(details, draft, chatContent) {
   if (!chatContent) details.draft = draft;
 }
 
-function handleSearchChats(chats, searchInputText) {
-  return chats.filter((chat) =>
-    (chat.self || chat.person)
-      .toLowerCase()
-      .includes(searchInputText.toLowerCase())
-  );
+function handleShowableChats(chats, searchInputText, searchMode) {
+  return searchMode === "chats"
+    ? chats.filter((chat) =>
+        (chat.self || chat.person)
+          .toLowerCase()
+          .includes(searchInputText.toLowerCase())
+      )
+    : chats;
 }
 
 const handleShowablePersons = (searchMode, persons, searchInputText) =>
-  searchMode === "persons" && searchInputText !== ""
+  searchMode === "persons"
     ? persons.filter((person) =>
         person.details.personName
           .toLowerCase()
@@ -143,16 +106,6 @@ function handleFinallyChats(chats, chatIndex, newChatContent) {
     chat.self = newChatContent[i];
     chats.splice(chatIndex[i], 1, chat);
   }
-}
-
-function handleFilterForwardPersons(modalMode, persons, searchInputText) {
-  return modalMode === "forward"
-    ? persons.filter((person) =>
-        person.details.personName
-          .toLowerCase()
-          .includes(searchInputText.toLowerCase())
-      )
-    : persons;
 }
 
 function handleSelectedPersonItems(selectedPersonId, persons) {
@@ -175,10 +128,44 @@ const handleLastChatTime = (chatTime) =>
     ? handleGetTime(chatTime, "getMonth", "getDate", "/")
     : handleGetTime(chatTime, "getHours", "getMinutes", ":");
 
+/**
+ * @
+ * @param {*} state
+ * @param {*} chatId
+ * @param {*} personId
+ * @return {*}
+ */
+function statesAndVariables(
+  { persons, selectedPersonId, chatContentId, ...state },
+  chatId,
+  personId
+) {
+  const id = personId || selectedPersonId;
+  const { details, chats } = persons.find(
+    (person) => person.details.personId === id
+  );
+
+  return {
+    ...state,
+    details: { ...details },
+    chats: [...chats],
+    newDate: Date.now(),
+    personIndex: persons.findIndex(
+      (person) => person.details.personId === details.personId
+    ),
+    prevPersonIndex: persons.findIndex(
+      (person) => person.details.personId === selectedPersonId
+    ),
+    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
+    chatContentIndex: chats.findIndex((chat) => chat.chatId === chatContentId),
+    persons: [...persons],
+  };
+}
+
 export const utilsFunctions = {
   handleLastChatDetails,
   Context,
-  objectConstructor,
+  statesAndVariables,
   useMyContext,
   actionCreator,
   idMaker,
@@ -188,10 +175,9 @@ export const utilsFunctions = {
   toaster,
   handleDisplayMenu,
   handleDraftChange,
-  handleSearchChats,
+  handleShowableChats,
   handleShowablePersons,
   handleFinallyChats,
-  handleFilterForwardPersons,
   handleSelectedPersonItems,
   handleChatMaker,
   handleLastChatTime,

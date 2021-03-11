@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function PersonContainer({ searchMode }) {
+function PersonContainer() {
   const {
     dispatch,
     SearchBar,
@@ -12,6 +12,7 @@ function PersonContainer({ searchMode }) {
     useMemo,
     searchInputText,
     persons,
+    searchMode,
   } = useImport();
 
   const showablePersons = useMemo(

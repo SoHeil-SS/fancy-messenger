@@ -1,7 +1,7 @@
 import { utilsFunctions } from "../utilsFunctions";
 
 const {
-  objectConstructor,
+  statesAndVariables,
   handleSortPersons,
   handleGetTime,
   handleFinallyPersons,
@@ -22,7 +22,7 @@ function handlePersonClick(state, personId) {
     chatInputText,
     loading,
     chatContent,
-  } = objectConstructor(state, null, personId);
+  } = statesAndVariables(state, null, personId);
 
   if (loading) {
     toaster("dark", "", "لطفا تا کامل شدن بارگذاری صبر کنید ");
@@ -65,7 +65,7 @@ function handleAddChat(state) {
     chats,
     chatInputText,
     newDate,
-  } = objectConstructor(state);
+  } = statesAndVariables(state);
 
   handleChatMaker(chats, [chatInputText, chatContent]);
 
@@ -92,7 +92,7 @@ function handleCopyChat(state, chatText) {
 }
 
 function handleDeleteChat(state, chatId) {
-  const { persons, personIndex, details, chats } = objectConstructor(
+  const { persons, personIndex, details, chats } = statesAndVariables(
     state,
     chatId
   );
@@ -121,7 +121,7 @@ function handleEditChat(state, chatId) {
     chats,
     chatIndex,
     chatContent,
-  } = objectConstructor(state, chatId);
+  } = statesAndVariables(state, chatId);
   const content = chats[chatIndex].self;
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
@@ -147,10 +147,11 @@ function handleSaveChat(state) {
     chatInputText,
     chatContentIndex,
     personIndex,
-  } = objectConstructor(state);
+  } = statesAndVariables(state);
 
   handleFinallyChats(chats, [chatContentIndex], [chatInputText]);
   handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
+
   return {
     ...state,
     persons,
@@ -169,7 +170,7 @@ function handleForwardClick(state, forwardText) {
     chatInputText,
     details,
     chats,
-  } = objectConstructor(state);
+  } = statesAndVariables(state);
 
   handleDraftChange(details, chatInputText, chatContent);
   handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
@@ -190,7 +191,7 @@ function handleForwardChat(state, personId) {
     chats,
     personIndex,
     forwardContent,
-  } = objectConstructor(state, null, personId);
+  } = statesAndVariables(state, null, personId);
 
   details.unreadChatCounter = "";
   if (!details.showOnList) {
@@ -240,7 +241,7 @@ function handleCloseChat(state) {
     chatContent,
     searchMode,
     searchInputText,
-  } = objectConstructor(state);
+  } = statesAndVariables(state);
 
   const isModeChats = searchMode === "chats";
 
@@ -259,7 +260,7 @@ function handleCloseChat(state) {
 }
 
 function handleCancelEdit(state) {
-  const { details } = objectConstructor(state);
+  const { details } = statesAndVariables(state);
 
   return {
     ...state,

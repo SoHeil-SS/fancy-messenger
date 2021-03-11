@@ -59,6 +59,7 @@ function App() {
           selectedPersonId,
           persons,
           searchInputText,
+          searchMode,
         }}
       >
         <div className="app_app__3mk8F">
@@ -66,7 +67,7 @@ function App() {
           <div className="app_main__1NOZK  ">
             <div className="chat_layout__2YPVn messenger-box">
               <div className="chat_side__2kvyI">
-                <PersonContainer searchMode={searchMode} />
+                <PersonContainer />
               </div>
               {loading && <Loader style={loaderStyle.main} />}
               {selectedPersonId ? (
@@ -83,10 +84,7 @@ function App() {
           <Portal>
             <ToastContainer />
             <ContextMenu />
-            <Contacts
-              modalMode={modalMode}
-              // onHide={}
-            />
+            <Contacts modalMode={modalMode} />
           </Portal>
         </div>
       </Context.Provider>
