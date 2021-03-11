@@ -9,6 +9,7 @@ const {
   handleChatMaker,
   handleDraftChange,
   toaster,
+  handleFilterDeletedChat,
 } = utilsFunctions;
 
 function handlePersonClick(state, personId) {
@@ -22,6 +23,8 @@ function handlePersonClick(state, personId) {
     chatInputText,
     loading,
     chatContent,
+    prevPerson,
+    prevDetails,
   } = statesAndVariables(state, null, personId);
 
   if (loading) {
@@ -33,16 +36,11 @@ function handlePersonClick(state, personId) {
     details.unreadChatCounter = "";
     handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
   } else if (selectedPersonId) {
-    const prevPerson = { ...persons[prevPersonIndex] };
-    const prevDetails = { ...prevPerson.details };
     handleDraftChange(prevDetails, chatInputText, chatContent);
     handleFinallyPersons(
       persons,
-      [personIndex, prevPersonIndex],
-      [
-        { details, chats },
-        { ...prevPerson, details: prevDetails },
-      ]
+      [prevPersonIndex],
+      [{ ...prevPerson, details: prevDetails }]
     );
   }
 
@@ -50,8 +48,8 @@ function handlePersonClick(state, personId) {
     ...state,
     selectedPersonId: personId,
     chatInputText: details.draft,
-    chatContent: null,
-    chatMode: null,
+    chatContent: "",
+    chatMode: "",
     persons,
   };
 }
@@ -90,22 +88,26 @@ function handleCopyChat(state, chatText) {
 
   return state;
 }
-
+//FIXME
 function handleDeleteChat(state, chatId) {
-  const { persons, personIndex, details, chats } = statesAndVariables(
-    state,
-    chatId
-  );
+  const {
+    persons,
+    personIndex,
+    details,
+    chats,
+    chatMode,
+    chatInputText,
+  } = statesAndVariables(state, chatId);
 
   handleFinallyPersons(
     persons,
     [personIndex],
-    [{ details, chats: chats.filter((chat) => chat.chatId !== chatId) }]
+    [{ details, chats: handleFilterDeletedChat(chats, chatId) }]
   );
 
   return {
     ...state,
-    chatInputText: details.draft,
+    chatInputText: chatMode ? details.draft : chatInputText,
     chatContent: null,
     chatMode: null,
     persons,
@@ -140,7 +142,7 @@ function handleEditChat(state, chatId) {
 }
 
 function handleSaveChat(state) {
-  let {
+  const {
     persons,
     details,
     chats,
@@ -213,12 +215,12 @@ function handleForwardChat(state, personId) {
 }
 
 //TODO what is this !!!
-function handleKeyPress(state, e) {
+function handleKeyPress(state) {
   const { chatInputText, chatContent } = state;
 
   if (chatInputText) {
-    if (e.key === "Enter" && !chatContent) return handleAddChat(state);
-    if (e.key === "Enter" && chatContent) return handleSaveChat(state);
+    if (!chatContent) return handleAddChat(state);
+    if (chatContent) return handleSaveChat(state);
   }
 
   return state;

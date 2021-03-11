@@ -114,13 +114,18 @@ function handleSelectedPersonItems(selectedPersonId, persons) {
 
 function handleChatMaker(chats, newChats) {
   for (let i = 0; i < newChats.length; i++) {
-    if (!newChats[i]) continue;
+    const chat = newChats[i];
+    if (!chat) continue;
     chats.push({
-      self: newChats[i],
+      self: chat,
       chatTime: Date.now(),
       chatId: idMaker(),
     });
   }
+}
+
+function handleFilterDeletedChat(chats, chatId) {
+  return chats.filter((chat) => chat.chatId !== chatId);
 }
 
 const handleLastChatTime = (chatTime) =>
@@ -144,21 +149,33 @@ function statesAndVariables(
   const { details, chats } = persons.find(
     (person) => person.details.personId === id
   );
+  const prevPersonIndex = persons.findIndex(
+    (person) => person.details.personId === selectedPersonId
+  );
+  const prevPerson = { ...persons[prevPersonIndex] };
+  const prevDetails = { ...prevPerson.details };
+  const chatIndex = chats.findIndex((chat) => chat.chatId === chatId);
+  const chatContentIndex = chats.findIndex(
+    (chat) => chat.chatId === chatContentId
+  );
+  const personIndex = persons.findIndex(
+    (person) => person.details.personId === details.personId
+  );
 
   return {
-    ...state,
     details: { ...details },
     chats: [...chats],
     newDate: Date.now(),
-    personIndex: persons.findIndex(
-      (person) => person.details.personId === details.personId
-    ),
-    prevPersonIndex: persons.findIndex(
-      (person) => person.details.personId === selectedPersonId
-    ),
-    chatIndex: chats.findIndex((chat) => chat.chatId === chatId),
-    chatContentIndex: chats.findIndex((chat) => chat.chatId === chatContentId),
     persons: [...persons],
+    personIndex,
+    prevPersonIndex,
+    prevPerson,
+    prevDetails,
+    chatIndex,
+    chatContentIndex,
+    selectedPersonId,
+    chatContentId,
+    ...state,
   };
 }
 
@@ -181,4 +198,5 @@ export const utilsFunctions = {
   handleSelectedPersonItems,
   handleChatMaker,
   handleLastChatTime,
+  handleFilterDeletedChat,
 };

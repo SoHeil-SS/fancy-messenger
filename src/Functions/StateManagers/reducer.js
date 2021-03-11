@@ -55,7 +55,7 @@ export function reducer(state, action) {
       return handleInputChange(state, payload);
 
     case "ENTER_CLICKED":
-      return handleKeyPress(state, payload);
+      return handleKeyPress(state);
 
     case "CLOSE_CLICKED":
       return handleCloseChat(state, payload);

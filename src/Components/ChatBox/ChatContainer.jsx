@@ -64,7 +64,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
           chatInputText={chatInputText}
           draft={draft}
           spanIcon={condition ? <SendIcon /> : <PinIcon />}
-          onKeyPress={(e) => dispatch(onKeyPress(e))}
+          onKeyPress={(e) => e.key === "Enter" && dispatch(onKeyPress())}
           onInputChange={(e) =>
             dispatch(onInputChange(e.target.value, "chatInputText"))
           }

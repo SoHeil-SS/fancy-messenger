@@ -13,7 +13,7 @@ const editClicked = (chatId) => actionCreator("EDIT_CLICKED", chatId);
 const deleteClicked = (chatId) => actionCreator("DELETE_CLICKED", chatId);
 
 const forwardClicked = (forwardText) =>
-  actionCreator("FORWARD_CLICKED", forwardText);
+  actionCreator("FORWARD_CLICKED", [forwardText]);
 
 const onForwardChat = (personId) =>
   actionCreator("FORWARD_TO_PERSON_CLICKED", personId);
@@ -26,7 +26,7 @@ const editCloseClicked = (chatId) =>
 const onInputChange = (text, whichInput) =>
   actionCreator("INPUT_CHANGED", { text, whichInput });
 
-const onKeyPress = (e) => actionCreator("ENTER_CLICKED", e);
+const onKeyPress = () => actionCreator("ENTER_CLICKED");
 
 const closeClicked = () => actionCreator("CLOSE_CLICKED", true);
 
