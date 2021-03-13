@@ -9,22 +9,26 @@ import ChatList from "../Components/ChatBox/ChatList";
 import ChatItem from "../Components/ChatBox/ChatItem";
 import ChatInput from "../Components/ChatBox/ChatInput";
 import ChatDetailPanel from "../Components/ChatBox/ChatDetailPanel";
+import ChatMenu from "../Components/ChatBox/ChatMenu";
 
 import ContextMenu from "../Components/Others/ContextMenu";
 import Portal from "../Components/Others/Portal";
 
-import Svg from "../Components/Others/SvgComponents/Svg";
-import Path from "../Components/Others/SvgComponents/Path";
+import ContactsDialog from "../Components/Dialogs/ContactsDialog";
+import DialogTemplate from "../Components/Dialogs/DialogTemplate";
+import DeleteDialog from "../Components/Dialogs/DeleteDialog";
 
-import Contacts from "../Components/Others/Modals/Contacts";
 import Loader from "../Components/Others/Loader";
 
+import DraggablePaper from "../Components/utilsComponents/DraggablePaper";
+
 export const userComponentsImports = {
+  DraggablePaper,
   ContextMenu,
+  DialogTemplate,
   Portal,
-  Svg,
-  Path,
-  Contacts,
+  ContactsDialog,
+  DeleteDialog,
   Loader,
   PersonContainer,
   SearchBar,
@@ -35,5 +39,6 @@ export const userComponentsImports = {
   ChatList,
   ChatItem,
   ChatInput,
+  ChatMenu,
   ChatDetailPanel,
 };

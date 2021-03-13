@@ -179,9 +179,23 @@ function statesAndVariables(
   };
 }
 
+function dialogActionInitializer(text, color, autoFocus, onClick) {
+  const temp = [];
+  for (let i = 0; i < text.length; i++) {
+    temp.push({
+      text: text[i],
+      color: color[i],
+      autoFocus: autoFocus[i],
+      onClick: onClick[i],
+    });
+  }
+  return temp;
+}
+
 export const utilsFunctionsAndHooks = {
   handleLastChatDetails,
   Context,
+  dialogActionInitializer,
   statesAndVariables,
   useMyContext,
   actionCreator,

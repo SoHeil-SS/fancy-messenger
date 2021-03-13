@@ -1,4 +1,5 @@
-import { Col, Modal, Row, Spinner, Badge } from "react-bootstrap";
+import { Spinner, Badge } from "react-bootstrap";
+import Draggable from "react-draggable";
 
 import { Item, Menu, Separator } from "react-contexify";
 import { ToastContainer } from "react-toastify";
@@ -15,6 +16,11 @@ import {
   IconButton,
   TextField,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@material-ui/core";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -28,10 +34,13 @@ import MicNoneIcon from "@material-ui/icons/MicNone";
 
 export const reactComponentsImports = {
   Button,
-  Col,
   Container,
-  Modal,
-  Row,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Draggable,
   Spinner,
   Item,
   Menu,

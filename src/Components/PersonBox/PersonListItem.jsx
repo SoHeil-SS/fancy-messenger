@@ -26,7 +26,7 @@ export default function PersonListItem({
 
   return (
     <div style={container}>
-      <Paper onClick={onPersonClick} style={paperItem}>
+      <Paper elevation={3} onClick={onPersonClick} style={paperItem}>
         <ListItem button style={listItem} selected={selected}>
           <Grid container wrap="nowrap" justify="space-between" spacing={2}>
             <Grid item>

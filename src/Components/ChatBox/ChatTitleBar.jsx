@@ -4,6 +4,7 @@ function ChatTitleBar({
   avatar,
   personName,
   onCloseChat,
+  //TODO fix chat menu
   onChatMenuClick,
   onSearchIconClick,
 }) {
@@ -11,11 +12,11 @@ function ChatTitleBar({
     SearchIcon,
     CloseIcon,
     IconButton,
-    MoreVertIcon,
     styles,
     Avatar,
     Box,
     Paper,
+    ChatMenu,
   } = useImport();
 
   const { defaultStyle } = styles.icons;
@@ -49,9 +50,7 @@ function ChatTitleBar({
           <IconButton onClick={onSearchIconClick}>
             <SearchIcon style={defaultStyle} />
           </IconButton>
-          <IconButton onClick={onChatMenuClick}>
-            <MoreVertIcon style={defaultStyle} />
-          </IconButton>
+          <ChatMenu />
         </Box>
       </Box>
     </Paper>
@@ -59,3 +58,7 @@ function ChatTitleBar({
 }
 
 export default ChatTitleBar;
+
+/* <IconButton onClick={onChatMenuClick}>
+  <MoreVertIcon style={defaultStyle} />
+</IconButton>; */

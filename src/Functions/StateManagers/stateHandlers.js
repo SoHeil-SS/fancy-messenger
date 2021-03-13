@@ -99,19 +99,24 @@ function handleDeleteChat(state, chatId) {
     chatInputText,
   } = statesAndVariables(state, chatId);
 
-  handleFinallyPersons(
-    persons,
-    [personIndex],
-    [{ details, chats: handleFilterDeletedChat(chats, chatId) }]
-  );
-
   return {
     ...state,
-    chatInputText: chatMode ? details.draft : chatInputText,
-    chatContent: null,
-    chatMode: null,
-    persons,
+    dialogMode: "deleteMessage",
   };
+
+  // handleFinallyPersons(
+  //   persons,
+  //   [personIndex],
+  //   [{ details, chats: handleFilterDeletedChat(chats, chatId) }]
+  // );
+
+  // return {
+  //   ...state,
+  //   chatInputText: chatMode ? details.draft : chatInputText,
+  //   chatContent: null,
+  //   chatMode: null,
+  //   persons,
+  // };
 }
 
 function handleEditChat(state, chatId) {
@@ -180,7 +185,7 @@ function handleForwardClick(state, forwardText) {
     ...state,
     persons,
     chatInputText: details.draft,
-    modalMode: "forward",
+    dialogMode: "forward",
     chatContent: null,
     forwardContent: forwardText,
   };
@@ -208,7 +213,7 @@ function handleForwardChat(state, personId) {
     persons,
     chatInputText: details.draft,
     searchInputText: "",
-    modalMode: false,
+    dialogMode: false,
     chatMode: "forward",
     chatContent: forwardContent,
   };
@@ -292,7 +297,7 @@ function handleCloseModalClick(state) {
   return {
     ...state,
     searchInputText: "",
-    modalMode: false,
+    dialogMode: false,
   };
 }
 

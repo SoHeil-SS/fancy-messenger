@@ -8,7 +8,7 @@ function App() {
     Portal,
     PersonContainer,
     ChatContainer,
-    Contacts,
+    ContactsDialog,
     Loader,
     ToastContainer,
     ContextMenu,
@@ -17,6 +17,7 @@ function App() {
     tempPersons,
     loaderStyle,
     Container,
+    DeleteDialog,
   } = useImport();
 
   const [
@@ -26,7 +27,7 @@ function App() {
       chatInputText,
       searchInputText,
       chatContent,
-      modalMode,
+      dialogMode,
       chatMode,
       searchMode,
       loading,
@@ -35,13 +36,12 @@ function App() {
   ] = useThunkReducer(reducer, {
     selectedPersonId: "parvaneh",
     persons: tempPersons,
-    chatInputText:
-      "textarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icon",
+    chatInputText: "",
     searchInputText: "",
     chatContent: "",
     chatContentId: "",
     forwardContent: "",
-    modalMode: "",
+    dialogMode: "",
     chatMode: "",
     searchMode: "",
     loading: true,
@@ -85,7 +85,12 @@ function App() {
         <Portal>
           <ToastContainer />
           <ContextMenu />
-          <Contacts modalMode={modalMode} />
+          {dialogMode === ("forward" || "contacts") && (
+            <ContactsDialog dialogMode={!!dialogMode} />
+          )}
+          {dialogMode === "deleteMessage" && (
+            <DeleteDialog dialogMode={!!dialogMode} />
+          )}
         </Portal>
       </Context.Provider>
     </Container>
