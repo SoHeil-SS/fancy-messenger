@@ -106,8 +106,9 @@ body {
 }
 
 .forBackground {
-  background-image: url("../Assets/Pictures/Backgrounds/Facebook_Messenger_logo_2013.svg");
-  background-size: auto;
+  background-image: url("../Assets/Pictures/Backgrounds/chatBox-BG.svg");
+  /* background-image: url("../Assets/Pictures/Backgrounds/Facebook_Messenger_logo_2013.svg"); */
+  background-size: 25%;
   background-repeat: no-repeat;
   background-position: center;
 }
