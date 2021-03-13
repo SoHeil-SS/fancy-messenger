@@ -4,12 +4,12 @@ function DeleteDialog({ dialogMode }) {
   const {
     DialogTemplate,
     dialog,
-    dialogActionInitializer,
+    getDialogActionInitializer,
     dispatch,
     actionConfirmDeleteChatClicked,
   } = useImport();
 
-  const actionContent = dialogActionInitializer(
+  const actionContent = getDialogActionInitializer(
     ["Cancel", "Delete"],
     ["primary", "secondary"],
     [true, false],

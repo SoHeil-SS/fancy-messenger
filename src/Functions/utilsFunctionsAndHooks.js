@@ -2,12 +2,12 @@ import { reactFunctionsImports } from "../Imports/reactFunctionsImports";
 
 const { toast, createContext, useContext } = reactFunctionsImports;
 
-const handleLastChatDetails = (personItem) =>
+const getLastChatDetails = (personItem) =>
   personItem.chats.length > 0
     ? personItem.chats[personItem.chats.length - 1]
     : {};
 
-function actionCreator(type, payload) {
+function getStateAction(type, payload) {
   return { type, payload };
 }
 
@@ -17,7 +17,7 @@ function useMyContext() {
   return useContext(Context);
 }
 
-function handleSortPersons(persons) {
+function setSortPersonList(persons) {
   persons.sort(
     (a, b) =>
       new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
@@ -28,7 +28,7 @@ function idMaker() {
   return Math.random();
 }
 
-function handleDisplayMenu(e, show, chatId, content) {
+function setDisplayMenu(e, show, chatId, content) {
   show(e, {
     props: { id: Number(chatId), text: content },
   });
@@ -42,7 +42,7 @@ function handleDisplayMenu(e, show, chatId, content) {
  * @param {*} separator time separator like "/" , ":"
  * @return {*}
  */
-function handleGetTime(time, method1, method2, separator) {
+function getTimeFromMilliseconds(time, method1, method2, separator) {
   if (!time) return "";
   const dateNow = new Date(time);
   const time1 = dateNow[method1]();
@@ -57,7 +57,7 @@ function handleGetTime(time, method1, method2, separator) {
  * @param {*} person array
  * @return {*} persons in arrays
  */
-function handleFinallyPersons(persons, index, person) {
+function setFinallyPersons(persons, index, person) {
   for (let i = 0; i < index.length; i++) {
     persons.splice(index[i], 1, person[i]);
   }
@@ -75,11 +75,11 @@ function toaster(type, detail, text) {
   });
 }
 
-function handleDraftChange(details, draft, chatContent) {
+function setDraftChange(details, draft, chatContent) {
   if (!chatContent) details.draft = draft;
 }
 
-function handleShowableChats(chats, searchInputText, searchMode) {
+function getShowableChats(chats, searchInputText, searchMode) {
   return searchMode === "chats"
     ? chats.filter((chat) =>
         (chat.self || chat.person)
@@ -89,7 +89,7 @@ function handleShowableChats(chats, searchInputText, searchMode) {
     : chats;
 }
 
-const handleShowablePersons = (searchMode, persons, searchInputText) =>
+const getShowablePersons = (searchMode, persons, searchInputText) =>
   searchMode === "persons"
     ? persons.filter((person) =>
         person.details.personName
@@ -98,7 +98,7 @@ const handleShowablePersons = (searchMode, persons, searchInputText) =>
       )
     : persons.filter((person) => person.details.showOnList === true);
 
-function handleFinallyChats(chats, chatIndex, newChatContent) {
+function setFinallyChats(chats, chatIndex, newChatContent) {
   for (let i = 0; i < chatIndex.length; i++) {
     const chat = {
       ...chats[chatIndex[i]],
@@ -108,11 +108,11 @@ function handleFinallyChats(chats, chatIndex, newChatContent) {
   }
 }
 
-function handleSelectedPersonItems(selectedPersonId, persons) {
+function getSelectedPersonItems(selectedPersonId, persons) {
   return persons.find((person) => person.details.personId === selectedPersonId);
 }
 
-function handleChatMaker(chats, newChats) {
+function setNewChats(chats, newChats) {
   for (let i = 0; i < newChats.length; i++) {
     const chat = newChats[i];
     if (!chat) continue;
@@ -124,14 +124,14 @@ function handleChatMaker(chats, newChats) {
   }
 }
 
-function handleFilterDeletedChat(chats, chatId) {
+function getFilterDeletedChat(chats, chatId) {
   return chats.filter((chat) => chat.chatId !== chatId);
 }
 
-const handleLastChatTime = (chatTime) =>
+const getLastChatTime = (chatTime) =>
   Date.now() - chatTime > 86400000
-    ? handleGetTime(chatTime, "getMonth", "getDate", "/")
-    : handleGetTime(chatTime, "getHours", "getMinutes", ":");
+    ? getTimeFromMilliseconds(chatTime, "getMonth", "getDate", "/")
+    : getTimeFromMilliseconds(chatTime, "getHours", "getMinutes", ":");
 
 /**
  * @
@@ -140,7 +140,7 @@ const handleLastChatTime = (chatTime) =>
  * @param {*} personId
  * @return {*}
  */
-function statesAndVariables(
+function getStatesAndVariables(
   { persons, selectedPersonId, chatContentId, ...state },
   chatId,
   personId
@@ -179,7 +179,7 @@ function statesAndVariables(
   };
 }
 
-function dialogActionInitializer(text, color, autoFocus, onClick) {
+function getDialogActionInitializer(text, color, autoFocus, onClick) {
   const temp = [];
   for (let i = 0; i < text.length; i++) {
     temp.push({
@@ -193,24 +193,24 @@ function dialogActionInitializer(text, color, autoFocus, onClick) {
 }
 
 export const utilsFunctionsAndHooks = {
-  handleLastChatDetails,
+  getLastChatDetails,
   Context,
-  dialogActionInitializer,
-  statesAndVariables,
+  getDialogActionInitializer,
+  getStatesAndVariables,
   useMyContext,
-  actionCreator,
+  getStateAction,
   idMaker,
-  handleSortPersons,
-  handleGetTime,
-  handleFinallyPersons,
+  setSortPersonList,
+  getTimeFromMilliseconds,
+  setFinallyPersons,
   toaster,
-  handleDisplayMenu,
-  handleDraftChange,
-  handleShowableChats,
-  handleShowablePersons,
-  handleFinallyChats,
-  handleSelectedPersonItems,
-  handleChatMaker,
-  handleLastChatTime,
-  handleFilterDeletedChat,
+  setDisplayMenu,
+  setDraftChange,
+  getShowableChats,
+  getShowablePersons,
+  setFinallyChats,
+  getSelectedPersonItems,
+  setNewChats,
+  getLastChatTime,
+  getFilterDeletedChat,
 };

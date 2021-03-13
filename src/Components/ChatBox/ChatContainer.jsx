@@ -13,8 +13,8 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     actionSearchIconClicked,
     actionInputChange,
     actionChatInputKeyPress,
-    handleShowableChats,
-    handleSelectedPersonItems,
+    getSelectedPersonItems,
+    getShowableChats,
     actionCancelEditChatClicked,
     actionAddNewChatClicked,
     actionConfirmEditChatClicked,
@@ -31,13 +31,13 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
   } = useImport();
 
   const { details, chats } = useMemo(
-    () => handleSelectedPersonItems(selectedPersonId, persons),
-    [selectedPersonId, persons, handleSelectedPersonItems]
+    () => getSelectedPersonItems(selectedPersonId, persons),
+    [selectedPersonId, persons, getSelectedPersonItems]
   );
 
   const showableChats = useMemo(
-    () => handleShowableChats(chats, searchInputText, searchMode),
-    [chats, searchInputText, searchMode, handleShowableChats]
+    () => getShowableChats(chats, searchInputText, searchMode),
+    [chats, searchInputText, searchMode, getShowableChats]
   );
 
   const condition = chatInputText || chatContent;

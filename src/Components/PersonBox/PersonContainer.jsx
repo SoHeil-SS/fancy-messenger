@@ -8,7 +8,7 @@ function PersonContainer() {
     actionSearchIconClicked,
     actionInputChange,
     actionPersonMenuBarClicked,
-    handleShowablePersons,
+    getShowablePersons,
     useMemo,
     searchInputText,
     persons,
@@ -16,8 +16,8 @@ function PersonContainer() {
   } = useImport();
 
   const showablePersons = useMemo(
-    () => handleShowablePersons(searchMode, persons, searchInputText),
-    [searchMode, persons, searchInputText, handleShowablePersons]
+    () => getShowablePersons(searchMode, persons, searchInputText),
+    [searchMode, persons, searchInputText, getShowablePersons]
   );
 
   return (

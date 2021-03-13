@@ -11,14 +11,14 @@ function ContactsDialog({ dialogMode }) {
     searchInputText,
     useMemo,
     actionCloseDialogClicked,
-    handleShowablePersons,
+    getShowablePersons,
     DialogTemplate,
-    dialogActionInitializer,
+    getDialogActionInitializer,
   } = useImport();
 
   const filteredPersonsToForward = useMemo(
-    () => handleShowablePersons("persons", persons, searchInputText),
-    [persons, searchInputText, handleShowablePersons]
+    () => getShowablePersons("persons", persons, searchInputText),
+    [persons, searchInputText, getShowablePersons]
   );
 
   const Title = (
@@ -39,7 +39,7 @@ function ContactsDialog({ dialogMode }) {
     </>
   );
 
-  const actionContent = dialogActionInitializer(
+  const actionContent = getDialogActionInitializer(
     ["Cancel"],
     ["secondary"],
     [true],

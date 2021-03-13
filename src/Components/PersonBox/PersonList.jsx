@@ -5,13 +5,13 @@ function PersonList({ showablePersons }) {
     dispatch,
     PersonListItem,
     actionPersonClicked,
-    handleLastChatTime,
+    getLastChatTime,
     selectedPersonId,
-    handleLastChatDetails,
+    getLastChatDetails,
   } = useImport();
 
   const list = showablePersons.map((personItem) => {
-    const { chatTime, self, person } = handleLastChatDetails(personItem);
+    const { chatTime, self, person } = getLastChatDetails(personItem);
 
     const {
       personId,
@@ -31,7 +31,7 @@ function PersonList({ showablePersons }) {
         lastChatText={self || person}
         draft={draft}
         selected={!!selectedPersonIsSame}
-        lastChatTime={handleLastChatTime(chatTime)}
+        lastChatTime={getLastChatTime(chatTime)}
         unreadChatCounter={unreadChatCounter}
         onPersonClick={() =>
           !selectedPersonIsSame && dispatch(actionPersonClicked(personId))

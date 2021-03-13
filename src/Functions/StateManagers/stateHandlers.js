@@ -3,13 +3,13 @@ import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 let deletingChatID = "";
 
 const {
-  statesAndVariables,
-  handleSortPersons,
-  handleGetTime,
-  handleFinallyPersons,
-  handleFinallyChats,
-  handleChatMaker,
-  handleDraftChange,
+  getStatesAndVariables,
+  setSortPersonList,
+  getTimeFromMilliseconds,
+  setFinallyPersons,
+  setFinallyChats,
+  setNewChats,
+  setDraftChange,
   toaster,
   handleFilterDeletedChat,
 } = utilsFunctionsAndHooks;
@@ -27,7 +27,7 @@ function handlePersonClicked(state, personId) {
     chatContent,
     prevPerson,
     prevDetails,
-  } = statesAndVariables(state, null, personId);
+  } = getStatesAndVariables(state, null, personId);
 
   if (loading) {
     toaster("dark", "", "لطفا تا کامل شدن بارگذاری صبر کنید ");
@@ -36,10 +36,10 @@ function handlePersonClicked(state, personId) {
 
   if (details.unreadChatCounter) {
     details.unreadChatCounter = "";
-    handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+    setFinallyPersons(persons, [personIndex], [{ details, chats }]);
   } else if (selectedPersonId) {
-    handleDraftChange(prevDetails, chatInputText, chatContent);
-    handleFinallyPersons(
+    setDraftChange(prevDetails, chatInputText, chatContent);
+    setFinallyPersons(
       persons,
       [prevPersonIndex],
       [{ ...prevPerson, details: prevDetails }]
@@ -65,14 +65,14 @@ function handleAddNewChatClicked(state) {
     chats,
     chatInputText,
     newDate,
-  } = statesAndVariables(state);
+  } = getStatesAndVariables(state);
 
-  handleChatMaker(chats, [chatInputText, chatContent]);
+  setNewChats(chats, [chatInputText, chatContent]);
 
   details.lastChatTime = newDate;
-  handleDraftChange(details, "", null);
-  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
-  handleSortPersons(persons, "lastChatTime");
+  setDraftChange(details, "", null);
+  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  setSortPersonList(persons, "lastChatTime");
 
   return {
     ...state,
@@ -106,9 +106,9 @@ function handleConfirmDeleteChatClicked(state) {
     chats,
     chatMode,
     chatInputText,
-  } = statesAndVariables(state, deletingChatID);
+  } = getStatesAndVariables(state, deletingChatID);
 
-  handleFinallyPersons(
+  setFinallyPersons(
     persons,
     [personIndex],
     [{ details, chats: handleFilterDeletedChat(chats, deletingChatID) }]
@@ -134,13 +134,13 @@ function handleEditChatClicked(state, chatId) {
     chats,
     chatIndex,
     chatContent,
-  } = statesAndVariables(state, chatId);
+  } = getStatesAndVariables(state, chatId);
   const content = chats[chatIndex].self;
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
 
-  handleDraftChange(details, chatInputText, chatContent);
-  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  setDraftChange(details, chatInputText, chatContent);
+  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
@@ -160,10 +160,10 @@ function handleConfirmEditChatClicked(state) {
     chatInputText,
     chatContentIndex,
     personIndex,
-  } = statesAndVariables(state);
+  } = getStatesAndVariables(state);
 
-  handleFinallyChats(chats, [chatContentIndex], [chatInputText]);
-  handleFinallyPersons(persons, [personIndex], [{ chats, details }]);
+  setFinallyChats(chats, [chatContentIndex], [chatInputText]);
+  setFinallyPersons(persons, [personIndex], [{ chats, details }]);
 
   return {
     ...state,
@@ -184,10 +184,10 @@ function handleForwardChatClicked(state, forwardText) {
     chatInputText,
     details,
     chats,
-  } = statesAndVariables(state);
+  } = getStatesAndVariables(state);
 
-  handleDraftChange(details, chatInputText, chatContent);
-  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  setDraftChange(details, chatInputText, chatContent);
+  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
   return {
     ...state,
     persons,
@@ -205,14 +205,14 @@ function handleSelectPersonToForwardChatClicked(state, personId) {
     chats,
     personIndex,
     forwardContent,
-  } = statesAndVariables(state, null, personId);
+  } = getStatesAndVariables(state, null, personId);
 
   details.unreadChatCounter = "";
   if (!details.showOnList) {
     details.showOnList = true;
   }
 
-  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
@@ -255,12 +255,12 @@ function handleChatBoxCloseClicked(state) {
     chatContent,
     searchMode,
     searchInputText,
-  } = statesAndVariables(state);
+  } = getStatesAndVariables(state);
 
   const isModeChats = searchMode === "chats";
 
-  handleDraftChange(details, chatInputText, chatContent);
-  handleFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  setDraftChange(details, chatInputText, chatContent);
+  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
@@ -274,7 +274,7 @@ function handleChatBoxCloseClicked(state) {
 }
 
 function handleCancelEditChatClicked(state) {
-  const { details } = statesAndVariables(state);
+  const { details } = getStatesAndVariables(state);
 
   return {
     ...state,
@@ -329,12 +329,12 @@ export const stateHandlers = {
   handleEditChatClicked,
   handleSelectPersonToForwardChatClicked,
   handleForwardChatClicked,
-  handleGetTime,
+  getTimeFromMilliseconds,
   handleInputChange,
   handleChatInputKeyPress,
   handlePersonClicked,
   handleConfirmEditChatClicked,
-  handleSortPersons,
+  setSortPersonList,
   handleChatMenuBarClicked,
   handleSearchIconClicked,
   handlePersonMenuBarClicked,
