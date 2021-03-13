@@ -11,7 +11,7 @@ function DialogTemplate({
     DialogActions,
     DialogTitle,
     DialogContent,
-    DialogContentText,
+    // DialogContentText,
     DraggablePaper,
     Button,
     onCloseModalClick,

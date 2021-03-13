@@ -99,24 +99,20 @@ function handleDeleteChat(state, chatId) {
     chatInputText,
   } = statesAndVariables(state, chatId);
 
+  handleFinallyPersons(
+    persons,
+    [personIndex],
+    [{ details, chats: handleFilterDeletedChat(chats, chatId) }]
+  );
+
   return {
     ...state,
+    persons,
+    chatInputText: chatMode ? details.draft : chatInputText,
+    chatContent: null,
+    chatMode: null,
     dialogMode: "deleteMessage",
   };
-
-  // handleFinallyPersons(
-  //   persons,
-  //   [personIndex],
-  //   [{ details, chats: handleFilterDeletedChat(chats, chatId) }]
-  // );
-
-  // return {
-  //   ...state,
-  //   chatInputText: chatMode ? details.draft : chatInputText,
-  //   chatContent: null,
-  //   chatMode: null,
-  //   persons,
-  // };
 }
 
 function handleEditChat(state, chatId) {
