@@ -19,28 +19,13 @@ import Path from "../Components/Others/SvgComponents/Path";
 import Contacts from "../Components/Others/Modals/Contacts";
 import Loader from "../Components/Others/Loader";
 
-import PinIcon from "../Components/Others/SvgComponents/SvgIcons/PinIcon";
-import SendIcon from "../Components/Others/SvgComponents/SvgIcons/SendIcon";
-import SearchIcon from "../Components/Others/SvgComponents/SvgIcons/SearchIcon";
-import CloseIcon from "../Components/Others/SvgComponents/SvgIcons/CloseIcon";
-import ThreeDotIcon from "../Components/Others/SvgComponents/SvgIcons/ThreeDotIcon";
-import BackArrow from "../Components/Others/SvgComponents/SvgIcons/BackArrow";
-import BarIcon from "../Components/Others/SvgComponents/SvgIcons/BarIcon";
-
 export const userComponentsImports = {
-  SendIcon,
-  SearchIcon,
-  CloseIcon,
-  ThreeDotIcon,
-  BackArrow,
-  BarIcon,
   ContextMenu,
   Portal,
   Svg,
   Path,
   Contacts,
   Loader,
-  PinIcon,
   PersonContainer,
   SearchBar,
   PersonList,

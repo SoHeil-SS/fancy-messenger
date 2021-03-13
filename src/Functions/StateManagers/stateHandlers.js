@@ -1,4 +1,4 @@
-import { utilsFunctions } from "../utilsFunctions";
+import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 
 const {
   statesAndVariables,
@@ -10,7 +10,7 @@ const {
   handleDraftChange,
   toaster,
   handleFilterDeletedChat,
-} = utilsFunctions;
+} = utilsFunctionsAndHooks;
 
 function handlePersonClick(state, personId) {
   const {

@@ -16,6 +16,7 @@ function App() {
     onLoadComplete,
     tempPersons,
     loaderStyle,
+    Container,
   } = useImport();
 
   const [
@@ -32,9 +33,10 @@ function App() {
     },
     dispatch,
   ] = useThunkReducer(reducer, {
-    selectedPersonId: "",
+    selectedPersonId: "parvaneh",
     persons: tempPersons,
-    chatInputText: "",
+    chatInputText:
+      "textarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icontextarea-icon",
     searchInputText: "",
     chatContent: "",
     chatContentId: "",
@@ -48,11 +50,11 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       dispatch(onLoadComplete());
-    }, 3000);
+    }, 1);
   }, [dispatch, onLoadComplete]);
 
   return (
-    <>
+    <Container maxWidth="xl">
       <Context.Provider
         value={{
           dispatch,
@@ -62,33 +64,31 @@ function App() {
           searchMode,
         }}
       >
-        <div className="app_app__3mk8F">
-          <div className="app_head__1Nu6Y"></div>
-          <div className="app_main__1NOZK  ">
-            <div className="chat_layout__2YPVn messenger-box">
-              <div className="chat_side__2kvyI">
-                <PersonContainer />
-              </div>
-              {loading && <Loader style={loaderStyle.main} />}
-              {selectedPersonId ? (
-                <ChatContainer
-                  chatMode={chatMode}
-                  chatInputText={chatInputText}
-                  chatContent={chatContent}
-                />
-              ) : (
-                <div className="forBackground"></div>
-              )}
+        <div className="app-bg-top"></div>
+        <div className="app-box">
+          <div className="messenger-box">
+            <div className="person-container">
+              <PersonContainer />
             </div>
+            {loading && <Loader style={loaderStyle.main} />}
+            {selectedPersonId ? (
+              <ChatContainer
+                chatMode={chatMode}
+                chatInputText={chatInputText}
+                chatContent={chatContent}
+              />
+            ) : (
+              <div className="forBackground"></div>
+            )}
           </div>
-          <Portal>
-            <ToastContainer />
-            <ContextMenu />
-            <Contacts modalMode={modalMode} />
-          </Portal>
         </div>
+        <Portal>
+          <ToastContainer />
+          <ContextMenu />
+          <Contacts modalMode={modalMode} />
+        </Portal>
       </Context.Provider>
-    </>
+    </Container>
   );
 }
 

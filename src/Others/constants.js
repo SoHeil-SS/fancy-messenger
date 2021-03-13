@@ -1,7 +1,7 @@
-import { utilsFunctions } from "../Functions/utilsFunctions";
+import { utilsFunctionsAndHooks } from "../Functions/utilsFunctionsAndHooks";
 import { theme } from "react-contexify";
 
-const { idMaker } = utilsFunctions;
+const { idMaker } = utilsFunctionsAndHooks;
 
 const avatarUrl = "./Assets/Pictures/PersonPictures";
 

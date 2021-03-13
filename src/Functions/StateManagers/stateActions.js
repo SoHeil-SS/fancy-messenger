@@ -1,6 +1,6 @@
-import { utilsFunctions } from "../utilsFunctions";
+import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 
-const { actionCreator } = utilsFunctions;
+const { actionCreator } = utilsFunctionsAndHooks;
 
 const personClicked = (personId) => actionCreator("PERSON_CLICKED", personId);
 

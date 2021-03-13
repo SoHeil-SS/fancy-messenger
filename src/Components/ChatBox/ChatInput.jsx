@@ -1,25 +1,22 @@
-function ChatInput({
-  chatInputText,
-  spanIcon,
-  onKeyPress,
-  onInputChange,
-  onSpanClick,
-}) {
+import { useImport } from "../../Imports/imports";
+
+function ChatInput({ chatInputText, onKeyPress, onInputChange, onSpanClick }) {
+  const { TextField, styles } = useImport();
+
+  const { textarea } = styles;
+
   return (
-    <div>
-      <div className="chatDetail_input-section__2qoiR">
-        <input
-          type="text"
-          placeholder="Write a message..."
-          onChange={onInputChange}
-          value={chatInputText}
-          onKeyPress={onKeyPress}
-        />
-        <span className="span-input-area" onClick={onSpanClick}>
-          {spanIcon}
-        </span>
-      </div>
-    </div>
+    <TextField
+      className="chat-input"
+      id="standard-multiline-flexible"
+      label={!chatInputText ? "Write a message..." : " "}
+      multiline
+      style={textarea}
+      rowsMax={8}
+      onChange={onInputChange}
+      value={chatInputText}
+      onKeyPress={onKeyPress}
+    />
   );
 }
 

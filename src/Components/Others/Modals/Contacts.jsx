@@ -29,8 +29,6 @@ function Contacts({ modalMode }) {
     return (
       <PersonListItem
         key={personId}
-        personId={personId}
-        personItemClassName={"listItem_list-item__1mnZB listItem_bg "}
         avatar={avatar}
         personName={personName}
         onPersonClick={() => dispatch(onForwardChat(personId))}
@@ -56,7 +54,7 @@ function Contacts({ modalMode }) {
                 onChange={(e) =>
                   dispatch(onInputChange(e.target.value, "searchInputText"))
                 }
-                className="appStatus_search-text__3Fr_f forward-input"
+                className="forward-input"
               />
             </div>
           </Modal.Title>

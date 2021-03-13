@@ -7,42 +7,59 @@ function SearchBar({
   onBackArrowIconClick,
   onPersonMenuClick,
 }) {
-  const { SearchIcon, BackArrow, BarIcon, searchInputText } = useImport();
+  const {
+    TextField,
+    searchInputText,
+    Box,
+    styles,
+    SearchIcon,
+    IconButton,
+    MenuIcon,
+    ArrowBackIcon,
+    Paper,
+  } = useImport();
 
+  const { defaultStyle } = styles.icons;
+  const { box, container, searchInput, searchInputBox } = styles.searchBar;
   return (
-    <div>
-      <div className="titleBar_title-bar__3W5uP">
-        <div className="titleBar_first__PIBdf">
+    <Paper style={container}>
+      <Box m={1} p={1.39} style={box}>
+        <Box>
           {searchMode ? (
-            <BackArrow onClick={onBackArrowIconClick} />
+            <IconButton onClick={onBackArrowIconClick}>
+              <ArrowBackIcon style={defaultStyle} />
+            </IconButton>
           ) : (
-            <BarIcon onPersonMenuClick={onPersonMenuClick} />
+            <IconButton onClick={onPersonMenuClick}>
+              <MenuIcon style={defaultStyle} />
+            </IconButton>
           )}
-        </div>
-        <div className="titleBar_middle__220jH">
-          <div className="appStatus_app-title__3Wu5j">
-            {searchMode ? (
-              <input
-                type="text"
-                placeholder={
-                  searchMode === "chats"
-                    ? "Type to search chats..."
-                    : "Type to search persons ..."
-                }
-                value={searchInputText}
-                onChange={onInputChange}
-                className="appStatus_search-text__3Fr_f"
-              />
-            ) : (
-              "Fancy Messenger"
-            )}
-          </div>
-        </div>
-        <div className="titleBar_last__2vQ77">
-          <SearchIcon onClick={onSearchIconClick} />
-        </div>
-      </div>
-    </div>
+        </Box>
+        <Box style={searchInputBox}>
+          {searchMode ? (
+            <TextField
+              id="standard-search"
+              type="search"
+              value={searchInputText}
+              onChange={onInputChange}
+              style={searchInput}
+              label={
+                searchMode === "chats"
+                  ? "Type to search chats..."
+                  : "Type to search persons..."
+              }
+            />
+          ) : (
+            <h4>Fancy Messenger</h4>
+          )}
+        </Box>
+        <Box>
+          <IconButton onClick={onSearchIconClick}>
+            <SearchIcon style={defaultStyle} />
+          </IconButton>
+        </Box>
+      </Box>
+    </Paper>
   );
 }
 

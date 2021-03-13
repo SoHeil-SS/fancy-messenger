@@ -26,15 +26,11 @@ function PersonList({ showablePersons }) {
     return (
       <PersonListItem
         key={personId}
-        personItemClassName={
-          selectedPersonIsSame
-            ? "listItem_list-item__1mnZB listItem_selected__3Q6PN  "
-            : "listItem_list-item__1mnZB listItem_bg "
-        }
         avatar={avatar}
         personName={personName}
         lastChatText={self || person}
         draft={draft}
+        selected={!!selectedPersonIsSame}
         lastChatTime={handleLastChatTime(chatTime)}
         unreadChatCounter={unreadChatCounter}
         onPersonClick={() =>
@@ -44,7 +40,7 @@ function PersonList({ showablePersons }) {
     );
   });
 
-  return <div className="list_list__WxcsG">{list}</div>;
+  return <>{list}</>;
 }
 
 export default PersonList;

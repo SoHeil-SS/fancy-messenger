@@ -7,27 +7,54 @@ function ChatTitleBar({
   onChatMenuClick,
   onSearchIconClick,
 }) {
-  const { SearchIcon, CloseIcon, ThreeDotIcon } = useImport();
+  const {
+    SearchIcon,
+    CloseIcon,
+    IconButton,
+    MoreVertIcon,
+    styles,
+    Avatar,
+    Box,
+    Paper,
+  } = useImport();
+
+  const { defaultStyle } = styles.icons;
+  const { large } = styles.avatarStyle;
+  const { container } = styles.chatTitleBar;
 
   return (
-    <div className="titleBar_title-bar__3W5uP">
-      <div className="titleBar_first__PIBdf">
-        <CloseIcon onClick={onCloseChat} />
-      </div>
-      <div className="titleBar_middle__220jH">
-        <div className="chatDetail_app-title__1xgvb">
-          <div className="avatar__avatar__oTaCM">
-            <img src={avatar} alt={personName} />
-          </div>
-          <div className="chatDetail_name__LVfMo">{personName}</div>
-          <span className="lastSeenSpan">last seen 666 minutes ago</span>
-        </div>
-      </div>
-      <div className="titleBar_last__2vQ77">
-        <SearchIcon onClick={onSearchIconClick} />
-        <ThreeDotIcon onClick={onChatMenuClick} />
-      </div>
-    </div>
+    <Paper style={container}>
+      <Box
+        display="flex"
+        flexDirection="row"
+        m={1}
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Box p={1}>
+          <IconButton onClick={onCloseChat}>
+            <CloseIcon style={defaultStyle} />
+          </IconButton>
+        </Box>
+        <Box display="flex" flexDirection="row">
+          <Box p={1}>
+            <Avatar style={large} src={avatar} alt={personName} />
+          </Box>
+          <Box p={1}>
+            <div>{personName}</div>
+            <span className="lastSeenSpan">last seen 666 minutes ago</span>
+          </Box>
+        </Box>
+        <Box p={1}>
+          <IconButton onClick={onSearchIconClick}>
+            <SearchIcon style={defaultStyle} />
+          </IconButton>
+          <IconButton onClick={onChatMenuClick}>
+            <MoreVertIcon style={defaultStyle} />
+          </IconButton>
+        </Box>
+      </Box>
+    </Paper>
   );
 }
 

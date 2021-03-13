@@ -40,7 +40,7 @@ function ContextMenu() {
   return (
     <div>
       <main>
-        <Menu id={menuId} theme={theme.dark}>
+        <Menu id={menuId} theme={theme.light}>
           <Item id="edit" onClick={handleContextClick}>
             Edit
           </Item>

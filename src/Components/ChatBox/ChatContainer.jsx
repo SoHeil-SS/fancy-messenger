@@ -5,8 +5,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     ChatTitleBar,
     ChatList,
     ChatInput,
-    SendIcon,
-    PinIcon,
+    AttachFileIcon,
     ChatDetailPanel,
     dispatch,
     closeClicked,
@@ -24,6 +23,11 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     persons,
     useMemo,
     searchMode,
+    TelegramIcon,
+    Paper,
+    MicNoneIcon,
+    IconButton,
+    styles,
   } = useImport();
 
   const { details, chats } = useMemo(
@@ -39,6 +43,8 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
   const condition = chatInputText || chatContent;
   const { avatar, personName, draft } = details;
 
+  const { container } = styles.chatInput;
+
   return (
     <div>
       <ChatTitleBar
@@ -49,7 +55,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
         onSearchIconClick={() => dispatch(searchInputState("chats"))}
       />
 
-      <div className="chatDetail_chat-box__3peJu">
+      <div className="chat-container">
         <ChatList showableChats={showableChats} />
 
         {chatMode && (
@@ -59,22 +65,38 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
             editCloseClicked={() => dispatch(editCloseClicked())}
           />
         )}
-
-        <ChatInput
-          chatInputText={chatInputText}
-          draft={draft}
-          spanIcon={condition ? <SendIcon /> : <PinIcon />}
-          onKeyPress={(e) => e.key === "Enter" && dispatch(onKeyPress())}
-          onInputChange={(e) =>
-            dispatch(onInputChange(e.target.value, "chatInputText"))
-          }
-          onSpanClick={
-            condition
-              ? () =>
-                  dispatch(chatMode === "edit" ? saveClicked() : addClicked())
-              : () => console.log("Pin Clicked")
-          }
-        />
+        <div>
+          <Paper className="input-container" style={container}>
+            <span className="textarea-icon">
+              <IconButton onClick={() => console.log("Pin Clicked")}>
+                <AttachFileIcon />
+              </IconButton>
+            </span>
+            <ChatInput
+              chatInputText={chatInputText}
+              draft={draft}
+              onKeyPress={(e) => e.key === "Enter" && dispatch(onKeyPress())}
+              onInputChange={(e) =>
+                dispatch(onInputChange(e.target.value, "chatInputText"))
+              }
+            />
+            <span className="textarea-icon">
+              {condition ? (
+                <IconButton
+                  onClick={() =>
+                    dispatch(chatMode === "edit" ? saveClicked() : addClicked())
+                  }
+                >
+                  <TelegramIcon color="primary" />
+                </IconButton>
+              ) : (
+                <IconButton onClick={() => console.log("Mic Clicked")}>
+                  <MicNoneIcon />
+                </IconButton>
+              )}
+            </span>
+          </Paper>
+        </div>
       </div>
     </div>
   );

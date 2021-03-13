@@ -179,7 +179,7 @@ function statesAndVariables(
   };
 }
 
-export const utilsFunctions = {
+export const utilsFunctionsAndHooks = {
   handleLastChatDetails,
   Context,
   statesAndVariables,

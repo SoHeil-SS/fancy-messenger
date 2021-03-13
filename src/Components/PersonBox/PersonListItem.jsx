@@ -1,5 +1,6 @@
-function PersonListItem({
-  personItemClassName,
+import { useImport } from "../../Imports/imports";
+
+export default function PersonListItem({
   draft,
   avatar,
   personName,
@@ -7,30 +8,55 @@ function PersonListItem({
   lastChatTime,
   unreadChatCounter,
   onPersonClick,
+  selected,
 }) {
+  const {
+    Paper,
+    Grid,
+    Typography,
+    Avatar,
+    Badge,
+    styles,
+    ListItem,
+  } = useImport();
+
+  const { container, paperItem, unreadBadge, listItem } = styles.personListItem;
+
+  const { large } = styles.avatarStyle;
+
   return (
-    <div className={personItemClassName} onClick={onPersonClick}>
-      <div className="listItem_avatar__FkMqU ">
-        <div className="avatar__avatar__oTaCM">
-          <img src={avatar} alt={personName} />
-        </div>
-      </div>
-      <div className="listItem_name__2wTlg">{personName}</div>
-      <div className="listItem_message__3ZiRE">
-        {draft ? (
-          <>
-            <span className="person-list-item-span-draft">draft</span>: {draft}
-          </>
-        ) : (
-          lastChatText
-        )}
-      </div>
-      <div className="listItem_time__3-xft">{lastChatTime}</div>
-      <div className="listItem_info__3vSL0">
-        {unreadChatCounter && <div>{unreadChatCounter}</div>}
-      </div>
+    <div style={container}>
+      <Paper onClick={onPersonClick} style={paperItem}>
+        <ListItem button style={listItem} selected={selected}>
+          <Grid container wrap="nowrap" justify="space-between" spacing={2}>
+            <Grid item>
+              <Avatar src={avatar} style={large}></Avatar>
+            </Grid>
+            <Grid item lg zeroMinWidth container justify="flex-start">
+              <Grid item md>
+                <Typography noWrap>{personName}</Typography>
+                <Grid item md></Grid>
+                <Typography noWrap>
+                  <span>
+                    {draft && <span style={{ color: "red" }}>Draft: </span>}
+                    {draft || lastChatText}
+                  </span>
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography noWrap>{lastChatTime}</Typography>
+              {unreadChatCounter && (
+                <Grid item>
+                  <Badge pill variant="primary" style={unreadBadge}>
+                    {unreadChatCounter}
+                  </Badge>
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        </ListItem>
+      </Paper>
     </div>
   );
 }
-
-export default PersonListItem;

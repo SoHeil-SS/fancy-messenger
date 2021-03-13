@@ -20,7 +20,7 @@ function ChatList({ showableChats }) {
     );
   });
 
-  return <ul className="chatDetail_messages-panel__3aOw8">{chatList}</ul>;
+  return <ul className=" chat-list-ul ">{chatList}</ul>;
 }
 
 export default ChatList;
