@@ -14,7 +14,7 @@ function DialogTemplate({
     // DialogContentText,
     DraggablePaper,
     Button,
-    onCloseModalClick,
+    actionCloseDialogClicked,
     dispatch,
   } = useImport();
 
@@ -22,7 +22,7 @@ function DialogTemplate({
     <>
       <Dialog
         open={dialogMode}
-        onClose={() => dispatch(onCloseModalClick())}
+        onClose={() => dispatch(actionCloseDialogClicked())}
         PaperComponent={DraggablePaper}
         aria-labelledby="draggable-dialog-title"
       >

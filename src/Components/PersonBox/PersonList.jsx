@@ -4,7 +4,7 @@ function PersonList({ showablePersons }) {
   const {
     dispatch,
     PersonListItem,
-    personClicked,
+    actionPersonClicked,
     handleLastChatTime,
     selectedPersonId,
     handleLastChatDetails,
@@ -34,7 +34,7 @@ function PersonList({ showablePersons }) {
         lastChatTime={handleLastChatTime(chatTime)}
         unreadChatCounter={unreadChatCounter}
         onPersonClick={() =>
-          !selectedPersonIsSame && dispatch(personClicked(personId))
+          !selectedPersonIsSame && dispatch(actionPersonClicked(personId))
         }
       />
     );

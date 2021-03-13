@@ -1,23 +1,25 @@
 import { stateHandlers } from "./stateHandlers";
 
 const {
-  handlePersonClick,
-  handleAddChat,
-  handleCopyChat,
-  handleEditChat,
-  handleSaveChat,
-  handleCancelEdit,
-  handleForwardClick,
-  handleForwardChat,
-  handleDeleteChat,
-  handleCloseChat,
+  handlePersonClicked,
+  handleAddNewChatClicked,
+  handleCopyChatClicked,
+  handleEditChatClicked,
+  handleConfirmEditChatClicked,
+  handleCancelEditChatClicked,
+  handleForwardChatClicked,
+  handleSelectPersonToForwardChatClicked,
+  handleConfirmDeleteChatClicked,
+  handleDeleteChatClicked,
+  handleChatBoxCloseClicked,
   handleInputChange,
-  handleKeyPress,
-  handleChatMenuClick,
-  handleSearchClick,
-  handlePersonMenuClick,
-  handleCloseModalClick,
-  handleLoadComplete,
+  handleChatInputKeyPress,
+  handleChatMenuBarClicked,
+  handleSearchIconClicked,
+  handlePersonMenuBarClicked,
+  handleCloseDialogClicked,
+  handleAppLoadComplete,
+  handleCloseNotificationClicked,
 } = stateHandlers;
 
 export function reducer(state, action) {
@@ -25,55 +27,61 @@ export function reducer(state, action) {
 
   switch (type) {
     case "PERSON_CLICKED":
-      return handlePersonClick(state, payload);
+      return handlePersonClicked(state, payload);
 
-    case "ADD_CLICKED":
-      return handleAddChat(state);
+    case "ADD_NEW_CHAT_CLICKED":
+      return handleAddNewChatClicked(state);
 
-    case "COPY_CLICKED":
-      return handleCopyChat(state, payload);
+    case "COPY_CHAT_CLICKED":
+      return handleCopyChatClicked(state, payload);
 
-    case "EDIT_CLICKED":
-      return handleEditChat(state, payload);
+    case "EDIT_CHAT_CLICKED":
+      return handleEditChatClicked(state, payload);
 
-    case "EDIT_CLOSE_CLICKED":
-      return handleCancelEdit(state);
+    case "CANCEL_EDIT_CHAT_CLICKED":
+      return handleCancelEditChatClicked(state);
 
-    case "SAVE_CLICKED":
-      return handleSaveChat(state);
+    case "CONFIRM_EDIT_CHAT_CLICKED":
+      return handleConfirmEditChatClicked(state);
 
-    case "FORWARD_CLICKED":
-      return handleForwardClick(state, payload);
+    case "FORWARD_CHAT_CLICKED":
+      return handleForwardChatClicked(state, payload);
 
-    case "FORWARD_TO_PERSON_CLICKED":
-      return handleForwardChat(state, payload);
+    case "SELECT_PERSON_TO_FORWARD_CHAT_CLICKED":
+      return handleSelectPersonToForwardChatClicked(state, payload);
 
-    case "DELETE_CLICKED":
-      return handleDeleteChat(state, payload);
+    case "DELETE_CHAT_CLICKED":
+      return handleDeleteChatClicked(state, payload);
 
-    case "INPUT_CHANGED":
+    case "CONFIRM_DELETE_CHAT_CLICKED":
+      return handleConfirmDeleteChatClicked(state);
+
+    case "INPUT_CHANGE":
       return handleInputChange(state, payload);
 
-    case "ENTER_CLICKED":
-      return handleKeyPress(state);
+    case "CHAT_INPUT_KEY_PRESS":
+      return handleChatInputKeyPress(state);
 
-    case "CLOSE_CLICKED":
-      return handleCloseChat(state, payload);
+    case "CHAT_BOX_CLOSE_CLICKED":
+      return handleChatBoxCloseClicked(state, payload);
 
-    case "CHAT_MENU_CLICKED":
-      return handleChatMenuClick(state);
+    case "CHAT_MENU_BAR_CLICKED":
+      return handleChatMenuBarClicked(state);
 
-    case "SEARCH_CLICKED":
-      return handleSearchClick(state, payload);
+    case "SEARCH_ICON_CLICKED":
+      return handleSearchIconClicked(state, payload);
 
-    case "PERSON_MENU_CLICKED":
-      return handlePersonMenuClick(state);
+    case "PERSON_MENU_BAR_CLICKED":
+      return handlePersonMenuBarClicked(state);
 
-    case "CLOSE_MODAL_CLICKED":
-      return handleCloseModalClick(state);
+    case "CLOSE_DIALOG_CLICKED":
+      return handleCloseDialogClicked(state);
 
-    case "LOAD_COMPLETED":
-      return handleLoadComplete(state);
+    case "APP_LOAD_COMPLETED":
+      return handleAppLoadComplete(state);
+
+    case "CLOSE_NOTIFICATION_CLICKED":
+      return handleCloseNotificationClicked(state);
 
     default:
       return state;

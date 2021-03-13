@@ -13,7 +13,7 @@ function App() {
     ToastContainer,
     ContextMenu,
     reducer,
-    onLoadComplete,
+    actionAppLoadComplete,
     tempPersons,
     loaderStyle,
     Container,
@@ -53,9 +53,9 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(onLoadComplete());
+      dispatch(actionAppLoadComplete());
     }, 1);
-  }, [dispatch, onLoadComplete]);
+  }, [dispatch, actionAppLoadComplete]);
 
   return (
     <Container maxWidth="xl">

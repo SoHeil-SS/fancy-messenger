@@ -1,5 +1,7 @@
 import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 
+let deletingChatID = "";
+
 const {
   statesAndVariables,
   handleSortPersons,
@@ -12,7 +14,7 @@ const {
   handleFilterDeletedChat,
 } = utilsFunctionsAndHooks;
 
-function handlePersonClick(state, personId) {
+function handlePersonClicked(state, personId) {
   const {
     selectedPersonId,
     personIndex,
@@ -54,7 +56,7 @@ function handlePersonClick(state, personId) {
   };
 }
 
-function handleAddChat(state) {
+function handleAddNewChatClicked(state) {
   const {
     chatContent,
     personIndex,
@@ -83,13 +85,20 @@ function handleAddChat(state) {
 }
 
 //TODO forward to utilsFunctions
-function handleCopyChat(state, chatText) {
+function handleCopyChatClicked(state, chatText) {
   navigator.clipboard.writeText(chatText);
 
   return state;
 }
+
+function handleDeleteChatClicked(state, chatID) {
+  deletingChatID = chatID;
+
+  return { ...state, dialogMode: "deleteMessage" };
+}
+
 //FIXME
-function handleDeleteChat(state, chatId) {
+function handleConfirmDeleteChatClicked(state) {
   const {
     persons,
     personIndex,
@@ -97,12 +106,12 @@ function handleDeleteChat(state, chatId) {
     chats,
     chatMode,
     chatInputText,
-  } = statesAndVariables(state, chatId);
+  } = statesAndVariables(state, deletingChatID);
 
   handleFinallyPersons(
     persons,
     [personIndex],
-    [{ details, chats: handleFilterDeletedChat(chats, chatId) }]
+    [{ details, chats: handleFilterDeletedChat(chats, deletingChatID) }]
   );
 
   return {
@@ -111,12 +120,12 @@ function handleDeleteChat(state, chatId) {
     chatInputText: chatMode ? details.draft : chatInputText,
     chatContent: null,
     chatMode: null,
-    dialogMode: "deleteMessage",
     snackState: "messageDeleted",
+    dialogMode: "",
   };
 }
 
-function handleEditChat(state, chatId) {
+function handleEditChatClicked(state, chatId) {
   const {
     persons,
     personIndex,
@@ -143,7 +152,7 @@ function handleEditChat(state, chatId) {
   };
 }
 
-function handleSaveChat(state) {
+function handleConfirmEditChatClicked(state) {
   const {
     persons,
     details,
@@ -167,7 +176,7 @@ function handleSaveChat(state) {
   };
 }
 
-function handleForwardClick(state, forwardText) {
+function handleForwardChatClicked(state, forwardText) {
   const {
     chatContent,
     personIndex,
@@ -189,7 +198,7 @@ function handleForwardClick(state, forwardText) {
   };
 }
 
-function handleForwardChat(state, personId) {
+function handleSelectPersonToForwardChatClicked(state, personId) {
   const {
     persons,
     details,
@@ -218,12 +227,12 @@ function handleForwardChat(state, personId) {
 }
 
 //TODO what is this !!!
-function handleKeyPress(state) {
+function handleChatInputKeyPress(state) {
   const { chatInputText, chatContent } = state;
 
   if (chatInputText) {
-    if (!chatContent) return handleAddChat(state);
-    if (chatContent) return handleSaveChat(state);
+    if (!chatContent) return handleAddNewChatClicked(state);
+    if (chatContent) return handleConfirmEditChatClicked(state);
   }
 
   return state;
@@ -236,7 +245,7 @@ function handleInputChange(state, { text, whichInput }) {
   };
 }
 
-function handleCloseChat(state) {
+function handleChatBoxCloseClicked(state) {
   const {
     persons,
     personIndex,
@@ -264,7 +273,7 @@ function handleCloseChat(state) {
   };
 }
 
-function handleCancelEdit(state) {
+function handleCancelEditChatClicked(state) {
   const { details } = statesAndVariables(state);
 
   return {
@@ -275,7 +284,7 @@ function handleCancelEdit(state) {
   };
 }
 
-function handleSearchClick(state, searchMode) {
+function handleSearchIconClicked(state, searchMode) {
   return {
     ...state,
     searchMode,
@@ -283,15 +292,15 @@ function handleSearchClick(state, searchMode) {
   };
 }
 
-function handlePersonMenuClick(state) {
+function handlePersonMenuBarClicked(state) {
   return state;
 }
 
-function handleChatMenuClick(state) {
+function handleChatMenuBarClicked(state) {
   return state;
 }
 
-function handleCloseModalClick(state) {
+function handleCloseDialogClicked(state) {
   return {
     ...state,
     searchInputText: "",
@@ -299,7 +308,7 @@ function handleCloseModalClick(state) {
   };
 }
 
-function handleLoadComplete(state) {
+function handleAppLoadComplete(state) {
   toaster(
     "info",
     "",
@@ -312,26 +321,27 @@ function handleLoadComplete(state) {
 }
 
 export const stateHandlers = {
-  handleAddChat,
-  handleCancelEdit,
-  handleCloseChat,
-  handleCopyChat,
-  handleDeleteChat,
-  handleEditChat,
-  handleForwardChat,
-  handleForwardClick,
+  handleAddNewChatClicked,
+  handleCancelEditChatClicked,
+  handleChatBoxCloseClicked,
+  handleCopyChatClicked,
+  handleConfirmDeleteChatClicked,
+  handleEditChatClicked,
+  handleSelectPersonToForwardChatClicked,
+  handleForwardChatClicked,
   handleGetTime,
   handleInputChange,
-  handleKeyPress,
-  handlePersonClick,
-  handleSaveChat,
+  handleChatInputKeyPress,
+  handlePersonClicked,
+  handleConfirmEditChatClicked,
   handleSortPersons,
-  handleChatMenuClick,
-  handleSearchClick,
-  handlePersonMenuClick,
-  handleCloseModalClick,
+  handleChatMenuBarClicked,
+  handleSearchIconClicked,
+  handlePersonMenuBarClicked,
+  handleCloseDialogClicked,
   toaster,
-  handleLoadComplete,
+  handleAppLoadComplete,
+  handleDeleteChatClicked,
 };
 
 // import { personClicked } from "../StateManager/actionCreator";

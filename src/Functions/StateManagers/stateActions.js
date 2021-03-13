@@ -2,60 +2,75 @@ import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 
 const { actionCreator } = utilsFunctionsAndHooks;
 
-const personClicked = (personId) => actionCreator("PERSON_CLICKED", personId);
+const actionPersonClicked = (personId) =>
+  actionCreator("PERSON_CLICKED", personId);
 
-const addClicked = () => actionCreator("ADD_CLICKED");
+const actionAddNewChatClicked = () => actionCreator("ADD_NEW_CHAT_CLICKED");
 
-const copyClicked = (chatText) => actionCreator("COPY_CLICKED", chatText);
+const actionCopyChatClicked = (chatText) =>
+  actionCreator("COPY_CHAT_CLICKED", chatText);
 
-const editClicked = (chatId) => actionCreator("EDIT_CLICKED", chatId);
+const actionEditChatClicked = (chatId) =>
+  actionCreator("EDIT_CHAT_CLICKED", chatId);
 
-const deleteClicked = (chatId) => actionCreator("DELETE_CLICKED", chatId);
+const actionDeleteChatClicked = (chatId) =>
+  actionCreator("DELETE_CHAT_CLICKED", chatId);
+const actionConfirmDeleteChatClicked = () =>
+  actionCreator("CONFIRM_DELETE_CHAT_CLICKED");
 
-const forwardClicked = (forwardText) =>
-  actionCreator("FORWARD_CLICKED", [forwardText]);
+const actionForwardChatClicked = (forwardText) =>
+  actionCreator("FORWARD_CHAT_CLICKED", [forwardText]);
 
-const onForwardChat = (personId) =>
-  actionCreator("FORWARD_TO_PERSON_CLICKED", personId);
+const actionSelectPersonToForwardChatClicked = (personId) =>
+  actionCreator("SELECT_PERSON_TO_FORWARD_CHAT_CLICKED", personId);
 
-const saveClicked = () => actionCreator("SAVE_CLICKED");
+const actionConfirmEditChatClicked = () =>
+  actionCreator("CONFIRM_EDIT_CHAT_CLICKED");
 
-const editCloseClicked = (chatId) =>
-  actionCreator("EDIT_CLOSE_CLICKED", chatId);
+const actionCancelEditChatClicked = (chatId) =>
+  actionCreator("CANCEL_EDIT_CHAT_CLICKED", chatId);
 
-const onInputChange = (text, whichInput) =>
-  actionCreator("INPUT_CHANGED", { text, whichInput });
+const actionInputChange = (text, whichInput) =>
+  actionCreator("INPUT_CHANGE", { text, whichInput });
 
-const onKeyPress = () => actionCreator("ENTER_CLICKED");
+const actionChatInputKeyPress = () => actionCreator("CHAT_INPUT_KEY_PRESS");
 
-const closeClicked = () => actionCreator("CLOSE_CLICKED", true);
+const actionChatBoxCloseClicked = () =>
+  actionCreator("CHAT_BOX_CLOSE_CLICKED", true);
 
-const onChatMenuClick = () => actionCreator("CHAT_MENU_CLICKED");
+const actionChatMenuBarClicked = () => actionCreator("CHAT_MENU_BAR_CLICKED");
 
-const searchInputState = (value) => actionCreator("SEARCH_CLICKED", value);
+const actionPersonMenuBarClicked = () =>
+  actionCreator("PERSON_MENU_BAR_CLICKED");
 
-const onPersonMenuClick = () => actionCreator("PERSON_MENU_CLICKED");
+const actionSearchIconClicked = (value) =>
+  actionCreator("SEARCH_ICON_CLICKED", value);
 
-const onCloseModalClick = () => actionCreator("CLOSE_MODAL_CLICKED");
+const actionCloseNotificationClicked = () =>
+  actionCreator("CLOSE_NOTIFICATION_CLICKED");
 
-const onLoadComplete = () => actionCreator("LOAD_COMPLETED");
+const actionCloseDialogClicked = () => actionCreator("CLOSE_DIALOG_CLICKED");
+
+const actionAppLoadComplete = () => actionCreator("APP_LOAD_COMPLETED");
 
 export const stateActions = {
-  personClicked,
-  addClicked,
-  copyClicked,
-  editClicked,
-  deleteClicked,
-  forwardClicked,
-  onForwardChat,
-  saveClicked,
-  editCloseClicked,
-  onInputChange,
-  onKeyPress,
-  closeClicked,
-  onChatMenuClick,
-  searchInputState,
-  onPersonMenuClick,
-  onCloseModalClick,
-  onLoadComplete,
+  actionPersonClicked,
+  actionAddNewChatClicked,
+  actionCopyChatClicked,
+  actionEditChatClicked,
+  actionDeleteChatClicked,
+  actionForwardChatClicked,
+  actionSelectPersonToForwardChatClicked,
+  actionConfirmEditChatClicked,
+  actionCancelEditChatClicked,
+  actionInputChange,
+  actionChatInputKeyPress,
+  actionChatBoxCloseClicked,
+  actionChatMenuBarClicked,
+  actionSearchIconClicked,
+  actionPersonMenuBarClicked,
+  actionCloseDialogClicked,
+  actionAppLoadComplete,
+  actionConfirmDeleteChatClicked,
+  actionCloseNotificationClicked,
 };

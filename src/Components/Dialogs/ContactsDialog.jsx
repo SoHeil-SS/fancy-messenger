@@ -5,12 +5,12 @@ function ContactsDialog({ dialogMode }) {
     dispatch,
     PersonListItem,
     SearchIcon,
-    onInputChange,
-    onForwardChat,
+    actionInputChange,
+    actionSelectPersonToForwardChatClicked,
     persons,
     searchInputText,
     useMemo,
-    onCloseModalClick,
+    actionCloseDialogClicked,
     handleShowablePersons,
     DialogTemplate,
     dialogActionInitializer,
@@ -31,7 +31,7 @@ function ContactsDialog({ dialogMode }) {
           placeholder="Type to search persons..."
           value={searchInputText}
           onChange={(e) =>
-            dispatch(onInputChange(e.target.value, "searchInputText"))
+            dispatch(actionInputChange(e.target.value, "searchInputText"))
           }
           className="forward-input"
         />
@@ -43,7 +43,7 @@ function ContactsDialog({ dialogMode }) {
     ["Cancel"],
     ["secondary"],
     [true],
-    [() => dispatch(onCloseModalClick())]
+    [() => dispatch(actionCloseDialogClicked())]
   );
 
   const list = filteredPersonsToForward.map((person) => {
@@ -54,7 +54,9 @@ function ContactsDialog({ dialogMode }) {
         key={personId}
         avatar={avatar}
         personName={personName}
-        onPersonClick={() => dispatch(onForwardChat(personId))}
+        onPersonClick={() =>
+          dispatch(actionSelectPersonToForwardChatClicked(personId))
+        }
       />
     );
   });

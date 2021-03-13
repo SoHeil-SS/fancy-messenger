@@ -21,6 +21,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Snackbar,
 } from "@material-ui/core";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -64,4 +65,5 @@ export const reactComponentsImports = {
   AttachFileIcon,
   TelegramIcon,
   MicNoneIcon,
+  Snackbar,
 };

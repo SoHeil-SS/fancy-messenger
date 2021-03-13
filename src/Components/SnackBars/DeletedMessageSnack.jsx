@@ -1,17 +1,13 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import { useImport } from "../../Imports/imports";
 
-function DeleteMessageSnack({ snackState, handleCloseSnack }) {
-  // const handleClose = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-
-  //   setOpen(false);
-  // };
+function DeleteMessageSnack({ snackState }) {
+  const {
+    Button,
+    Snackbar,
+    IconButton,
+    CloseIcon,
+    actionCloseNotificationClicked,
+  } = useImport();
 
   return (
     <div>
@@ -22,18 +18,22 @@ function DeleteMessageSnack({ snackState, handleCloseSnack }) {
         }}
         open={snackState}
         autoHideDuration={3000}
-        onClose={handleCloseSnack}
-        message="Note archived"
+        onClose={actionCloseNotificationClicked}
+        message="Message deleted successfully."
         action={
           <>
-            <Button color="secondary" size="large" onClick={handleCloseSnack}>
+            <Button
+              color="secondary"
+              size="large"
+              onClick={actionCloseNotificationClicked}
+            >
               UNDO
             </Button>
             <IconButton
               size="small"
               aria-label="close"
               color="inherit"
-              onClick={handleCloseSnack}
+              onClick={actionCloseNotificationClicked}
             >
               <CloseIcon fontSize="small" />
             </IconButton>
@@ -45,3 +45,11 @@ function DeleteMessageSnack({ snackState, handleCloseSnack }) {
 }
 
 export default DeleteMessageSnack;
+
+// const handleClose = (event, reason) => {
+//   if (reason === "clickaway") {
+//     return;
+//   }
+
+//   setOpen(false);
+// };

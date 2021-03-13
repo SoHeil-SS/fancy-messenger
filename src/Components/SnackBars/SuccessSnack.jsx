@@ -23,7 +23,7 @@ function SuccessSnack({ snackState, handleSnackClose }) {
         onClose={handleSnackClose}
         severity="success"
       >
-        This is a success message!
+        Message edited successfully.
       </MuiAlert>
     </Snackbar>
   );

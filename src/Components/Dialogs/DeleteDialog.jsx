@@ -1,13 +1,22 @@
 import { useImport } from "../../Imports/imports";
 
 function DeleteDialog({ dialogMode }) {
-  const { DialogTemplate, dialog, dialogActionInitializer } = useImport();
+  const {
+    DialogTemplate,
+    dialog,
+    dialogActionInitializer,
+    dispatch,
+    actionConfirmDeleteChatClicked,
+  } = useImport();
 
   const actionContent = dialogActionInitializer(
     ["Cancel", "Delete"],
     ["primary", "secondary"],
     [true, false],
-    [() => console.log("Canceled"), () => console.log("Deleted")]
+    [
+      () => console.log("Canceled"),
+      () => dispatch(actionConfirmDeleteChatClicked()),
+    ]
   );
 
   return (

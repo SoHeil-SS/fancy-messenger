@@ -8,16 +8,16 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
     AttachFileIcon,
     ChatDetailPanel,
     dispatch,
-    closeClicked,
-    onChatMenuClick,
-    searchInputState,
-    onInputChange,
-    onKeyPress,
+    actionChatBoxCloseClicked,
+    actionChatMenuBarClicked,
+    actionSearchIconClicked,
+    actionInputChange,
+    actionChatInputKeyPress,
     handleShowableChats,
     handleSelectedPersonItems,
-    editCloseClicked,
-    addClicked,
-    saveClicked,
+    actionCancelEditChatClicked,
+    actionAddNewChatClicked,
+    actionConfirmEditChatClicked,
     selectedPersonId,
     searchInputText,
     persons,
@@ -50,9 +50,9 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
       <ChatTitleBar
         avatar={avatar}
         personName={personName}
-        onCloseChat={() => dispatch(closeClicked())}
-        onChatMenuClick={() => dispatch(onChatMenuClick())}
-        onSearchIconClick={() => dispatch(searchInputState("chats"))}
+        onCloseChat={() => dispatch(actionChatBoxCloseClicked())}
+        onChatMenuClick={() => dispatch(actionChatMenuBarClicked())}
+        onSearchIconClick={() => dispatch(actionSearchIconClicked("chats"))}
       />
 
       <div className="chat-container">
@@ -62,7 +62,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
           <ChatDetailPanel
             chatMode={chatMode}
             chatContent={chatContent}
-            editCloseClicked={() => dispatch(editCloseClicked())}
+            editCloseClicked={() => dispatch(actionCancelEditChatClicked())}
           />
         )}
         <div>
@@ -75,16 +75,22 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
             <ChatInput
               chatInputText={chatInputText}
               draft={draft}
-              onKeyPress={(e) => e.key === "Enter" && dispatch(onKeyPress())}
+              onKeyPress={(e) =>
+                e.key === "Enter" && dispatch(actionChatInputKeyPress())
+              }
               onInputChange={(e) =>
-                dispatch(onInputChange(e.target.value, "chatInputText"))
+                dispatch(actionInputChange(e.target.value, "chatInputText"))
               }
             />
             <span className="textarea-icon">
               {condition ? (
                 <IconButton
                   onClick={() =>
-                    dispatch(chatMode === "edit" ? saveClicked() : addClicked())
+                    dispatch(
+                      chatMode === "edit"
+                        ? actionConfirmEditChatClicked()
+                        : actionAddNewChatClicked()
+                    )
                   }
                 >
                   <TelegramIcon color="primary" />

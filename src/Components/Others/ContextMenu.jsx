@@ -3,10 +3,10 @@ import { useImport } from "../../Imports/imports";
 function ContextMenu() {
   const {
     dispatch,
-    copyClicked,
-    editClicked,
-    deleteClicked,
-    forwardClicked,
+    actionCopyChatClicked,
+    actionEditChatClicked,
+    actionDeleteChatClicked,
+    actionForwardChatClicked,
     Item,
     Menu,
     theme,
@@ -17,19 +17,19 @@ function ContextMenu() {
     const { id, text } = props;
     switch (event.currentTarget.id) {
       case "copy":
-        dispatch(copyClicked(text));
+        dispatch(actionCopyChatClicked(text));
         break;
 
       case "edit":
-        dispatch(editClicked(id));
+        dispatch(actionEditChatClicked(id));
         break;
 
       case "delete":
-        dispatch(deleteClicked(id));
+        dispatch(actionDeleteChatClicked(id));
         break;
 
       case "forward":
-        dispatch(forwardClicked(text));
+        dispatch(actionForwardChatClicked(text));
         break;
 
       default:

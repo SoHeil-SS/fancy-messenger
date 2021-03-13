@@ -5,9 +5,9 @@ function PersonContainer() {
     dispatch,
     SearchBar,
     PersonList,
-    searchInputState,
-    onInputChange,
-    onPersonMenuClick,
+    actionSearchIconClicked,
+    actionInputChange,
+    actionPersonMenuBarClicked,
     handleShowablePersons,
     useMemo,
     searchInputText,
@@ -25,11 +25,11 @@ function PersonContainer() {
       <SearchBar
         searchMode={searchMode}
         onInputChange={(e) =>
-          dispatch(onInputChange(e.target.value, "searchInputText"))
+          dispatch(actionInputChange(e.target.value, "searchInputText"))
         }
-        onSearchIconClick={() => dispatch(searchInputState("persons"))}
-        onBackArrowIconClick={() => dispatch(searchInputState(""))}
-        onPersonMenuClick={() => dispatch(onPersonMenuClick())}
+        onSearchIconClick={() => dispatch(actionSearchIconClicked("persons"))}
+        onBackArrowIconClick={() => dispatch(actionSearchIconClicked(""))}
+        onPersonMenuClick={() => dispatch(actionPersonMenuBarClicked())}
       />
       <PersonList showablePersons={showablePersons} />
     </>
