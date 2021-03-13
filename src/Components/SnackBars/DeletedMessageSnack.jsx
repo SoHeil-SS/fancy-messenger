@@ -4,49 +4,44 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
-export default function SimpleSnackbar() {
-  const [open, setOpen] = React.useState(false);
+function DeleteMessageSnack({ snackState, handleCloseSnack }) {
+  // const handleClose = (event, reason) => {
+  //   if (reason === "clickaway") {
+  //     return;
+  //   }
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
+  //   setOpen(false);
+  // };
 
   return (
     <div>
-      <Button onClick={handleClick}>Open simple snackbar</Button>
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "right",
         }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
+        open={snackState}
+        autoHideDuration={3000}
+        onClose={handleCloseSnack}
         message="Note archived"
         action={
-          <React.Fragment>
-            <Button color="secondary" size="small" onClick={handleClose}>
+          <>
+            <Button color="secondary" size="large" onClick={handleCloseSnack}>
               UNDO
             </Button>
             <IconButton
               size="small"
               aria-label="close"
               color="inherit"
-              onClick={handleClose}
+              onClick={handleCloseSnack}
             >
               <CloseIcon fontSize="small" />
             </IconButton>
-          </React.Fragment>
+          </>
         }
       />
     </div>
   );
 }
+
+export default DeleteMessageSnack;

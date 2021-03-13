@@ -112,6 +112,7 @@ function handleDeleteChat(state, chatId) {
     chatContent: null,
     chatMode: null,
     dialogMode: "deleteMessage",
+    snackState: "messageDeleted",
   };
 }
 
@@ -162,6 +163,7 @@ function handleSaveChat(state) {
     chatContent: null,
     chatMode: null,
     chatContentId: "",
+    snackState: "messageSaved",
   };
 }
 
@@ -299,7 +301,7 @@ function handleCloseModalClick(state) {
 
 function handleLoadComplete(state) {
   toaster(
-    "dark",
+    "info",
     "",
     `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `
   );

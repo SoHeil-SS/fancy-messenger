@@ -18,6 +18,8 @@ function App() {
     loaderStyle,
     Container,
     DeleteDialog,
+    SuccessSnack,
+    DeletedMessageSnack,
   } = useImport();
 
   const [
@@ -28,6 +30,7 @@ function App() {
       searchInputText,
       chatContent,
       dialogMode,
+      snackState,
       chatMode,
       searchMode,
       loading,
@@ -42,6 +45,7 @@ function App() {
     chatContentId: "",
     forwardContent: "",
     dialogMode: "",
+    snackState: "",
     chatMode: "",
     searchMode: "",
     loading: true,
@@ -90,6 +94,12 @@ function App() {
           )}
           {dialogMode === "deleteMessage" && (
             <DeleteDialog dialogMode={!!dialogMode} />
+          )}
+          {snackState === "messageDeleted" && (
+            <DeletedMessageSnack snackState={!!snackState} />
+          )}
+          {snackState === "messageSaved" && (
+            <SuccessSnack snackState={!!snackState} />
           )}
         </Portal>
       </Context.Provider>
