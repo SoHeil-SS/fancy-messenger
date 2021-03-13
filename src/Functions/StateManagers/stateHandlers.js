@@ -11,7 +11,7 @@ const {
   setNewChats,
   setDraftChange,
   toaster,
-  handleFilterDeletedChat,
+  getFilterDeletedChat,
 } = utilsFunctionsAndHooks;
 
 function handlePersonClicked(state, personId) {
@@ -111,7 +111,7 @@ function handleConfirmDeleteChatClicked(state) {
   setFinallyPersons(
     persons,
     [personIndex],
-    [{ details, chats: handleFilterDeletedChat(chats, deletingChatID) }]
+    [{ details, chats: getFilterDeletedChat(chats, deletingChatID) }]
   );
 
   return {
