@@ -20,9 +20,10 @@ export default function PersonListItem({
     ListItem,
   } = useImport();
 
-  const { container, paperItem, unreadBadge, listItem } = styles.personListItem;
-
-  const { large } = styles.avatarStyle;
+  const {
+    personListItem: { container, paperItem, unreadBadge, listItem },
+    avatarStyle: { large },
+  } = styles();
 
   return (
     <div style={container}>

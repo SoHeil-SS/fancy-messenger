@@ -19,8 +19,11 @@ function SearchBar({
     Paper,
   } = useImport();
 
-  const { defaultStyle } = styles.icons;
-  const { box, container, searchInput, searchInputBox } = styles.searchBar;
+  const {
+    icons: { defaultStyle },
+    searchBar: { box, container, searchInput, searchInputBox },
+  } = styles();
+
   return (
     <Paper style={container}>
       <Box m={1} p={1.39} style={box}>

@@ -1,6 +1,6 @@
 import { stateHandlers } from "../Functions/StateManagers/stateHandlers";
 import { stateActions } from "../Functions/StateManagers/stateActions";
-import { constants } from "../Others/constants";
+import { variables } from "../Others/variables";
 import { reactComponentsImports } from "./reactComponentsImports";
 import { userComponentsImports } from "./userComponentsImports";
 import { reactFunctionsImports } from "./reactFunctionsImports";
@@ -11,7 +11,7 @@ import { styles } from "../Styles/styles";
 export function useImport() {
   const { createContext, useContext, useContextMenu } = reactFunctionsImports;
   const { useMyContext } = utilsFunctionsAndHooks;
-  const { menuId } = constants;
+  const { menuId } = variables;
 
   const imports = createContext({
     ...useMyContext(),
@@ -22,7 +22,7 @@ export function useImport() {
     ...stateHandlers,
     ...stateActions,
     reducer,
-    ...constants,
+    ...variables,
     ...utilsFunctionsAndHooks,
     ...userComponentsImports,
     ...reactComponentsImports,

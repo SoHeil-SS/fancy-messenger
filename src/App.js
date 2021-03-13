@@ -16,7 +16,6 @@ function App() {
     actionAppLoadComplete,
     tempPersons,
     loaderStyle,
-    Container,
     DeleteDialog,
     SuccessSnack,
     DeletedMessageSnack,
@@ -58,52 +57,50 @@ function App() {
   }, [dispatch, actionAppLoadComplete]);
 
   return (
-    <Container maxWidth="xl">
-      <Context.Provider
-        value={{
-          dispatch,
-          selectedPersonId,
-          persons,
-          searchInputText,
-          searchMode,
-        }}
-      >
-        <div className="app-bg-top"></div>
-        <div className="app-box">
-          <div className="messenger-box">
-            <div className="person-container">
-              <PersonContainer />
-            </div>
-            {loading && <Loader style={loaderStyle.main} />}
-            {selectedPersonId ? (
-              <ChatContainer
-                chatMode={chatMode}
-                chatInputText={chatInputText}
-                chatContent={chatContent}
-              />
-            ) : (
-              <div className="forBackground"></div>
-            )}
+    <Context.Provider
+      value={{
+        dispatch,
+        selectedPersonId,
+        persons,
+        searchInputText,
+        searchMode,
+      }}
+    >
+      <div className="app-bg-top"></div>
+      <div className="app-box">
+        <div className="messenger-box">
+          <div className="person-container">
+            <PersonContainer />
           </div>
+          {loading && <Loader style={loaderStyle.main} />}
+          {selectedPersonId ? (
+            <ChatContainer
+              chatMode={chatMode}
+              chatInputText={chatInputText}
+              chatContent={chatContent}
+            />
+          ) : (
+            <div className="forBackground"></div>
+          )}
         </div>
-        <Portal>
-          <ToastContainer />
-          <ContextMenu />
-          {dialogMode === ("forward" || "contacts") && (
-            <ContactsDialog dialogMode={!!dialogMode} />
-          )}
-          {dialogMode === "deleteMessage" && (
-            <DeleteDialog dialogMode={!!dialogMode} />
-          )}
-          {snackState === "messageDeleted" && (
-            <DeletedMessageSnack snackState={!!snackState} />
-          )}
-          {snackState === "messageSaved" && (
-            <SuccessSnack snackState={!!snackState} />
-          )}
-        </Portal>
-      </Context.Provider>
-    </Container>
+      </div>
+      <Portal>
+        <ToastContainer />
+        <ContextMenu />
+        {dialogMode === ("forward" || "contacts") && (
+          <ContactsDialog dialogMode={!!dialogMode} />
+        )}
+        {dialogMode === "deleteMessage" && (
+          <DeleteDialog dialogMode={!!dialogMode} />
+        )}
+        {snackState === "messageDeleted" && (
+          <DeletedMessageSnack snackState={!!snackState} />
+        )}
+        {snackState === "messageSaved" && (
+          <SuccessSnack snackState={!!snackState} />
+        )}
+      </Portal>
+    </Context.Provider>
   );
 }
 

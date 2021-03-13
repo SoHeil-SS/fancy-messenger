@@ -3,7 +3,7 @@ import { useImport } from "../../Imports/imports";
 function ChatInput({ chatInputText, onKeyPress, onInputChange, onSpanClick }) {
   const { TextField, styles } = useImport();
 
-  const { textarea } = styles;
+  const { textarea } = styles();
 
   return (
     <TextField

@@ -1,5 +1,11 @@
 import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 
+import { variables } from "../../Others/variables";
+
+const {
+  dialog: { loadIncomplete, startupMessage },
+} = variables;
+
 let deletingChatID = "";
 
 const {
@@ -30,7 +36,7 @@ function handlePersonClicked(state, personId) {
   } = getStatesAndVariables(state, null, personId);
 
   if (loading) {
-    toaster("dark", "", "لطفا تا کامل شدن بارگذاری صبر کنید ");
+    toaster("dark", "", loadIncomplete);
     return state;
   }
 
@@ -309,11 +315,7 @@ function handleCloseDialogClicked(state) {
 }
 
 function handleAppLoadComplete(state) {
-  toaster(
-    "info",
-    "",
-    `برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 `
-  );
+  toaster("info", "", startupMessage);
   return {
     ...state,
     loading: false,

@@ -19,9 +19,11 @@ function ChatTitleBar({
     ChatMenu,
   } = useImport();
 
-  const { defaultStyle } = styles.icons;
-  const { large } = styles.avatarStyle;
-  const { container } = styles.chatTitleBar;
+  const {
+    icons: { defaultStyle },
+    avatarStyle: { large },
+    chatTitleBar: { container },
+  } = styles();
 
   return (
     <Paper style={container}>

@@ -43,7 +43,7 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
   const condition = chatInputText || chatContent;
   const { avatar, personName, draft } = details;
 
-  const { container } = styles.chatInput;
+  const { container } = styles().chatInput;
 
   return (
     <div>
