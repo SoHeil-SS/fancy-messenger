@@ -50,6 +50,9 @@ const actionCloseDialogClicked = () => getStateAction("CLOSE_DIALOG_CLICKED");
 
 const actionAppLoadComplete = () => getStateAction("APP_LOAD_COMPLETED");
 
+const actionSelectedPersonDraftChange = () =>
+  getStateAction("SELECTED_PERSON_DRAFT_CHANGE");
+
 export const stateActions = {
   actionPersonClicked,
   actionAddNewChatClicked,
@@ -69,4 +72,5 @@ export const stateActions = {
   actionAppLoadComplete,
   actionConfirmDeleteChatClicked,
   actionCloseNotificationClicked,
+  actionSelectedPersonDraftChange,
 };

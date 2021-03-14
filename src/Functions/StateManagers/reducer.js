@@ -19,6 +19,7 @@ const {
   handleCloseDialogClicked,
   handleAppLoadComplete,
   handleCloseNotificationClicked,
+  handleSelectedPersonDraftChange,
 } = stateHandlers;
 
 export const reducer = (state, action) => {
@@ -78,6 +79,9 @@ export const reducer = (state, action) => {
 
     case "CLOSE_NOTIFICATION_CLICKED":
       return handleCloseNotificationClicked(state);
+
+    case "SELECTED_PERSON_DRAFT_CHANGE":
+      return handleSelectedPersonDraftChange(state);
 
     default:
       return state;

@@ -1,11 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-const ChatInput = ({
-  chatInputText,
-  onKeyPress,
-  onInputChange,
-  onSpanClick,
-}) => {
+const ChatInput = ({ chatInputText, onKeyPress, onInputChange }) => {
   const { TextField, styles } = useImport();
 
   const { textarea } = styles();

@@ -1,9 +1,12 @@
 import { useImport } from "../../Imports/imports";
 
-const ChatContainer = ({ chatMode, chatInputText, chatContent }) => {
+let selectedPersonDraftChange = "";
+
+const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
   const {
     ChatTitleBar,
     ChatList,
+    useEffect,
     ChatInput,
     AttachFileIcon,
     ChatDetailPanel,
@@ -18,6 +21,7 @@ const ChatContainer = ({ chatMode, chatInputText, chatContent }) => {
     actionCancelEditChatClicked,
     actionAddNewChatClicked,
     actionConfirmEditChatClicked,
+    actionSelectedPersonDraftChange,
     selectedPersonId,
     searchInputText,
     persons,
@@ -40,8 +44,19 @@ const ChatContainer = ({ chatMode, chatInputText, chatContent }) => {
     [chats, searchInputText, searchMode, getShowableChats]
   );
 
-  const condition = chatInputText || chatContent;
-  const { avatar, personName, draft } = details;
+  useEffect(() => {
+    const timeout = chatInputText === "" ? 0 : 3000;
+    if (!chatMode) {
+      clearTimeout(selectedPersonDraftChange);
+      selectedPersonDraftChange = setTimeout(
+        () => dispatch(actionSelectedPersonDraftChange()),
+        timeout
+      );
+    }
+  }, [chatInputText, actionSelectedPersonDraftChange, chatMode, dispatch]);
+
+  const condition = chatInputText || selectedChatContent;
+  const { avatar, personName } = details;
 
   const { container } = styles().chatInput;
 
@@ -61,7 +76,7 @@ const ChatContainer = ({ chatMode, chatInputText, chatContent }) => {
         {chatMode && (
           <ChatDetailPanel
             chatMode={chatMode}
-            chatContent={chatContent}
+            selectedChatContent={selectedChatContent}
             editCloseClicked={() => dispatch(actionCancelEditChatClicked())}
           />
         )}
@@ -74,10 +89,12 @@ const ChatContainer = ({ chatMode, chatInputText, chatContent }) => {
             </span>
             <ChatInput
               chatInputText={chatInputText}
-              draft={draft}
-              onKeyPress={(e) =>
-                e.key === "Enter" && dispatch(actionChatInputKeyPress())
-              }
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  if (chatInputText) dispatch(actionChatInputKeyPress());
+                }
+              }}
               onInputChange={(e) =>
                 dispatch(actionInputChange(e.target.value, "chatInputText"))
               }

@@ -27,7 +27,7 @@ const App = () => {
       persons,
       chatInputText,
       searchInputText,
-      chatContent,
+      selectedChatContent,
       dialogMode,
       snackState,
       chatMode,
@@ -40,7 +40,7 @@ const App = () => {
     persons: tempPersons,
     chatInputText: "",
     searchInputText: "",
-    chatContent: "",
+    selectedChatContent: "",
     forwardContent: "",
     dialogMode: "",
     snackState: "",
@@ -76,7 +76,7 @@ const App = () => {
             <ChatContainer
               chatMode={chatMode}
               chatInputText={chatInputText}
-              chatContent={chatContent}
+              selectedChatContent={selectedChatContent}
             />
           ) : (
             <div className="forBackground"></div>

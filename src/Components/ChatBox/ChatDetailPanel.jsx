@@ -1,6 +1,10 @@
 import { Button } from "react-bootstrap";
 
-const ChatDetailPanel = ({ chatContent, editCloseClicked, chatMode }) => {
+const ChatDetailPanel = ({
+  selectedChatContent,
+  editCloseClicked,
+  chatMode,
+}) => {
   return (
     <div className="editContainer">
       <div>
@@ -12,7 +16,7 @@ const ChatDetailPanel = ({ chatContent, editCloseClicked, chatMode }) => {
           X
         </Button>
       </div>
-      <p className="editContainerPara">{chatContent} </p>
+      <p className="editContainerPara">{selectedChatContent} </p>
     </div>
   );
 };

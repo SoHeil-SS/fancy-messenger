@@ -2,6 +2,8 @@ import { reactFunctionsImports } from "../Imports/reactFunctionsImports";
 
 const { toast, createContext, useContext } = reactFunctionsImports;
 
+const dateNow = () => Date.now();
+
 const getLastChatDetails = (personItem) =>
   personItem.chats.length > 0
     ? personItem.chats[personItem.chats.length - 1]
@@ -20,7 +22,7 @@ const useMyContext = () => {
 const setSortPersonList = (persons) => {
   persons.sort(
     (a, b) =>
-      new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
+      new Date(b.details.lastActivity) - new Date(a.details.lastActivity)
   );
 };
 
@@ -75,8 +77,8 @@ const toaster = (type, detail, text) => {
   });
 };
 
-const setDraftChange = (details, draft, chatContent) => {
-  if (!chatContent) details.draft = draft;
+const setDraftChange = (details, draft, chatMode) => {
+  if (!chatMode) details.draft = draft;
 };
 
 const getShowableChats = (chats, searchInputText, searchMode) => {
@@ -112,16 +114,21 @@ const getSelectedPersonItems = (selectedPersonId, persons) => {
   return persons.find((person) => person.details.personId === selectedPersonId);
 };
 
-const setNewChats = (chats, newChats) => {
+const setNewPersonChats = (chats, newChats) => {
   for (let i = 0; i < newChats.length; i++) {
     const chat = newChats[i];
     if (!chat) continue;
     chats.push({
       self: chat,
-      chatTime: Date.now(),
+      chatTime: dateNow(),
       chatId: idMaker(),
     });
   }
+};
+
+const setNewPersonDetails = (details, draft, dateNow) => {
+  // setDraftChange(details, draft, null);
+  details.lastActivity = dateNow;
 };
 
 const getFilterDeletedChat = (chats, chatId) => {
@@ -129,7 +136,7 @@ const getFilterDeletedChat = (chats, chatId) => {
 };
 
 const getLastChatTime = (chatTime) =>
-  Date.now() - chatTime > 86400000
+  dateNow() - chatTime > 86400000
     ? getTimeFromMilliseconds(chatTime, "getMonth", "getDate", "/")
     : getTimeFromMilliseconds(chatTime, "getHours", "getMinutes", ":");
 
@@ -161,9 +168,9 @@ const getStatesAndVariables = (
   );
 
   return {
+    ...state,
     details: { ...details },
     chats: [...chats],
-    newDate: Date.now(),
     persons: [...persons],
     personIndex,
     prevPersonIndex,
@@ -172,7 +179,7 @@ const getStatesAndVariables = (
     chatIndex,
     chatContentIndex,
     selectedPersonId,
-    ...state,
+    dateNow: dateNow(),
   };
 };
 
@@ -211,8 +218,9 @@ export const utilsFunctionsAndHooks = {
   getShowablePersons,
   setFinallyChats,
   getSelectedPersonItems,
-  setNewChats,
+  setNewPersonChats,
   getLastChatTime,
   getFilterDeletedChat,
   setCopyChatClicked,
+  setNewPersonDetails,
 };
