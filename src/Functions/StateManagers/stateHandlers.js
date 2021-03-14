@@ -258,7 +258,7 @@ const handleSearchIconClicked = (state, searchMode) => {
 };
 
 const handlePersonMenuBarClicked = (state) => {
-  return state;
+  return { ...state, appDrawerState: !state.appDrawerState };
 };
 
 const handleChatMenuBarClicked = (state) => {

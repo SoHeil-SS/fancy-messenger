@@ -17,6 +17,7 @@ import Portal from "../Components/Others/Portal";
 import ContactsDialog from "../Components/Dialogs/ContactsDialog";
 import DialogTemplate from "../Components/Dialogs/DialogTemplate";
 import DeleteDialog from "../Components/Dialogs/DeleteDialog";
+import AppDrawer from "../Components/Others/AppDrawer";
 
 import SuccessSnack from "../Components/SnackBars/SuccessSnack";
 import DeletedMessageSnack from "../Components/SnackBars/DeletedMessageSnack";
@@ -46,4 +47,5 @@ export const userComponentsImports = {
   ChatDetailPanel,
   SuccessSnack,
   DeletedMessageSnack,
+  AppDrawer,
 };

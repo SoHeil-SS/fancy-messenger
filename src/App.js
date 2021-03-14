@@ -19,6 +19,7 @@ const App = () => {
     DeleteDialog,
     SuccessSnack,
     DeletedMessageSnack,
+    AppDrawer,
   } = useImport();
 
   const [
@@ -33,6 +34,7 @@ const App = () => {
       chatMode,
       searchMode,
       loading,
+      appDrawerState,
     },
     dispatch,
   ] = useThunkReducer(reducer, {
@@ -46,6 +48,7 @@ const App = () => {
     chatMode: null,
     searchMode: "",
     loading: true,
+    appDrawerState: false,
   });
 
   useEffect(() => {
@@ -97,6 +100,7 @@ const App = () => {
         {notificationState === "messageSaved" && (
           <SuccessSnack notificationState={!!notificationState} />
         )}
+        <AppDrawer appDrawerState={appDrawerState} />
       </Portal>
     </Context.Provider>
   );

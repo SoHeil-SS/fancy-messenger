@@ -1,5 +1,8 @@
+import React, { Fragment } from "react";
 import { Spinner, Badge } from "react-bootstrap";
 import Draggable from "react-draggable";
+
+import clsx from "clsx";
 
 import { Item, Menu, Separator } from "react-contexify";
 import { ToastContainer } from "react-toastify";
@@ -22,6 +25,11 @@ import {
   DialogContentText,
   DialogTitle,
   Snackbar,
+  Drawer,
+  List,
+  Divider,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
 
 import CloseIcon from "@material-ui/icons/Close";
@@ -32,8 +40,12 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import MicNoneIcon from "@material-ui/icons/MicNone";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
 
 export const reactComponentsImports = {
+  React,
+  Fragment,
   Button,
   Container,
   Dialog,
@@ -66,4 +78,12 @@ export const reactComponentsImports = {
   TelegramIcon,
   MicNoneIcon,
   Snackbar,
+  clsx,
+  Drawer,
+  List,
+  Divider,
+  ListItemIcon,
+  ListItemText,
+  InboxIcon,
+  MailIcon,
 };
