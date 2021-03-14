@@ -13,6 +13,7 @@ const ChatInput = ({ chatInputText, onKeyPress, onInputChange }) => {
       multiline
       style={textarea}
       rowsMax={8}
+      autoFocus
       onChange={onInputChange}
       value={chatInputText}
       onKeyPress={onKeyPress}

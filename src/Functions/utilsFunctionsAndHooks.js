@@ -100,7 +100,7 @@ const getShowablePersons = (searchMode, persons, searchInputText) =>
       )
     : persons.filter((person) => person.details.showOnList === true);
 
-const setFinallyChats = (chats, chatIndex, newChatContent) => {
+const setEditedChats = (chats, chatIndex, newChatContent) => {
   for (let i = 0; i < chatIndex.length; i++) {
     const chat = {
       ...chats[chatIndex[i]],
@@ -215,7 +215,7 @@ export const utilsFunctionsAndHooks = {
   setDraftChange,
   getShowableChats,
   getShowablePersons,
-  setFinallyChats,
+  setEditedChats,
   getSelectedPersonItems,
   setNewPersonChats,
   getLastChatTime,

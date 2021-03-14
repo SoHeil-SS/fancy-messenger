@@ -30,8 +30,6 @@ const actionCancelEditChatClicked = (chatId) =>
 const actionInputChange = (text, whichInput) =>
   getStateAction("INPUT_CHANGE", { text, whichInput });
 
-const actionChatInputKeyPress = () => getStateAction("CHAT_INPUT_KEY_PRESS");
-
 const actionChatBoxCloseClicked = () =>
   getStateAction("CHAT_BOX_CLOSE_CLICKED", true);
 
@@ -63,7 +61,6 @@ export const stateActions = {
   actionConfirmEditChatClicked,
   actionCancelEditChatClicked,
   actionInputChange,
-  actionChatInputKeyPress,
   actionChatBoxCloseClicked,
   actionChatMenuBarClicked,
   actionSearchIconClicked,

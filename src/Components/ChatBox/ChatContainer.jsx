@@ -15,7 +15,6 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     actionChatMenuBarClicked,
     actionSearchIconClicked,
     actionInputChange,
-    actionChatInputKeyPress,
     getSelectedPersonItems,
     getShowableChats,
     actionCancelEditChatClicked,
@@ -45,9 +44,9 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
   );
 
   useEffect(() => {
-    const timeout = chatInputText === "" ? 0 : 3000;
+    const timeout = chatInputText === "" ? 0 : 2000;
     if (chatMode !== "edit") {
-      console.log(selectedPersonId, chatInputText);
+      //FIXME clearTimeOut ID need to fix .
       clearTimeout(selectedPersonDraftChange);
       selectedPersonDraftChange = setTimeout(
         () =>
@@ -64,6 +63,11 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     chatMode,
     dispatch,
   ]);
+
+  useEffect(() => {
+    const element = document.getElementsByClassName("chat-list-ul")[0];
+    element.scrollTo(0, element.scrollHeight);
+  }, [chats]);
 
   const condition = chatInputText || selectedChatContent;
   const { avatar, personName } = details;
@@ -102,7 +106,12 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
-                  if (chatInputText) dispatch(actionChatInputKeyPress());
+                  chatInputText &&
+                    dispatch(
+                      chatMode === "edit"
+                        ? actionConfirmEditChatClicked()
+                        : actionAddNewChatClicked()
+                    );
                 }
               }}
               onInputChange={(e) =>

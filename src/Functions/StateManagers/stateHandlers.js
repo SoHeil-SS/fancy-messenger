@@ -16,7 +16,7 @@ const {
   setSortPersonList,
   getTimeFromMilliseconds,
   setFinallyPersons,
-  setFinallyChats,
+  setEditedChats,
   setNewPersonChats,
   setDraftChange,
   toaster,
@@ -66,6 +66,7 @@ const handlePersonClicked = (state, personId) => {
   };
 };
 
+//TODO scroll window to last chat .
 const handleAddNewChatClicked = (state) => {
   const {
     selectedChatContent,
@@ -128,27 +129,15 @@ const handleConfirmDeleteChatClicked = (state) => {
 };
 
 const handleEditChatClicked = (state, chatID) => {
-  const {
-    chats,
-    chatIndex,
-    details,
-    chatInputText,
-    persons,
-    personIndex,
-    chatMode,
-  } = getStatesAndVariables(state, chatID);
+  const { chats, chatIndex } = getStatesAndVariables(state, chatID);
   const content = chats[chatIndex].self;
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
   // use clipboard for copy text .
   editingChatID = chatID;
 
-  // setDraftChange(details, chatInputText, chatMode);
-  // setFinallyPersons(persons, [personIndex], [{ details, chats }]);
-
   return {
     ...state,
-    persons,
     chatInputText: content,
     selectedChatContent: content,
     chatMode: "edit",
@@ -165,36 +154,22 @@ const handleConfirmEditChatClicked = (state) => {
     personIndex,
   } = getStatesAndVariables(state, editingChatID);
 
-  setFinallyChats(chats, [chatContentIndex], [chatInputText]);
+  setEditedChats(chats, [chatContentIndex], [chatInputText]);
   setFinallyPersons(persons, [personIndex], [{ chats, details }]);
 
   return {
     ...state,
     persons,
     chatInputText: details.draft,
-    selectedChatContent: null,
-    chatMode: null,
+    selectedChatContent: "",
+    chatMode: "",
     notificationState: "messageSaved",
   };
 };
 
 const handleForwardChatClicked = (state, forwardText) => {
-  const {
-    selectedChatContent,
-    personIndex,
-    persons,
-    chatInputText,
-    details,
-    chats,
-  } = getStatesAndVariables(state);
-
-  setDraftChange(details, chatInputText, selectedChatContent);
-  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
-
   return {
     ...state,
-    persons,
-    chatInputText: details.draft,
     dialogMode: "forward",
     selectedChatContent: forwardText,
     chatMode: "",
@@ -217,21 +192,13 @@ const handleSelectPersonToForwardChatClicked = (state, personId) => {
 
   return {
     ...state,
-    selectedPersonId: personId,
     persons,
+    selectedPersonId: personId,
     chatInputText: details.draft,
     searchInputText: "",
-    dialogMode: false,
+    dialogMode: "",
     chatMode: "forward",
   };
-};
-
-//TODO what is this !!!
-const handleChatInputKeyPress = (state) => {
-  const { chatMode } = state;
-
-  if (chatMode === "edit") return handleConfirmEditChatClicked(state);
-  return handleAddNewChatClicked(state);
 };
 
 const handleInputChange = (state, { text, whichInput }) => {
@@ -241,6 +208,7 @@ const handleInputChange = (state, { text, whichInput }) => {
   };
 };
 
+//TODO Cleanup close box clicked
 const handleChatBoxCloseClicked = (state) => {
   const {
     persons,
@@ -264,11 +232,12 @@ const handleChatBoxCloseClicked = (state) => {
     persons,
     chatInputText: "",
     searchInputText: isModeChats ? "" : searchInputText,
-    searchMode: isModeChats ? null : searchMode,
-    selectedChatContent: null,
+    searchMode: isModeChats ? "" : searchMode,
+    selectedChatContent: "",
   };
 };
 
+//TODO draft need fix .
 const handleCancelEditChatClicked = (state) => {
   const { details } = getStatesAndVariables(state);
 
@@ -295,12 +264,12 @@ const handlePersonMenuBarClicked = (state) => {
 const handleChatMenuBarClicked = (state) => {
   return state;
 };
-
+//TODO name change
 const handleCloseDialogClicked = (state) => {
   return {
     ...state,
     searchInputText: "",
-    dialogMode: false,
+    dialogMode: "",
   };
 };
 
@@ -338,7 +307,6 @@ export const stateHandlers = {
   handleForwardChatClicked,
   getTimeFromMilliseconds,
   handleInputChange,
-  handleChatInputKeyPress,
   handlePersonClicked,
   handleConfirmEditChatClicked,
   setSortPersonList,

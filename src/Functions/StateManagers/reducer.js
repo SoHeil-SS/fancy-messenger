@@ -12,7 +12,6 @@ const {
   handleDeleteChatClicked,
   handleChatBoxCloseClicked,
   handleInputChange,
-  handleChatInputKeyPress,
   handleChatMenuBarClicked,
   handleSearchIconClicked,
   handlePersonMenuBarClicked,
@@ -55,9 +54,6 @@ export const reducer = (state, action) => {
 
     case "INPUT_CHANGE":
       return handleInputChange(state, payload);
-
-    case "CHAT_INPUT_KEY_PRESS":
-      return handleChatInputKeyPress(state);
 
     case "CHAT_BOX_CLOSE_CLICKED":
       return handleChatBoxCloseClicked(state, payload);
