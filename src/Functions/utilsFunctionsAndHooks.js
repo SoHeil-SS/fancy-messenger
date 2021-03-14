@@ -77,8 +77,8 @@ const toaster = (type, detail, text) => {
   });
 };
 
-const setDraftChange = (details, draft, chatMode) => {
-  if (!chatMode) details.draft = draft;
+const setDraftChange = (details, chatInputText, chatMode) => {
+  if (!chatMode) details.draft = chatInputText;
 };
 
 const getShowableChats = (chats, searchInputText, searchMode) => {
@@ -127,7 +127,6 @@ const setNewPersonChats = (chats, newChats) => {
 };
 
 const setNewPersonDetails = (details, draft, dateNow) => {
-  // setDraftChange(details, draft, null);
   details.lastActivity = dateNow;
 };
 

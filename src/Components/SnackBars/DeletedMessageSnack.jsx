@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-const DeleteMessageSnack = ({ snackState }) => {
+const DeleteMessageSnack = ({ notificationState }) => {
   const {
     Button,
     Snackbar,
@@ -16,7 +16,7 @@ const DeleteMessageSnack = ({ snackState }) => {
           vertical: "bottom",
           horizontal: "right",
         }}
-        open={snackState}
+        open={notificationState}
         autoHideDuration={3000}
         onClose={actionCloseNotificationClicked}
         message="Message deleted successfully."

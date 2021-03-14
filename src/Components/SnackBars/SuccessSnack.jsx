@@ -1,7 +1,7 @@
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-const SuccessSnack = ({ snackState, handleSnackClose }) => {
+const SuccessSnack = ({ notificationState, handleSnackClose }) => {
   // const handleClose = (event, reason) => {
   //   if (reason === "clickaway") {
   //     return;
@@ -13,7 +13,7 @@ const SuccessSnack = ({ snackState, handleSnackClose }) => {
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      open={snackState}
+      open={notificationState}
       autoHideDuration={6000}
       onClose={handleSnackClose}
     >

@@ -46,14 +46,24 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
 
   useEffect(() => {
     const timeout = chatInputText === "" ? 0 : 3000;
-    if (!chatMode) {
+    if (chatMode !== "edit") {
+      console.log(selectedPersonId, chatInputText);
       clearTimeout(selectedPersonDraftChange);
       selectedPersonDraftChange = setTimeout(
-        () => dispatch(actionSelectedPersonDraftChange()),
+        () =>
+          dispatch(
+            actionSelectedPersonDraftChange({ chatInputText, selectedPersonId })
+          ),
         timeout
       );
     }
-  }, [chatInputText, actionSelectedPersonDraftChange, chatMode, dispatch]);
+  }, [
+    chatInputText,
+    selectedPersonId,
+    actionSelectedPersonDraftChange,
+    chatMode,
+    dispatch,
+  ]);
 
   const condition = chatInputText || selectedChatContent;
   const { avatar, personName } = details;

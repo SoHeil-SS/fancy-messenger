@@ -29,7 +29,7 @@ const App = () => {
       searchInputText,
       selectedChatContent,
       dialogMode,
-      snackState,
+      notificationState,
       chatMode,
       searchMode,
       loading,
@@ -41,10 +41,9 @@ const App = () => {
     chatInputText: "",
     searchInputText: "",
     selectedChatContent: "",
-    forwardContent: "",
     dialogMode: "",
-    snackState: "",
-    chatMode: "",
+    notificationState: "",
+    chatMode: null,
     searchMode: "",
     loading: true,
   });
@@ -92,11 +91,11 @@ const App = () => {
         {dialogMode === "deleteMessage" && (
           <DeleteDialog dialogMode={!!dialogMode} />
         )}
-        {snackState === "messageDeleted" && (
-          <DeletedMessageSnack snackState={!!snackState} />
+        {notificationState === "messageDeleted" && (
+          <DeletedMessageSnack notificationState={!!notificationState} />
         )}
-        {snackState === "messageSaved" && (
-          <SuccessSnack snackState={!!snackState} />
+        {notificationState === "messageSaved" && (
+          <SuccessSnack notificationState={!!notificationState} />
         )}
       </Portal>
     </Context.Provider>

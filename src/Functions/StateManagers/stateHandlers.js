@@ -8,7 +8,8 @@ const {
   },
 } = variables;
 
-let selectedChatID = "";
+let editingChatID,
+  deletingChatID = "";
 
 const {
   getStatesAndVariables,
@@ -33,7 +34,7 @@ const handlePersonClicked = (state, personId) => {
     chats,
     chatInputText,
     loading,
-    selectedChatContent,
+    chatMode,
     prevPerson,
     prevDetails,
   } = getStatesAndVariables(state, null, personId);
@@ -47,7 +48,7 @@ const handlePersonClicked = (state, personId) => {
     details.unreadChatCounter = "";
     setFinallyPersons(persons, [personIndex], [{ details, chats }]);
   } else if (selectedPersonId) {
-    setDraftChange(prevDetails, chatInputText, selectedChatContent);
+    setDraftChange(prevDetails, chatMode ? prevDetails.draft : chatInputText);
     setFinallyPersons(
       persons,
       [prevPersonIndex],
@@ -60,7 +61,7 @@ const handlePersonClicked = (state, personId) => {
     selectedPersonId: personId,
     chatInputText: details.draft,
     selectedChatContent: "",
-    chatMode: "",
+    chatMode: null,
     persons,
   };
 };
@@ -87,19 +88,15 @@ const handleAddNewChatClicked = (state) => {
     chatInputText: "",
     selectedChatContent: "",
     chatMode: "",
-    forwardContent: "",
   };
 };
 
-//TODO forward to utilsFunctions
-
 const handleDeleteChatClicked = (state, chatID) => {
-  selectedChatID = chatID;
+  deletingChatID = chatID;
 
   return { ...state, dialogMode: "deleteMessage" };
 };
 
-//FIXME
 const handleConfirmDeleteChatClicked = (state) => {
   const {
     persons,
@@ -108,43 +105,46 @@ const handleConfirmDeleteChatClicked = (state) => {
     chats,
     chatMode,
     chatInputText,
-  } = getStatesAndVariables(state, selectedChatID);
+    selectedChatContent,
+  } = getStatesAndVariables(state, deletingChatID);
 
   setFinallyPersons(
     persons,
     [personIndex],
-    [{ details, chats: getFilterDeletedChat(chats, selectedChatID) }]
+    [{ details, chats: getFilterDeletedChat(chats, deletingChatID) }]
   );
+
+  const chatIDsEquality = editingChatID === deletingChatID;
 
   return {
     ...state,
     persons,
-    chatInputText: chatMode ? details.draft : chatInputText,
-    selectedChatContent: null,
-    chatMode: null,
-    snackState: "messageDeleted",
+    chatInputText: chatIDsEquality ? details.draft : chatInputText,
+    selectedChatContent: chatIDsEquality ? "" : selectedChatContent,
+    chatMode: chatIDsEquality ? "" : chatMode,
+    notificationState: "messageDeleted",
     dialogMode: "",
   };
 };
 
 const handleEditChatClicked = (state, chatID) => {
   const {
-    persons,
-    personIndex,
-    chatInputText,
-    details,
     chats,
     chatIndex,
-    selectedChatContent,
+    details,
+    chatInputText,
+    persons,
+    personIndex,
+    chatMode,
   } = getStatesAndVariables(state, chatID);
   const content = chats[chatIndex].self;
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
+  // use clipboard for copy text .
+  editingChatID = chatID;
 
-  selectedChatID = chatID;
-
-  setDraftChange(details, chatInputText, selectedChatContent);
-  setFinallyPersons(persons, [personIndex], [{ details, chats }]);
+  // setDraftChange(details, chatInputText, chatMode);
+  // setFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
   return {
     ...state,
@@ -163,7 +163,7 @@ const handleConfirmEditChatClicked = (state) => {
     chatInputText,
     chatContentIndex,
     personIndex,
-  } = getStatesAndVariables(state, selectedChatID);
+  } = getStatesAndVariables(state, editingChatID);
 
   setFinallyChats(chats, [chatContentIndex], [chatInputText]);
   setFinallyPersons(persons, [personIndex], [{ chats, details }]);
@@ -174,7 +174,7 @@ const handleConfirmEditChatClicked = (state) => {
     chatInputText: details.draft,
     selectedChatContent: null,
     chatMode: null,
-    snackState: "messageSaved",
+    notificationState: "messageSaved",
   };
 };
 
@@ -190,25 +190,23 @@ const handleForwardChatClicked = (state, forwardText) => {
 
   setDraftChange(details, chatInputText, selectedChatContent);
   setFinallyPersons(persons, [personIndex], [{ details, chats }]);
+
   return {
     ...state,
     persons,
     chatInputText: details.draft,
     dialogMode: "forward",
-    selectedChatContent: "",
-    forwardContent: forwardText,
+    selectedChatContent: forwardText,
     chatMode: "",
   };
 };
 
 const handleSelectPersonToForwardChatClicked = (state, personId) => {
-  const {
-    persons,
-    details,
-    chats,
-    personIndex,
-    forwardContent,
-  } = getStatesAndVariables(state, null, personId);
+  const { persons, details, chats, personIndex } = getStatesAndVariables(
+    state,
+    null,
+    personId
+  );
 
   details.unreadChatCounter = "";
   if (!details.showOnList) {
@@ -225,7 +223,6 @@ const handleSelectPersonToForwardChatClicked = (state, personId) => {
     searchInputText: "",
     dialogMode: false,
     chatMode: "forward",
-    selectedChatContent: forwardContent,
   };
 };
 
@@ -277,8 +274,8 @@ const handleCancelEditChatClicked = (state) => {
 
   return {
     ...state,
-    selectedChatContent: null,
-    chatMode: null,
+    selectedChatContent: "",
+    chatMode: "",
     chatInputText: details.draft,
   };
 };
@@ -315,17 +312,17 @@ const handleAppLoadComplete = (state) => {
   };
 };
 
-const handleSelectedPersonDraftChange = (state) => {
-  const {
-    personIndex,
-    persons,
-    details,
-    chats,
-    chatInputText,
-    selectedChatContent,
-  } = getStatesAndVariables(state);
+const handleSelectedPersonDraftChange = (
+  state,
+  { chatInputText, selectedPersonId }
+) => {
+  const { personIndex, persons, details, chats } = getStatesAndVariables(
+    state,
+    null,
+    selectedPersonId
+  );
 
-  setDraftChange(details, chatInputText, selectedChatContent);
+  setDraftChange(details, chatInputText);
   setFinallyPersons(persons, [personIndex], [{ chats, details }]);
 
   return { ...state, persons };

@@ -50,8 +50,8 @@ const actionCloseDialogClicked = () => getStateAction("CLOSE_DIALOG_CLICKED");
 
 const actionAppLoadComplete = () => getStateAction("APP_LOAD_COMPLETED");
 
-const actionSelectedPersonDraftChange = () =>
-  getStateAction("SELECTED_PERSON_DRAFT_CHANGE");
+const actionSelectedPersonDraftChange = (chatInputText) =>
+  getStateAction("SELECTED_PERSON_DRAFT_CHANGE", chatInputText);
 
 export const stateActions = {
   actionPersonClicked,

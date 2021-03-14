@@ -81,7 +81,7 @@ export const reducer = (state, action) => {
       return handleCloseNotificationClicked(state);
 
     case "SELECTED_PERSON_DRAFT_CHANGE":
-      return handleSelectedPersonDraftChange(state);
+      return handleSelectedPersonDraftChange(state, payload);
 
     default:
       return state;
