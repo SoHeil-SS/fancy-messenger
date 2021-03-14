@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function ChatContainer({ chatMode, chatInputText, chatContent }) {
+const ChatContainer = ({ chatMode, chatInputText, chatContent }) => {
   const {
     ChatTitleBar,
     ChatList,
@@ -106,6 +106,6 @@ function ChatContainer({ chatMode, chatInputText, chatContent }) {
       </div>
     </div>
   );
-}
+};
 
 export default ChatContainer;

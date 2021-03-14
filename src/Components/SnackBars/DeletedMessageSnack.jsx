@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function DeleteMessageSnack({ snackState }) {
+const DeleteMessageSnack = ({ snackState }) => {
   const {
     Button,
     Snackbar,
@@ -42,7 +42,7 @@ function DeleteMessageSnack({ snackState }) {
       />
     </div>
   );
-}
+};
 
 export default DeleteMessageSnack;
 

@@ -8,7 +8,7 @@ const options = ["None", "Atria", "Callisto", "Dione"];
 
 const ITEM_HEIGHT = 48;
 
-export default function LongMenu() {
+const LongMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -57,4 +57,5 @@ export default function LongMenu() {
       </Menu>
     </>
   );
-}
+};
+export default LongMenu;

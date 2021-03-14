@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function ChatList({ showableChats }) {
+const ChatList = ({ showableChats }) => {
   const {
     getTimeFromMilliseconds,
     ChatItem,
@@ -29,6 +29,6 @@ function ChatList({ showableChats }) {
   });
 
   return <ul className=" chat-list-ul ">{chatList}</ul>;
-}
+};
 
 export default ChatList;

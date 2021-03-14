@@ -1,12 +1,12 @@
 import { useImport } from "../../Imports/imports";
 
-function SearchBar({
+const SearchBar = ({
   searchMode,
   onSearchIconClick,
   onInputChange,
   onBackArrowIconClick,
   onPersonMenuClick,
-}) {
+}) => {
   const {
     TextField,
     searchInputText,
@@ -64,6 +64,6 @@ function SearchBar({
       </Box>
     </Paper>
   );
-}
+};
 
 export default SearchBar;

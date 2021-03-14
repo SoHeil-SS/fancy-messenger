@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function DraggablePaper(props) {
+const DraggablePaper = (props) => {
   const { Draggable, Paper } = useImport();
 
   return (
@@ -11,6 +11,6 @@ function DraggablePaper(props) {
       <Paper {...props} />
     </Draggable>
   );
-}
+};
 
 export default DraggablePaper;

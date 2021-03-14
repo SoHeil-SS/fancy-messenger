@@ -1,13 +1,13 @@
 import { useImport } from "../../Imports/imports";
 
-function ChatTitleBar({
+const ChatTitleBar = ({
   avatar,
   personName,
   onCloseChat,
   //TODO fix chat menu
   onChatMenuClick,
   onSearchIconClick,
-}) {
+}) => {
   const {
     SearchIcon,
     CloseIcon,
@@ -57,7 +57,7 @@ function ChatTitleBar({
       </Box>
     </Paper>
   );
-}
+};
 
 export default ChatTitleBar;
 

@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function ContactsDialog({ dialogMode }) {
+const ContactsDialog = ({ dialogMode }) => {
   const {
     dispatch,
     PersonListItem,
@@ -71,6 +71,6 @@ function ContactsDialog({ dialogMode }) {
       />
     </>
   );
-}
+};
 
 export default ContactsDialog;

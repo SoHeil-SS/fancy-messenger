@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function PersonList({ showablePersons }) {
+const PersonList = ({ showablePersons }) => {
   const {
     dispatch,
     PersonListItem,
@@ -41,6 +41,6 @@ function PersonList({ showablePersons }) {
   });
 
   return <>{list}</>;
-}
+};
 
 export default PersonList;

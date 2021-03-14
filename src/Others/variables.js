@@ -1,4 +1,5 @@
 import { utilsFunctionsAndHooks } from "../Functions/utilsFunctionsAndHooks";
+
 import { theme } from "react-contexify";
 
 const { idMaker } = utilsFunctionsAndHooks;
@@ -208,9 +209,11 @@ export const variables = {
     },
   },
   dialog: {
-    deleteMessage: "Are you sure to Delete this message?",
-    startupMessage:
-      "برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 ",
-    loadIncomplete: "لطفا تا کامل شدن بارگذاری صبر کنید ",
+    Messages: {
+      deleteMessage: "Are you sure to Delete this message?",
+      startupMessage:
+        "برای مدیریت هر چت کافیه که روی چت و یا کنارش کلیک راست کنی 😊 ",
+      loadIncomplete: "لطفا تا کامل شدن بارگذاری صبر کنید ",
+    },
   },
 };

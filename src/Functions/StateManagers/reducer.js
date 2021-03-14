@@ -3,7 +3,6 @@ import { stateHandlers } from "./stateHandlers";
 const {
   handlePersonClicked,
   handleAddNewChatClicked,
-  handleCopyChatClicked,
   handleEditChatClicked,
   handleConfirmEditChatClicked,
   handleCancelEditChatClicked,
@@ -22,7 +21,7 @@ const {
   handleCloseNotificationClicked,
 } = stateHandlers;
 
-export function reducer(state, action) {
+export const reducer = (state, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -31,9 +30,6 @@ export function reducer(state, action) {
 
     case "ADD_NEW_CHAT_CLICKED":
       return handleAddNewChatClicked(state);
-
-    case "COPY_CHAT_CLICKED":
-      return handleCopyChatClicked(state, payload);
 
     case "EDIT_CHAT_CLICKED":
       return handleEditChatClicked(state, payload);
@@ -86,4 +82,4 @@ export function reducer(state, action) {
     default:
       return state;
   }
-}
+};

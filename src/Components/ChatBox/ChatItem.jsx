@@ -1,4 +1,4 @@
-function chatItem({ self, person, chatTime, chatDate, onContextMenu }) {
+const chatItem = ({ self, person, chatTime, chatDate, onContextMenu }) => {
   return (
     //TODO CLEANME PLZZZZZZZZZZZZZ...
     <div onContextMenu={onContextMenu}>
@@ -28,6 +28,6 @@ function chatItem({ self, person, chatTime, chatDate, onContextMenu }) {
       )}
     </div>
   );
-}
+};
 
 export default chatItem;

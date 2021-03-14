@@ -8,7 +8,7 @@ import { utilsFunctionsAndHooks } from "../Functions/utilsFunctionsAndHooks";
 import { reducer } from "../Functions/StateManagers/reducer";
 import { styles } from "../Styles/styles";
 
-export function useImport() {
+export const useImport = () => {
   const { createContext, useContext, useContextMenu } = reactFunctionsImports;
   const { useMyContext } = utilsFunctionsAndHooks;
   const { menuId } = variables;
@@ -29,4 +29,4 @@ export function useImport() {
     ...reactFunctionsImports,
   });
   return useContext(imports);
-}
+};

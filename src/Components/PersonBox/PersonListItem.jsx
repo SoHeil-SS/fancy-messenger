@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-export default function PersonListItem({
+const PersonListItem = ({
   draft,
   avatar,
   personName,
@@ -9,7 +9,7 @@ export default function PersonListItem({
   unreadChatCounter,
   onPersonClick,
   selected,
-}) {
+}) => {
   const {
     Paper,
     Grid,
@@ -60,4 +60,6 @@ export default function PersonListItem({
       </Paper>
     </div>
   );
-}
+};
+
+export default PersonListItem;

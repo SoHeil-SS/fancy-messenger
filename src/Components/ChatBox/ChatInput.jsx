@@ -1,6 +1,11 @@
 import { useImport } from "../../Imports/imports";
 
-function ChatInput({ chatInputText, onKeyPress, onInputChange, onSpanClick }) {
+const ChatInput = ({
+  chatInputText,
+  onKeyPress,
+  onInputChange,
+  onSpanClick,
+}) => {
   const { TextField, styles } = useImport();
 
   const { textarea } = styles();
@@ -18,6 +23,6 @@ function ChatInput({ chatInputText, onKeyPress, onInputChange, onSpanClick }) {
       onKeyPress={onKeyPress}
     />
   );
-}
+};
 
 export default ChatInput;

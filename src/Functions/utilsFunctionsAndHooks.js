@@ -7,32 +7,32 @@ const getLastChatDetails = (personItem) =>
     ? personItem.chats[personItem.chats.length - 1]
     : {};
 
-function getStateAction(type, payload) {
+const getStateAction = (type, payload) => {
   return { type, payload };
-}
+};
 
 const Context = createContext(() => null);
 
-function useMyContext() {
+const useMyContext = () => {
   return useContext(Context);
-}
+};
 
-function setSortPersonList(persons) {
+const setSortPersonList = (persons) => {
   persons.sort(
     (a, b) =>
       new Date(b.details.lastChatTime) - new Date(a.details.lastChatTime)
   );
-}
+};
 
-function idMaker() {
+const idMaker = () => {
   return Math.random();
-}
+};
 
-function setDisplayMenu(e, show, chatId, content) {
+const setDisplayMenu = (e, show, chatId, content) => {
   show(e, {
     props: { id: Number(chatId), text: content },
   });
-}
+};
 
 /**
  * @
@@ -42,14 +42,14 @@ function setDisplayMenu(e, show, chatId, content) {
  * @param {*} separator time separator like "/" , ":"
  * @return {*}
  */
-function getTimeFromMilliseconds(time, method1, method2, separator) {
+const getTimeFromMilliseconds = (time, method1, method2, separator) => {
   if (!time) return "";
   const dateNow = new Date(time);
   const time1 = dateNow[method1]();
   const time2 = dateNow[method2]();
 
   return `${method1 === "getMonth" ? time1 + 1 : time1}${separator}${time2}`;
-}
+};
 
 /**
  *  @param {*} persons
@@ -57,13 +57,13 @@ function getTimeFromMilliseconds(time, method1, method2, separator) {
  * @param {*} person array
  * @return {*} persons in arrays
  */
-function setFinallyPersons(persons, index, person) {
+const setFinallyPersons = (persons, index, person) => {
   for (let i = 0; i < index.length; i++) {
     persons.splice(index[i], 1, person[i]);
   }
-}
+};
 
-function toaster(type, detail, text) {
+const toaster = (type, detail, text) => {
   toast[type](`${detail} ${text}`, {
     position: "top-right",
     autoClose: 5000,
@@ -73,13 +73,13 @@ function toaster(type, detail, text) {
     draggable: true,
     progress: undefined,
   });
-}
+};
 
-function setDraftChange(details, draft, chatContent) {
+const setDraftChange = (details, draft, chatContent) => {
   if (!chatContent) details.draft = draft;
-}
+};
 
-function getShowableChats(chats, searchInputText, searchMode) {
+const getShowableChats = (chats, searchInputText, searchMode) => {
   return searchMode === "chats"
     ? chats.filter((chat) =>
         (chat.self || chat.person)
@@ -87,7 +87,7 @@ function getShowableChats(chats, searchInputText, searchMode) {
           .includes(searchInputText.toLowerCase())
       )
     : chats;
-}
+};
 
 const getShowablePersons = (searchMode, persons, searchInputText) =>
   searchMode === "persons"
@@ -98,7 +98,7 @@ const getShowablePersons = (searchMode, persons, searchInputText) =>
       )
     : persons.filter((person) => person.details.showOnList === true);
 
-function setFinallyChats(chats, chatIndex, newChatContent) {
+const setFinallyChats = (chats, chatIndex, newChatContent) => {
   for (let i = 0; i < chatIndex.length; i++) {
     const chat = {
       ...chats[chatIndex[i]],
@@ -106,13 +106,13 @@ function setFinallyChats(chats, chatIndex, newChatContent) {
     chat.self = newChatContent[i];
     chats.splice(chatIndex[i], 1, chat);
   }
-}
+};
 
-function getSelectedPersonItems(selectedPersonId, persons) {
+const getSelectedPersonItems = (selectedPersonId, persons) => {
   return persons.find((person) => person.details.personId === selectedPersonId);
-}
+};
 
-function setNewChats(chats, newChats) {
+const setNewChats = (chats, newChats) => {
   for (let i = 0; i < newChats.length; i++) {
     const chat = newChats[i];
     if (!chat) continue;
@@ -122,11 +122,11 @@ function setNewChats(chats, newChats) {
       chatId: idMaker(),
     });
   }
-}
+};
 
-function getFilterDeletedChat(chats, chatId) {
+const getFilterDeletedChat = (chats, chatId) => {
   return chats.filter((chat) => chat.chatId !== chatId);
-}
+};
 
 const getLastChatTime = (chatTime) =>
   Date.now() - chatTime > 86400000
@@ -140,11 +140,11 @@ const getLastChatTime = (chatTime) =>
  * @param {*} personId
  * @return {*}
  */
-function getStatesAndVariables(
-  { persons, selectedPersonId, chatContentId, ...state },
-  chatId,
+const getStatesAndVariables = (
+  { persons, selectedPersonId, ...state },
+  chatID,
   personId
-) {
+) => {
   const id = personId || selectedPersonId;
   const { details, chats } = persons.find(
     (person) => person.details.personId === id
@@ -154,10 +154,8 @@ function getStatesAndVariables(
   );
   const prevPerson = { ...persons[prevPersonIndex] };
   const prevDetails = { ...prevPerson.details };
-  const chatIndex = chats.findIndex((chat) => chat.chatId === chatId);
-  const chatContentIndex = chats.findIndex(
-    (chat) => chat.chatId === chatContentId
-  );
+  const chatIndex = chats.findIndex((chat) => chat.chatId === chatID);
+  const chatContentIndex = chats.findIndex((chat) => chat.chatId === chatID);
   const personIndex = persons.findIndex(
     (person) => person.details.personId === details.personId
   );
@@ -174,12 +172,11 @@ function getStatesAndVariables(
     chatIndex,
     chatContentIndex,
     selectedPersonId,
-    chatContentId,
     ...state,
   };
-}
+};
 
-function getDialogActionInitializer(text, color, autoFocus, onClick) {
+const getDialogActionInitializer = (text, color, autoFocus, onClick) => {
   const temp = [];
   for (let i = 0; i < text.length; i++) {
     temp.push({
@@ -190,7 +187,11 @@ function getDialogActionInitializer(text, color, autoFocus, onClick) {
     });
   }
   return temp;
-}
+};
+
+const setCopyChatClicked = (chatText) => {
+  navigator.clipboard.writeText(chatText);
+};
 
 export const utilsFunctionsAndHooks = {
   getLastChatDetails,
@@ -213,4 +214,5 @@ export const utilsFunctionsAndHooks = {
   setNewChats,
   getLastChatTime,
   getFilterDeletedChat,
+  setCopyChatClicked,
 };

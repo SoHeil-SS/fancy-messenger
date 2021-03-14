@@ -7,9 +7,6 @@ const actionPersonClicked = (personId) =>
 
 const actionAddNewChatClicked = () => getStateAction("ADD_NEW_CHAT_CLICKED");
 
-const actionCopyChatClicked = (chatText) =>
-  getStateAction("COPY_CHAT_CLICKED", chatText);
-
 const actionEditChatClicked = (chatId) =>
   getStateAction("EDIT_CHAT_CLICKED", chatId);
 
@@ -56,7 +53,6 @@ const actionAppLoadComplete = () => getStateAction("APP_LOAD_COMPLETED");
 export const stateActions = {
   actionPersonClicked,
   actionAddNewChatClicked,
-  actionCopyChatClicked,
   actionEditChatClicked,
   actionDeleteChatClicked,
   actionForwardChatClicked,

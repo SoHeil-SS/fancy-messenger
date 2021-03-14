@@ -3,10 +3,12 @@ import { utilsFunctionsAndHooks } from "../utilsFunctionsAndHooks";
 import { variables } from "../../Others/variables";
 
 const {
-  dialog: { loadIncomplete, startupMessage },
+  dialog: {
+    Messages: { loadIncomplete, startupMessage },
+  },
 } = variables;
 
-let deletingChatID = "";
+let selectedChatID = "";
 
 const {
   getStatesAndVariables,
@@ -20,7 +22,7 @@ const {
   getFilterDeletedChat,
 } = utilsFunctionsAndHooks;
 
-function handlePersonClicked(state, personId) {
+const handlePersonClicked = (state, personId) => {
   const {
     selectedPersonId,
     personIndex,
@@ -60,9 +62,9 @@ function handlePersonClicked(state, personId) {
     chatMode: "",
     persons,
   };
-}
+};
 
-function handleAddNewChatClicked(state) {
+const handleAddNewChatClicked = (state) => {
   const {
     chatContent,
     personIndex,
@@ -88,23 +90,18 @@ function handleAddNewChatClicked(state) {
     persons,
     forwardContent: "",
   };
-}
+};
 
 //TODO forward to utilsFunctions
-function handleCopyChatClicked(state, chatText) {
-  navigator.clipboard.writeText(chatText);
 
-  return state;
-}
-
-function handleDeleteChatClicked(state, chatID) {
-  deletingChatID = chatID;
+const handleDeleteChatClicked = (state, chatID) => {
+  selectedChatID = chatID;
 
   return { ...state, dialogMode: "deleteMessage" };
-}
+};
 
 //FIXME
-function handleConfirmDeleteChatClicked(state) {
+const handleConfirmDeleteChatClicked = (state) => {
   const {
     persons,
     personIndex,
@@ -112,12 +109,12 @@ function handleConfirmDeleteChatClicked(state) {
     chats,
     chatMode,
     chatInputText,
-  } = getStatesAndVariables(state, deletingChatID);
+  } = getStatesAndVariables(state, selectedChatID);
 
   setFinallyPersons(
     persons,
     [personIndex],
-    [{ details, chats: getFilterDeletedChat(chats, deletingChatID) }]
+    [{ details, chats: getFilterDeletedChat(chats, selectedChatID) }]
   );
 
   return {
@@ -129,9 +126,9 @@ function handleConfirmDeleteChatClicked(state) {
     snackState: "messageDeleted",
     dialogMode: "",
   };
-}
+};
 
-function handleEditChatClicked(state, chatId) {
+const handleEditChatClicked = (state, chatID) => {
   const {
     persons,
     personIndex,
@@ -140,7 +137,7 @@ function handleEditChatClicked(state, chatId) {
     chats,
     chatIndex,
     chatContent,
-  } = getStatesAndVariables(state, chatId);
+  } = getStatesAndVariables(state, chatID);
   const content = chats[chatIndex].self;
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
@@ -154,11 +151,10 @@ function handleEditChatClicked(state, chatId) {
     chatInputText: content,
     chatContent: content,
     chatMode: "edit",
-    chatContentId: chatId,
   };
-}
+};
 
-function handleConfirmEditChatClicked(state) {
+const handleConfirmEditChatClicked = (state) => {
   const {
     persons,
     details,
@@ -177,12 +173,11 @@ function handleConfirmEditChatClicked(state) {
     chatInputText: details.draft,
     chatContent: null,
     chatMode: null,
-    chatContentId: "",
     snackState: "messageSaved",
   };
-}
+};
 
-function handleForwardChatClicked(state, forwardText) {
+const handleForwardChatClicked = (state, forwardText) => {
   const {
     chatContent,
     personIndex,
@@ -202,9 +197,9 @@ function handleForwardChatClicked(state, forwardText) {
     chatContent: null,
     forwardContent: forwardText,
   };
-}
+};
 
-function handleSelectPersonToForwardChatClicked(state, personId) {
+const handleSelectPersonToForwardChatClicked = (state, personId) => {
   const {
     persons,
     details,
@@ -230,10 +225,10 @@ function handleSelectPersonToForwardChatClicked(state, personId) {
     chatMode: "forward",
     chatContent: forwardContent,
   };
-}
+};
 
 //TODO what is this !!!
-function handleChatInputKeyPress(state) {
+const handleChatInputKeyPress = (state) => {
   const { chatInputText, chatContent } = state;
 
   if (chatInputText) {
@@ -242,16 +237,16 @@ function handleChatInputKeyPress(state) {
   }
 
   return state;
-}
+};
 
-function handleInputChange(state, { text, whichInput }) {
+const handleInputChange = (state, { text, whichInput }) => {
   return {
     ...state,
     [whichInput]: text,
   };
-}
+};
 
-function handleChatBoxCloseClicked(state) {
+const handleChatBoxCloseClicked = (state) => {
   const {
     persons,
     personIndex,
@@ -277,9 +272,9 @@ function handleChatBoxCloseClicked(state) {
     searchMode: isModeChats ? null : searchMode,
     chatContent: null,
   };
-}
+};
 
-function handleCancelEditChatClicked(state) {
+const handleCancelEditChatClicked = (state) => {
   const { details } = getStatesAndVariables(state);
 
   return {
@@ -288,45 +283,44 @@ function handleCancelEditChatClicked(state) {
     chatMode: null,
     chatInputText: details.draft,
   };
-}
+};
 
-function handleSearchIconClicked(state, searchMode) {
+const handleSearchIconClicked = (state, searchMode) => {
   return {
     ...state,
     searchMode,
     searchInputText: "",
   };
-}
+};
 
-function handlePersonMenuBarClicked(state) {
+const handlePersonMenuBarClicked = (state) => {
   return state;
-}
+};
 
-function handleChatMenuBarClicked(state) {
+const handleChatMenuBarClicked = (state) => {
   return state;
-}
+};
 
-function handleCloseDialogClicked(state) {
+const handleCloseDialogClicked = (state) => {
   return {
     ...state,
     searchInputText: "",
     dialogMode: false,
   };
-}
+};
 
-function handleAppLoadComplete(state) {
+const handleAppLoadComplete = (state) => {
   toaster("info", "", startupMessage);
   return {
     ...state,
     loading: false,
   };
-}
+};
 
 export const stateHandlers = {
   handleAddNewChatClicked,
   handleCancelEditChatClicked,
   handleChatBoxCloseClicked,
-  handleCopyChatClicked,
   handleConfirmDeleteChatClicked,
   handleEditChatClicked,
   handleSelectPersonToForwardChatClicked,
@@ -348,7 +342,7 @@ export const stateHandlers = {
 
 // import { personClicked } from "../StateManager/actionCreator";
 
-//  function onClickPerson(personId) {
+//  const onClickPerson(personId) {
 //   return (dispatch, getState) => {
 //     dispatch(personClicked(personId));
 //   };

@@ -1,6 +1,6 @@
 import { useImport } from "./Imports/imports";
 
-function App() {
+const App = () => {
   const {
     useThunkReducer,
     useEffect,
@@ -36,12 +36,11 @@ function App() {
     },
     dispatch,
   ] = useThunkReducer(reducer, {
-    selectedPersonId: "parvaneh",
+    selectedPersonId: "",
     persons: tempPersons,
     chatInputText: "",
     searchInputText: "",
     chatContent: "",
-    chatContentId: "",
     forwardContent: "",
     dialogMode: "",
     snackState: "",
@@ -102,6 +101,6 @@ function App() {
       </Portal>
     </Context.Provider>
   );
-}
+};
 
 export default App;

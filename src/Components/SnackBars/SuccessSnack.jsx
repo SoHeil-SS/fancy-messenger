@@ -1,7 +1,7 @@
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 
-function SuccessSnack({ snackState, handleSnackClose }) {
+const SuccessSnack = ({ snackState, handleSnackClose }) => {
   // const handleClose = (event, reason) => {
   //   if (reason === "clickaway") {
   //     return;
@@ -27,7 +27,7 @@ function SuccessSnack({ snackState, handleSnackClose }) {
       </MuiAlert>
     </Snackbar>
   );
-}
+};
 
 /* <Alert severity="error">This is an error message!</Alert>
 <Alert severity="warning">This is a warning message!</Alert>

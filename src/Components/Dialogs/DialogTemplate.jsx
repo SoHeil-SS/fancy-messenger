@@ -1,11 +1,11 @@
 import { useImport } from "../../Imports/imports";
 
-function DialogTemplate({
+const DialogTemplate = ({
   titleContent,
   mainContent,
   actionContent,
   dialogMode,
-}) {
+}) => {
   const {
     Dialog,
     DialogActions,
@@ -50,6 +50,6 @@ function DialogTemplate({
       </Dialog>
     </>
   );
-}
+};
 
 export default DialogTemplate;

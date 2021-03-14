@@ -1,9 +1,11 @@
 import { useImport } from "../../Imports/imports";
 
-function DeleteDialog({ dialogMode }) {
+const DeleteDialog = ({ dialogMode }) => {
   const {
     DialogTemplate,
-    dialog,
+    dialog: {
+      Messages: { deleteMessage },
+    },
     getDialogActionInitializer,
     dispatch,
     actionConfirmDeleteChatClicked,
@@ -22,10 +24,10 @@ function DeleteDialog({ dialogMode }) {
   return (
     <DialogTemplate
       dialogMode={dialogMode}
-      titleContent={dialog.deleteMessage}
+      titleContent={deleteMessage}
       actionContent={actionContent}
     />
   );
-}
+};
 
 export default DeleteDialog;

@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-function PersonContainer() {
+const PersonContainer = () => {
   const {
     dispatch,
     SearchBar,
@@ -34,6 +34,6 @@ function PersonContainer() {
       <PersonList showablePersons={showablePersons} />
     </>
   );
-}
+};
 
 export default PersonContainer;

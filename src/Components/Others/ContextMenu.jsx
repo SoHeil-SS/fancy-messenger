@@ -1,9 +1,8 @@
 import { useImport } from "../../Imports/imports";
 
-function ContextMenu() {
+const ContextMenu = () => {
   const {
     dispatch,
-    actionCopyChatClicked,
     actionEditChatClicked,
     actionDeleteChatClicked,
     actionForwardChatClicked,
@@ -11,13 +10,14 @@ function ContextMenu() {
     Menu,
     theme,
     menuId,
+    setCopyChatClicked,
   } = useImport();
 
-  function handleContextClick({ event, props, data, triggerEvent }) {
+  const handleContextClick = ({ event, props, data, triggerEvent }) => {
     const { id, text } = props;
     switch (event.currentTarget.id) {
       case "copy":
-        dispatch(actionCopyChatClicked(text));
+        setCopyChatClicked(text);
         break;
 
       case "edit":
@@ -35,7 +35,7 @@ function ContextMenu() {
       default:
         break;
     }
-  }
+  };
 
   return (
     <div>
@@ -47,6 +47,7 @@ function ContextMenu() {
           <Item id="copy" onClick={handleContextClick}>
             Copy Text
           </Item>
+
           <Item id="forward" onClick={handleContextClick}>
             Forward Message
           </Item>
@@ -57,6 +58,6 @@ function ContextMenu() {
       </main>
     </div>
   );
-}
+};
 
 export default ContextMenu;
