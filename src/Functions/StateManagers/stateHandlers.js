@@ -142,6 +142,8 @@ const handleEditChatClicked = (state, chatID) => {
   // when clicking on non-self edit option. //FIXME contextMenu
   if (!content) return state;
 
+  selectedChatID = chatID;
+
   setDraftChange(details, chatInputText, chatContent);
   setFinallyPersons(persons, [personIndex], [{ details, chats }]);
 
@@ -162,7 +164,7 @@ const handleConfirmEditChatClicked = (state) => {
     chatInputText,
     chatContentIndex,
     personIndex,
-  } = getStatesAndVariables(state);
+  } = getStatesAndVariables(state, selectedChatID);
 
   setFinallyChats(chats, [chatContentIndex], [chatInputText]);
   setFinallyPersons(persons, [personIndex], [{ chats, details }]);
