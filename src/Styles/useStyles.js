@@ -107,7 +107,7 @@ const chatItem = {
     width: "40%",
     position: "relative",
     backgroundColor: "red",
-    margin: `theme.spacing(1, 1)px`,
+    margin: theme.spacing(2, 2),
     "&:hover": {
       cursor: "pointer",
     },
