@@ -6,19 +6,21 @@ import { userComponentsImports } from "./userComponentsImports";
 import { reactFunctionsImports } from "./reactFunctionsImports";
 import { utilsFunctionsAndHooks } from "../Functions/utilsFunctionsAndHooks";
 import { reducer } from "../Functions/StateManagers/reducer";
-import { styles } from "../Styles/styles";
+import { useStyles } from "../Styles/useStyles";
 
 export const useImport = () => {
   const { createContext, useContext, useContextMenu } = reactFunctionsImports;
   const { useMyContext } = utilsFunctionsAndHooks;
   const { menuId } = variables;
+  const classNames = useStyles();
 
   const imports = createContext({
     ...useMyContext(),
     ...useContextMenu({
       id: menuId,
     }),
-    styles,
+    classNames,
+    useStyles,
     ...stateHandlers,
     ...stateActions,
     reducer,

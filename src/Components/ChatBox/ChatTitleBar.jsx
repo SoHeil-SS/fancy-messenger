@@ -12,21 +12,15 @@ const ChatTitleBar = ({
     SearchIcon,
     CloseIcon,
     IconButton,
-    styles,
     Avatar,
     Box,
     Paper,
     ChatMenu,
+    classNames: { defaultIconSize, avatarLargeSize, chatTitleBarContainer },
   } = useImport();
 
-  const {
-    icons: { defaultStyle },
-    avatarStyle: { large },
-    chatTitleBar: { container },
-  } = styles();
-
   return (
-    <Paper style={container}>
+    <Paper className={chatTitleBarContainer}>
       <Box
         display="flex"
         flexDirection="row"
@@ -36,12 +30,12 @@ const ChatTitleBar = ({
       >
         <Box p={1}>
           <IconButton onClick={onCloseChat}>
-            <CloseIcon style={defaultStyle} />
+            <CloseIcon className={defaultIconSize} />
           </IconButton>
         </Box>
         <Box display="flex" flexDirection="row">
           <Box p={1}>
-            <Avatar style={large} src={avatar} alt={personName} />
+            <Avatar className={avatarLargeSize} src={avatar} alt={personName} />
           </Box>
           <Box p={1}>
             <div>{personName}</div>
@@ -50,7 +44,7 @@ const ChatTitleBar = ({
         </Box>
         <Box p={1}>
           <IconButton onClick={onSearchIconClick}>
-            <SearchIcon style={defaultStyle} />
+            <SearchIcon className={defaultIconSize} />
           </IconButton>
           <ChatMenu />
         </Box>
@@ -62,5 +56,5 @@ const ChatTitleBar = ({
 export default ChatTitleBar;
 
 /* <IconButton onClick={onChatMenuClick}>
-  <MoreVertIcon style={defaultStyle} />
+  <MoreVertIcon className={defaultclassName} />
 </IconButton>; */

@@ -1,33 +1,43 @@
-const chatItem = ({ self, person, chatTime, chatDate, onContextMenu }) => {
+import { useImport } from "../../Imports/imports";
+
+const ChatItem = ({ self, person, chatTime, chatDate, onContextMenu }) => {
+  const {
+    Paper,
+    ListItem,
+    ListItemText,
+    classNames: { chatItemPaper },
+  } = useImport();
+
   return (
-    //TODO CLEANME PLZZZZZZZZZZZZZ...
-    <div onContextMenu={onContextMenu}>
+    <>
       {self && (
-        <div className="message-row self-message hoverItem">
-          <div className="message-content-self">
-            <div className="message-text">
-              <li className="chatDetail_me__2ZOxv">{self}</li>
-              <div className="message-time-self ">
-                {chatTime} {chatDate}
-              </div>
-            </div>
-          </div>
-        </div>
+        <Paper
+          elevation={3}
+          className={chatItemPaper}
+          onContextMenu={onContextMenu}
+        >
+          <ListItem>
+            <ListItemText className="chatDetail_me__2ZOxv">{self}</ListItemText>
+            <ListItemText className="message-time-self ">
+              {chatTime} {chatDate}
+            </ListItemText>
+          </ListItem>
+        </Paper>
       )}
-      {person && (
-        <div className="message-row you-message hoverItem ">
-          <div className="message-content-person">
-            <div className=" liPerson message-text">
-              <li>{person}</li>
-              <div className="message-time-person">
-                {chatTime} {chatDate}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+      {
+        <Paper elevation={3}>
+          <ListItem>
+            <ListItemText className="chatDetail_me__2ZOxv">
+              {person}
+            </ListItemText>
+            <ListItemText className="message-time-self ">
+              {chatTime} {chatDate}
+            </ListItemText>
+          </ListItem>
+        </Paper>
+      }
+    </>
   );
 };
 
-export default chatItem;
+export default ChatItem;

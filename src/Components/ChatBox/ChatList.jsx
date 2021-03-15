@@ -6,6 +6,8 @@ const ChatList = ({ showableChats }) => {
     ChatItem,
     show,
     setDisplayMenu,
+    List,
+    classNames: { chatListList },
   } = useImport();
 
   const chatList = showableChats.map((chat) => {
@@ -28,7 +30,7 @@ const ChatList = ({ showableChats }) => {
     );
   });
 
-  return <ul className=" chat-list-ul ">{chatList}</ul>;
+  return <List className={chatListList}>{chatList}</List>;
 };
 
 export default ChatList;

@@ -30,7 +30,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     Paper,
     MicNoneIcon,
     IconButton,
-    styles,
+    classNames: { chatInputContainer },
   } = useImport();
 
   const { details, chats } = useMemo(
@@ -64,15 +64,13 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     dispatch,
   ]);
 
-  useEffect(() => {
-    const element = document.getElementsByClassName("chat-list-ul")[0];
-    element.scrollTo(0, element.scrollHeight);
-  }, [chats]);
+  // useEffect(() => {
+  //   const element = document.getElementsByClassName("chat-list-ul")[0];
+  //   element.scrollTo(0, element.scrollHeight);
+  // }, [chats]);
 
   const condition = chatInputText || selectedChatContent;
   const { avatar, personName } = details;
-
-  const { container } = styles().chatInput;
 
   return (
     <div>
@@ -95,7 +93,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
           />
         )}
         <div>
-          <Paper className="input-container" style={container}>
+          <Paper className={chatInputContainer}>
             <span className="textarea-icon">
               <IconButton onClick={() => console.log("Pin Clicked")}>
                 <AttachFileIcon />

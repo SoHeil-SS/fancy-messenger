@@ -16,22 +16,29 @@ const PersonListItem = ({
     Typography,
     Avatar,
     Badge,
-    styles,
+    classNames,
     ListItem,
   } = useImport();
 
   const {
-    personListItem: { container, paperItem, unreadBadge, listItem },
-    avatarStyle: { large },
-  } = styles();
+    personListItemListItem,
+    personListItemContainer,
+    personListItemPaper,
+    personListItemUnreadBadge,
+    avatarLargeSize,
+  } = classNames;
 
   return (
-    <div style={container}>
-      <Paper elevation={3} onClick={onPersonClick} style={paperItem}>
-        <ListItem button style={listItem} selected={selected}>
+    <div className={personListItemContainer}>
+      <Paper
+        elevation={3}
+        onClick={onPersonClick}
+        className={personListItemPaper}
+      >
+        <ListItem button className={personListItemListItem} selected={selected}>
           <Grid container wrap="nowrap" justify="space-between" spacing={2}>
             <Grid item>
-              <Avatar src={avatar} style={large}></Avatar>
+              <Avatar src={avatar} className={avatarLargeSize}></Avatar>
             </Grid>
             <Grid item lg zeroMinWidth container justify="flex-start">
               <Grid item md>
@@ -39,7 +46,7 @@ const PersonListItem = ({
                 <Grid item md></Grid>
                 <Typography noWrap>
                   <span>
-                    {draft && <span style={{ color: "red" }}>Draft: </span>}
+                    {draft && <span className={{ color: "red" }}>Draft: </span>}
                     {draft || lastChatText}
                   </span>
                 </Typography>
@@ -49,7 +56,11 @@ const PersonListItem = ({
               <Typography noWrap>{lastChatTime}</Typography>
               {unreadChatCounter && (
                 <Grid item>
-                  <Badge pill variant="primary" style={unreadBadge}>
+                  <Badge
+                    pill
+                    variant="primary"
+                    className={personListItemUnreadBadge}
+                  >
                     {unreadChatCounter}
                   </Badge>
                 </Grid>

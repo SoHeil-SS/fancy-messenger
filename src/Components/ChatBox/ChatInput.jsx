@@ -1,17 +1,17 @@
 import { useImport } from "../../Imports/imports";
 
 const ChatInput = ({ chatInputText, onKeyPress, onInputChange }) => {
-  const { TextField, styles } = useImport();
-
-  const { textarea } = styles();
+  const {
+    TextField,
+    classNames: { textarea },
+  } = useImport();
 
   return (
     <TextField
-      className="chat-input"
       id="standard-multiline-flexible"
       label={!chatInputText ? "Write a message..." : " "}
       multiline
-      style={textarea}
+      className={textarea}
       rowsMax={8}
       autoFocus
       onChange={onInputChange}
