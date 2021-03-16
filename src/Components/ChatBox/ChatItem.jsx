@@ -1,41 +1,38 @@
 import { useImport } from "../../Imports/imports";
 
-const ChatItem = ({ self, person, chatTime, chatDate, onContextMenu }) => {
+const ChatItem = ({ message, chatTime, chatDate, justify, onContextMenu }) => {
   const {
     Paper,
-    ListItem,
-    ListItemText,
+    Grid,
+    Typography,
     classNames: { chatItemPaper },
   } = useImport();
 
   return (
     <>
-      {self && (
+      <Grid
+        item
+        container
+        style={{ height: "fit-content", margin: "0 0" }}
+        justify={justify}
+      >
         <Paper
-          elevation={3}
-          className={chatItemPaper}
+          elevation={1}
+          style={{
+            cursor: "pointer",
+            width: "auto",
+            maxWidth: "60%",
+            padding: "10px",
+            // marginTop: "1%",
+          }}
           onContextMenu={onContextMenu}
         >
-          <ListItem>
-            <ListItemText className="chatDetail_me__2ZOxv">{self}</ListItemText>
-            <ListItemText className="message-time-self ">
-              {chatTime} {chatDate}
-            </ListItemText>
-          </ListItem>
+          <Typography className="">{message}</Typography>
+          <Typography className="">
+            {chatTime} {chatDate}
+          </Typography>
         </Paper>
-      )}
-      {
-        <Paper elevation={3}>
-          <ListItem>
-            <ListItemText className="chatDetail_me__2ZOxv">
-              {person}
-            </ListItemText>
-            <ListItemText className="message-time-self ">
-              {chatTime} {chatDate}
-            </ListItemText>
-          </ListItem>
-        </Paper>
-      }
+      </Grid>
     </>
   );
 };

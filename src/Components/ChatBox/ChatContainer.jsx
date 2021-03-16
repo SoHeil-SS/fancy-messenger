@@ -30,6 +30,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     Paper,
     MicNoneIcon,
     IconButton,
+    Grid,
     classNames: { chatInputContainer },
   } = useImport();
 
@@ -73,7 +74,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
   const { avatar, personName } = details;
 
   return (
-    <div>
+    <Grid item xs={8}>
       <ChatTitleBar
         avatar={avatar}
         personName={personName}
@@ -82,7 +83,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
         onSearchIconClick={() => dispatch(actionSearchIconClicked("chats"))}
       />
 
-      <div className="chat-container">
+      <div>
         <ChatList showableChats={showableChats} />
 
         {chatMode && (
@@ -138,7 +139,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
           </Paper>
         </div>
       </div>
-    </div>
+    </Grid>
   );
 };
 

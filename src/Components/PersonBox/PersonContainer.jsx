@@ -13,6 +13,7 @@ const PersonContainer = () => {
     searchInputText,
     persons,
     searchMode,
+    Grid,
   } = useImport();
 
   const showablePersons = useMemo(
@@ -21,18 +22,22 @@ const PersonContainer = () => {
   );
 
   return (
-    <>
-      <SearchBar
-        searchMode={searchMode}
-        onInputChange={(e) =>
-          dispatch(actionInputChange(e.target.value, "searchInputText"))
-        }
-        onSearchIconClick={() => dispatch(actionSearchIconClicked("persons"))}
-        onBackArrowIconClick={() => dispatch(actionSearchIconClicked(""))}
-        onPersonMenuClick={() => dispatch(actionPersonMenuBarClicked())}
-      />
-      <PersonList showablePersons={showablePersons} />
-    </>
+    <Grid item xs={4}>
+      <Grid item>
+        <SearchBar
+          searchMode={searchMode}
+          onInputChange={(e) =>
+            dispatch(actionInputChange(e.target.value, "searchInputText"))
+          }
+          onSearchIconClick={() => dispatch(actionSearchIconClicked("persons"))}
+          onBackArrowIconClick={() => dispatch(actionSearchIconClicked(""))}
+          onPersonMenuClick={() => dispatch(actionPersonMenuBarClicked())}
+        />
+      </Grid>
+      <Grid>
+        <PersonList showablePersons={showablePersons} />
+      </Grid>
+    </Grid>
   );
 };
 

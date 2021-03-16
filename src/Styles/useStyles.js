@@ -3,7 +3,9 @@ import { createMuiTheme, makeStyles } from "@material-ui/core";
 const theme = createMuiTheme();
 
 export const useStyles = makeStyles((theme) => ({
+  ...appContainer,
   ...searchBar,
+  ...personList,
   ...personListItem,
   ...avatarStyle,
   ...iconSizes,
@@ -12,6 +14,7 @@ export const useStyles = makeStyles((theme) => ({
   ...chatTitleBar,
   ...chatList,
   ...chatItem,
+  ...loader,
 }));
 
 const searchBar = {
@@ -33,6 +36,14 @@ const searchBar = {
   searchBarInputBox: {
     width: "100%",
     textAlign: "center",
+  },
+};
+
+const personList = {
+  personListUl: {
+    overflowY: "scroll",
+    height: "88vh",
+    "&::-webkit-scrollbar ": { display: "none" },
   },
 };
 
@@ -87,29 +98,56 @@ const textareaStyles = {
 };
 
 const chatTitleBar = {
-  chatTitleBarContainer: { width: "97%", margin: "auto" },
+  chatTitleBarContainer: { width: "98%", marginTop: "0.6%" },
 };
 
 const chatList = {
   chatListList: {
     flex: "1 1",
-    display: "flex",
+    display: "grid",
+    height: "80vh",
     flexDirection: "column",
-    listStyleType: "none",
-    overflowY: "auto",
+    overflowY: "scroll",
     padding: " 0 25px",
     marginTop: "5px",
+    "&::-webkit-scrollbar ": { display: "none" },
   },
 };
 
 const chatItem = {
   chatItemPaper: {
     width: "40%",
-    position: "relative",
-    backgroundColor: "red",
-    margin: theme.spacing(2, 2),
     "&:hover": {
       cursor: "pointer",
     },
+  },
+};
+
+const appContainer = {
+  appContainerChatContainerBackground: {
+    backgroundImage: 'url("./Assets/Pictures/Backgrounds/chatBox-BG.svg")',
+    //  backgroundImage: 'url("../Assets/Pictures/Backgrounds/Facebook_Messenger_logo_2013.svg")',
+    backgroundSize: " 25%",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
+  },
+  appContainerGridContainer: {
+    backgroundColor: "rgb(235, 232, 232)",
+    borderRadius: "5px",
+    // display: "grid",
+    // gridTemplateColumns: "35% 1fr",
+    // gridTemplateRows: "calc(100vh)",
+    overflowY: "hidden",
+    top: "200px",
+    margin: "auto",
+    minWidth: "1000px",
+  },
+};
+
+const loader = {
+  loaderDefaultStyle: {
+    margin: "33%",
+    width: "250px",
+    height: "250px",
   },
 };

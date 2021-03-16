@@ -25,24 +25,25 @@ const ChatTitleBar = ({
         display="flex"
         flexDirection="row"
         m={1}
+        p={1}
         justifyContent="space-between"
         alignItems="center"
       >
-        <Box p={1}>
+        <Box>
           <IconButton onClick={onCloseChat}>
             <CloseIcon className={defaultIconSize} />
           </IconButton>
         </Box>
         <Box display="flex" flexDirection="row">
-          <Box p={1}>
+          <Box>
             <Avatar className={avatarLargeSize} src={avatar} alt={personName} />
           </Box>
-          <Box p={1}>
+          <Box>
             <div>{personName}</div>
             <span className="lastSeenSpan">last seen 666 minutes ago</span>
           </Box>
         </Box>
-        <Box p={1}>
+        <Box>
           <IconButton onClick={onSearchIconClick}>
             <SearchIcon className={defaultIconSize} />
           </IconButton>

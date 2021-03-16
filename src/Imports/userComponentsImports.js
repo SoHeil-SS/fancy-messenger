@@ -1,3 +1,5 @@
+import AppContainer from "../AppContainer";
+
 import PersonContainer from "../Components/PersonBox/PersonContainer";
 import SearchBar from "../Components/PersonBox/SearchBar";
 import PersonList from "../Components/PersonBox/PersonList";
@@ -48,4 +50,5 @@ export const userComponentsImports = {
   SuccessSnack,
   DeletedMessageSnack,
   AppDrawer,
+  AppContainer,
 };

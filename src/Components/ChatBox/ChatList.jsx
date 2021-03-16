@@ -6,7 +6,7 @@ const ChatList = ({ showableChats }) => {
     ChatItem,
     show,
     setDisplayMenu,
-    List,
+    Grid,
     classNames: { chatListList },
   } = useImport();
 
@@ -16,8 +16,8 @@ const ChatList = ({ showableChats }) => {
     return (
       <ChatItem
         key={chatId}
-        self={self}
-        person={person}
+        message={self || person}
+        justify={self ? "flex-end" : "flex-start"}
         chatTime={getTimeFromMilliseconds(
           chatTime,
           "getHours",
@@ -30,7 +30,11 @@ const ChatList = ({ showableChats }) => {
     );
   });
 
-  return <List className={chatListList}>{chatList}</List>;
+  return (
+    <Grid container className={chatListList}>
+      {chatList}
+    </Grid>
+  );
 };
 
 export default ChatList;

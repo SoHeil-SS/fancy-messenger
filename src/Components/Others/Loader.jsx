@@ -1,5 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
+//TODO CLEANUP
 const Loader = ({ style }) => {
   const { Spinner } = useImport();
   return (

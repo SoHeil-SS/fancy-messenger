@@ -5,21 +5,11 @@ const App = () => {
     useThunkReducer,
     useEffect,
     Context,
-    Portal,
-    PersonContainer,
-    ChatContainer,
-    ContactsDialog,
-    Loader,
-    ToastContainer,
-    ContextMenu,
+    AppContainer,
+
     reducer,
     actionAppLoadComplete,
     tempPersons,
-    loaderStyle,
-    DeleteDialog,
-    SuccessSnack,
-    DeletedMessageSnack,
-    AppDrawer,
   } = useImport();
 
   const [
@@ -38,7 +28,7 @@ const App = () => {
     },
     dispatch,
   ] = useThunkReducer(reducer, {
-    selectedPersonId: "",
+    selectedPersonId: "parvaneh",
     persons: tempPersons,
     chatInputText: "",
     searchInputText: "",
@@ -67,41 +57,15 @@ const App = () => {
         searchMode,
       }}
     >
-      <div className="app-bg-top"></div>
-      <div className="app-box">
-        <div className="messenger-box">
-          <div className="person-container">
-            <PersonContainer />
-          </div>
-          {loading && <Loader style={loaderStyle.main} />}
-          {selectedPersonId ? (
-            <ChatContainer
-              chatMode={chatMode}
-              chatInputText={chatInputText}
-              selectedChatContent={selectedChatContent}
-            />
-          ) : (
-            <div className="forBackground"></div>
-          )}
-        </div>
-      </div>
-      <Portal>
-        <ToastContainer />
-        <ContextMenu />
-        {dialogMode === ("forward" || "contacts") && (
-          <ContactsDialog dialogMode={!!dialogMode} />
-        )}
-        {dialogMode === "deleteMessage" && (
-          <DeleteDialog dialogMode={!!dialogMode} />
-        )}
-        {notificationState === "messageDeleted" && (
-          <DeletedMessageSnack notificationState={!!notificationState} />
-        )}
-        {notificationState === "messageSaved" && (
-          <SuccessSnack notificationState={!!notificationState} />
-        )}
-        <AppDrawer appDrawerState={appDrawerState} />
-      </Portal>
+      <AppContainer
+        loading={loading}
+        chatMode={chatMode}
+        chatInputText={chatInputText}
+        selectedChatContent={selectedChatContent}
+        notificationState={notificationState}
+        appDrawerState={appDrawerState}
+        dialogMode={dialogMode}
+      />
     </Context.Provider>
   );
 };

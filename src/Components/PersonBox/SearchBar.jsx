@@ -11,6 +11,11 @@ const SearchBar = ({
     TextField,
     searchInputText,
     Box,
+    SearchIcon,
+    IconButton,
+    MenuIcon,
+    ArrowBackIcon,
+    Paper,
     classNames: {
       defaultIconSize,
       searchBarContainer,
@@ -18,16 +23,11 @@ const SearchBar = ({
       searchBarInput,
       searchBarInputBox,
     },
-    SearchIcon,
-    IconButton,
-    MenuIcon,
-    ArrowBackIcon,
-    Paper,
   } = useImport();
 
   return (
     <Paper className={searchBarContainer}>
-      <Box m={1} p={1.39} className={searchBarBox}>
+      <Box m={1} p={1} className={searchBarBox}>
         <Box>
           {searchMode ? (
             <IconButton onClick={onBackArrowIconClick}>

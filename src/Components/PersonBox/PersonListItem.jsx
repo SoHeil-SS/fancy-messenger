@@ -16,17 +16,15 @@ const PersonListItem = ({
     Typography,
     Avatar,
     Badge,
-    classNames,
     ListItem,
+    classNames: {
+      personListItemListItem,
+      personListItemContainer,
+      personListItemPaper,
+      personListItemUnreadBadge,
+      avatarLargeSize,
+    },
   } = useImport();
-
-  const {
-    personListItemListItem,
-    personListItemContainer,
-    personListItemPaper,
-    personListItemUnreadBadge,
-    avatarLargeSize,
-  } = classNames;
 
   return (
     <div className={personListItemContainer}>

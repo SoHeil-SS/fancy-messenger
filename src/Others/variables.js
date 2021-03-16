@@ -201,13 +201,7 @@ export const variables = {
       chats: [],
     },
   ],
-  loaderStyle: {
-    main: {
-      margin: "33%",
-      width: "250px",
-      height: "250px",
-    },
-  },
+
   dialog: {
     Messages: {
       deleteMessage: "Are you sure to Delete this message?",
