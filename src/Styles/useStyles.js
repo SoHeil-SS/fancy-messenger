@@ -104,6 +104,9 @@ const ChatContainer = {
     margin: "0 auto",
     display: "flex",
     padding: theme.spacing(1, 0.5),
+    "&:hover": {
+      boxShadow: theme.shadows[5],
+    },
   },
   chatContainerChatListPaper: {
     backgroundColor: "lightGray",
@@ -112,6 +115,9 @@ const ChatContainer = {
     height: "77vh",
     wordWarp: "break-word",
     "&::-webkit-scrollbar ": { display: "none" },
+  },
+  chatContainerGridContainer: {
+    // marginBottom: "auto",
   },
 };
 
@@ -133,7 +139,7 @@ const chatTitleBar = {
   chatTitleBarBoxContainer: {
     display: "flex",
     flexDirection: "row",
-    padding: theme.spacing(0.5, 0),
+    padding: theme.spacing(1, 0),
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -148,11 +154,8 @@ const chatTitleBar = {
 
 const chatList = {
   chatListChatsGrid: {
-    // height: "78vh",
-    overflowY: "scroll",
-    marginTop: "5px",
-
-    "&::-webkit-scrollbar ": { display: "none" },
+    //TODO this should be a flex . not a grid
+    marginTop: theme.spacing(1, 0, 0, 0),
   },
 };
 
@@ -162,10 +165,12 @@ const chatItem = {
     width: "auto",
     maxWidth: "60%",
     padding: "10px",
-    height: "fit-content",
     margin: "0.5% 10px 0",
     display: "block",
     wordWarp: "break-word",
+    "&:hover": {
+      boxShadow: theme.shadows[5],
+    },
   },
 };
 

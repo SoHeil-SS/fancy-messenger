@@ -32,7 +32,11 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     MicNoneIcon,
     IconButton,
     Grid,
-    classNames: { chatInputContainer, chatContainerChatListPaper },
+    classNames: {
+      chatInputContainer,
+      chatContainerChatListPaper,
+      chatContainerGridContainer,
+    },
   } = useImport();
 
   const { details, chats } = useMemo(
@@ -74,7 +78,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
   const { avatar, personName } = details;
 
   return (
-    <Grid item container xs={8}>
+    <Grid className={chatContainerGridContainer} item container xs={8}>
       <ChatTitleBar
         avatar={avatar}
         personName={personName}

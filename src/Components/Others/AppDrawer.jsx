@@ -37,7 +37,7 @@ function AppDrawer({ appDrawerState }) {
       onKeyDown={() => dispatch(actionPersonMenuBarClicked("left", false))}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+        {["Prof Pic", "Name", "Number"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -48,7 +48,7 @@ function AppDrawer({ appDrawerState }) {
       </List>
       <Divider />
       <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
+        {["Account 1", "Account 2", "Add Account"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -56,6 +56,19 @@ function AppDrawer({ appDrawerState }) {
             <ListItemText primary={text} />
           </ListItem>
         ))}
+      </List>
+      <Divider />
+      <List>
+        {["New Group", "New Channel", "Contacts", "Settings", "Night Mode"].map(
+          (text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          )
+        )}
       </List>
     </div>
   );
