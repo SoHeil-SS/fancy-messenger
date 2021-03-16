@@ -48,7 +48,12 @@ function AppContainer({
             />
           </>
         ) : (
-          <div className={appContainerChatContainerBackground}></div>
+          <Grid
+            item
+            container
+            xs={8}
+            className={appContainerChatContainerBackground}
+          ></Grid>
         )}
       </Grid>
       <Portal>

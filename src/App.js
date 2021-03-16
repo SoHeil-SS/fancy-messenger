@@ -29,7 +29,7 @@ const App = () => {
     },
     dispatch,
   ] = useThunkReducer(reducer, {
-    selectedPersonId: "parvaneh",
+    selectedPersonId: "",
     persons: tempPersons,
     chatInputText: "",
     searchInputText: "",
