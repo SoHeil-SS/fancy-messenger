@@ -4,8 +4,9 @@ import { variables } from "../../Others/variables";
 
 const {
   dialog: {
-    Messages: { loadIncomplete, startupMessage },
+    messages: { loadIncomplete, startupMessage },
   },
+  notificationMessage: { deleteMessage, successEdit },
 } = variables;
 
 let editingChatID,
@@ -123,7 +124,8 @@ const handleConfirmDeleteChatClicked = (state) => {
     chatInputText: chatIDsEquality ? details.draft : chatInputText,
     selectedChatContent: chatIDsEquality ? "" : selectedChatContent,
     chatMode: chatIDsEquality ? "" : chatMode,
-    notificationState: "messageDeleted",
+    notificationState: "delete",
+    notifyMessage: deleteMessage,
     dialogMode: "",
   };
 };
@@ -163,7 +165,8 @@ const handleConfirmEditChatClicked = (state) => {
     chatInputText: details.draft,
     selectedChatContent: "",
     chatMode: "",
-    notificationState: "messageSaved",
+    notificationState: "success",
+    notifyMessage: successEdit,
   };
 };
 

@@ -19,10 +19,11 @@ function AppContainer({
     ToastContainer,
     ContextMenu,
     DeleteDialog,
-    SuccessSnack,
-    DeletedMessageSnack,
+    DeleteNotify,
+    SuccessNotify,
     AppDrawer,
     Grid,
+    notifyMessage,
     classNames: {
       appContainerGridContainer,
       appContainerChatContainerBackground,
@@ -30,6 +31,7 @@ function AppContainer({
     },
   } = useImport();
 
+  //TODO CLEANUP VARIABLES
   return (
     <>
       <Grid item container xs={12} className={appContainerGridContainer}>
@@ -58,11 +60,17 @@ function AppContainer({
         {dialogMode === "deleteMessage" && (
           <DeleteDialog dialogMode={!!dialogMode} />
         )}
-        {notificationState === "messageDeleted" && (
-          <DeletedMessageSnack notificationState={!!notificationState} />
+        {notificationState === "delete" && (
+          <DeleteNotify
+            deleteMessage={notifyMessage}
+            notificationState={!!notificationState}
+          />
         )}
-        {notificationState === "messageSaved" && (
-          <SuccessSnack notificationState={!!notificationState} />
+        {notificationState === "success" && (
+          <SuccessNotify
+            successMessage={notifyMessage}
+            notificationState={!!notificationState}
+          />
         )}
         <AppDrawer appDrawerState={appDrawerState} />
       </Portal>

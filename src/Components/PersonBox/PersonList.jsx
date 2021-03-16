@@ -9,7 +9,7 @@ const PersonList = ({ showablePersons }) => {
     selectedPersonId,
     getLastChatDetails,
     List,
-    classNames: { personListUl },
+    classNames: { personListList },
   } = useImport();
 
   const list = showablePersons.map((personItem) => {
@@ -42,7 +42,7 @@ const PersonList = ({ showablePersons }) => {
     );
   });
 
-  return <List className={personListUl}>{list}</List>;
+  return <List className={personListList}>{list}</List>;
 };
 
 export default PersonList;

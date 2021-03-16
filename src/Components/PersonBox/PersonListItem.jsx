@@ -24,6 +24,7 @@ const PersonListItem = ({
       personListItemUnreadBadge,
       avatarLargeSize,
       personListItemDraftTypography,
+      personListItemContents,
     },
   } = useImport();
 
@@ -35,7 +36,7 @@ const PersonListItem = ({
         className={personListItemPaper}
       >
         <ListItem button className={personListItemListItem} selected={selected}>
-          <Grid container wrap="nowrap" justify="space-between" spacing={2}>
+          <Grid container spacing={2} className={personListItemContents}>
             <Grid item>
               <Avatar src={avatar} className={avatarLargeSize} />
             </Grid>

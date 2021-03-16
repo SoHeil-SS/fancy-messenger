@@ -1,6 +1,6 @@
 import { useImport } from "../../Imports/imports";
 
-const DeleteMessageSnack = ({ notificationState }) => {
+const DeleteNotify = ({ notificationState, deleteMessage }) => {
   const {
     Button,
     Snackbar,
@@ -19,7 +19,7 @@ const DeleteMessageSnack = ({ notificationState }) => {
         open={notificationState}
         autoHideDuration={3000}
         onClose={actionCloseNotificationClicked}
-        message="Message deleted successfully."
+        message={deleteMessage}
         action={
           <>
             <Button
@@ -44,7 +44,7 @@ const DeleteMessageSnack = ({ notificationState }) => {
   );
 };
 
-export default DeleteMessageSnack;
+export default DeleteNotify;
 
 // const handleClose = (event, reason) => {
 //   if (reason === "clickaway") {

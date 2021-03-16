@@ -21,6 +21,8 @@ const ContactsDialog = ({ dialogMode }) => {
     [persons, searchInputText, getShowablePersons]
   );
 
+  //TODO cleanup
+
   const Title = (
     <>
       <span style={{ color: "wheat" }}>Choose a recipient...</span>
@@ -33,7 +35,7 @@ const ContactsDialog = ({ dialogMode }) => {
           onChange={(e) =>
             dispatch(actionInputChange(e.target.value, "searchInputText"))
           }
-          className="forward-input"
+          className=""
         />
       </div>
     </>

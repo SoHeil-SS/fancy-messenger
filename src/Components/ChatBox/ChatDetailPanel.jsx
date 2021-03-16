@@ -1,22 +1,31 @@
-import { Button } from "react-bootstrap";
+import { useImport } from "../../Imports/imports";
 
 const ChatDetailPanel = ({
   selectedChatContent,
   editCloseClicked,
   chatMode,
 }) => {
+  const {
+    Button,
+
+    classNames: {
+      chatDetailPanelEditingMessageHeader,
+      chatDetailPanelEditingMessageText,
+      chatDetailPanelContainer,
+    },
+  } = useImport();
+
   return (
-    <div className="editContainer">
+    <div className={chatDetailPanelContainer}>
       <div>
-        <span className="editContainerSpan">{chatMode} message</span>
-        <Button
-          className="editContainerButton btn btn-dark"
-          onClick={editCloseClicked}
-        >
-          X
-        </Button>
+        <span className={chatDetailPanelEditingMessageHeader}>
+          {chatMode} message
+        </span>
+        <Button onClick={editCloseClicked}>X</Button>
       </div>
-      <p className="editContainerPara">{selectedChatContent} </p>
+      <p className={chatDetailPanelEditingMessageText}>
+        {selectedChatContent}{" "}
+      </p>
     </div>
   );
 };

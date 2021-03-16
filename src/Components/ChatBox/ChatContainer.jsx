@@ -17,6 +17,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     actionInputChange,
     getSelectedPersonItems,
     getShowableChats,
+    setScrollTo,
     actionCancelEditChatClicked,
     actionAddNewChatClicked,
     actionConfirmEditChatClicked,
@@ -65,10 +66,9 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     dispatch,
   ]);
 
-  // useEffect(() => {
-  //   const element = document.getElementsByClassName("chat-list-ul")[0];
-  //   element.scrollTo(0, element.scrollHeight);
-  // }, [chats]);
+  useEffect(() => {
+    setScrollTo("chat-list");
+  }, [chats, setScrollTo]);
 
   const condition = chatInputText || selectedChatContent;
   const { avatar, personName } = details;
@@ -96,11 +96,10 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
       )}
 
       <Paper className={chatInputContainer}>
-        <span className="textarea-icon">
-          <IconButton onClick={() => console.log("Pin Clicked")}>
-            <AttachFileIcon />
-          </IconButton>
-        </span>
+        <IconButton onClick={() => console.log("Pin Clicked")}>
+          <AttachFileIcon />
+        </IconButton>
+
         <ChatInput
           chatInputText={chatInputText}
           onKeyPress={(e) => {
@@ -118,25 +117,24 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
             dispatch(actionInputChange(e.target.value, "chatInputText"))
           }
         />
-        <span className="textarea-icon">
-          {condition ? (
-            <IconButton
-              onClick={() =>
-                dispatch(
-                  chatMode === "edit"
-                    ? actionConfirmEditChatClicked()
-                    : actionAddNewChatClicked()
-                )
-              }
-            >
-              <TelegramIcon color="primary" />
-            </IconButton>
-          ) : (
-            <IconButton onClick={() => console.log("Mic Clicked")}>
-              <MicNoneIcon />
-            </IconButton>
-          )}
-        </span>
+
+        {condition ? (
+          <IconButton
+            onClick={() =>
+              dispatch(
+                chatMode === "edit"
+                  ? actionConfirmEditChatClicked()
+                  : actionAddNewChatClicked()
+              )
+            }
+          >
+            <TelegramIcon color="primary" />
+          </IconButton>
+        ) : (
+          <IconButton onClick={() => console.log("Mic Clicked")}>
+            <MicNoneIcon />
+          </IconButton>
+        )}
       </Paper>
     </Grid>
   );

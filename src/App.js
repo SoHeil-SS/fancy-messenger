@@ -25,6 +25,7 @@ const App = () => {
       searchMode,
       loading,
       appDrawerState,
+      notifyMessage,
     },
     dispatch,
   ] = useThunkReducer(reducer, {
@@ -39,6 +40,7 @@ const App = () => {
     searchMode: "",
     loading: true,
     appDrawerState: false,
+    notifyMessage: "",
   });
 
   useEffect(() => {
@@ -55,6 +57,7 @@ const App = () => {
         persons,
         searchInputText,
         searchMode,
+        notifyMessage,
       }}
     >
       <Grid container>

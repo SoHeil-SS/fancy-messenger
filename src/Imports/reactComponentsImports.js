@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Spinner, Badge } from "react-bootstrap";
 import Draggable from "react-draggable";
-
 import clsx from "clsx";
 
 import { Item, Menu, Separator } from "react-contexify";
@@ -31,6 +30,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@material-ui/core";
+
+import MuiAlert from "@material-ui/lab/Alert";
 
 import CloseIcon from "@material-ui/icons/Close";
 import SearchIcon from "@material-ui/icons/Search";
@@ -86,4 +87,5 @@ export const reactComponentsImports = {
   ListItemText,
   InboxIcon,
   MailIcon,
+  MuiAlert,
 };

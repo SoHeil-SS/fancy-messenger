@@ -199,6 +199,11 @@ const setCopyChatClicked = (chatText) => {
   navigator.clipboard.writeText(chatText);
 };
 
+const setScrollTo = (elementID) => {
+  const element = document.getElementById(elementID);
+  element.scrollTo(0, element.scrollHeight);
+};
+
 export const utilsFunctionsAndHooks = {
   getLastChatDetails,
   Context,
@@ -222,4 +227,5 @@ export const utilsFunctionsAndHooks = {
   getFilterDeletedChat,
   setCopyChatClicked,
   setNewPersonDetails,
+  setScrollTo,
 };

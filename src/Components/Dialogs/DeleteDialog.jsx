@@ -4,7 +4,7 @@ const DeleteDialog = ({ dialogMode }) => {
   const {
     DialogTemplate,
     dialog: {
-      Messages: { deleteMessage },
+      messages: { deleteMessage },
     },
     getDialogActionInitializer,
     dispatch,

@@ -12,7 +12,7 @@ const ChatInput = ({ chatInputText, onKeyPress, onInputChange }) => {
       label={!chatInputText ? "Write a message..." : " "}
       multiline
       className={textarea}
-      rowsMax={8}
+      rowsMax={5}
       autoFocus
       onChange={onInputChange}
       value={chatInputText}

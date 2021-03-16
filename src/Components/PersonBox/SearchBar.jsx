@@ -27,7 +27,7 @@ const SearchBar = ({
 
   return (
     <Paper className={searchBarContainer}>
-      <Box m={1} p={1} className={searchBarBox}>
+      <Box className={searchBarBox}>
         <Box>
           {searchMode ? (
             <IconButton onClick={onBackArrowIconClick}>

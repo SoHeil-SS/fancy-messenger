@@ -9,12 +9,13 @@ export const useStyles = makeStyles((theme) => ({
   ...personList,
   ...personListItem,
   ...avatarStyle,
-  ...iconSizes,
+  ...iconStyles,
   ...ChatContainer,
   ...textareaStyles,
   ...chatTitleBar,
   ...chatList,
   ...chatItem,
+  ...chatDetailPanel,
   ...loader,
 }));
 
@@ -36,6 +37,8 @@ const searchBar = {
     minWidth: "300px",
     justifyContent: "space-between",
     alignItems: "center",
+    padding: theme.spacing(1, 1),
+    margin: theme.spacing(1, 1),
   },
   searchBarInput: {
     width: "100%",
@@ -47,7 +50,7 @@ const searchBar = {
 };
 
 const personList = {
-  personListUl: {
+  personListList: {
     overflowY: "scroll",
     height: "88vh",
     "&::-webkit-scrollbar ": { display: "none" },
@@ -71,6 +74,10 @@ const personListItem = {
   personListItemDraftTypography: {
     color: "red",
   },
+  personListItemContents: {
+    justify: "space-between",
+    wrap: "nowrap",
+  },
 };
 
 const avatarStyle = {
@@ -84,7 +91,7 @@ const avatarStyle = {
   },
 };
 
-const iconSizes = {
+const iconStyles = {
   defaultIconSize: {
     fontSize: "35px",
   },
@@ -96,6 +103,7 @@ const ChatContainer = {
     height: "auto",
     margin: "0 auto",
     display: "flex",
+    padding: theme.spacing(1, 0.5),
   },
   chatContainerChatListPaper: {
     backgroundColor: "lightGray",
@@ -105,7 +113,7 @@ const ChatContainer = {
 
 const textareaStyles = {
   textarea: {
-    overflow: "hidden",
+    overflow: "scroll",
     width: "100%",
   },
 };
@@ -151,6 +159,26 @@ const chatItem = {
     height: "fit-content",
     margin: "0.5% 10px 0",
     display: "block",
+  },
+};
+
+const chatDetailPanel = {
+  chatDetailPanelContainer: {
+    width: "100%",
+    backgroundColor: "#2f2f2f",
+    height: "4.5rem",
+  },
+  chatDetailPanelEditingMessageHeader: {
+    marginRight: "auto",
+    paddingLeft: "25px",
+    color: "wheat",
+    fontSize: "27px",
+    textTransform: "capitalize",
+  },
+  chatDetailPanelEditingMessageText: {
+    paddingLeft: "40px",
+    color: "lightsalmon",
+    fontSize: "25px",
   },
 };
 

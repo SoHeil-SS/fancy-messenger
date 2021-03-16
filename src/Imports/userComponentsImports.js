@@ -21,12 +21,11 @@ import DialogTemplate from "../Components/Dialogs/DialogTemplate";
 import DeleteDialog from "../Components/Dialogs/DeleteDialog";
 import AppDrawer from "../Components/Others/AppDrawer";
 
-import SuccessSnack from "../Components/SnackBars/SuccessSnack";
-import DeletedMessageSnack from "../Components/SnackBars/DeletedMessageSnack";
-
 import Loader from "../Components/Others/Loader";
 
 import DraggablePaper from "../Components/utilsComponents/DraggablePaper";
+import DeleteNotify from "../Components/NotificationBars/DeleteNotify";
+import SuccessNotify from "../Components/NotificationBars/SuccessNotify";
 
 export const userComponentsImports = {
   DraggablePaper,
@@ -47,8 +46,8 @@ export const userComponentsImports = {
   ChatInput,
   ChatMenu,
   ChatDetailPanel,
-  SuccessSnack,
-  DeletedMessageSnack,
   AppDrawer,
   AppContainer,
+  DeleteNotify,
+  SuccessNotify,
 };
