@@ -103,23 +103,25 @@ const chatTitleBar = {
 
 const chatList = {
   chatListList: {
-    flex: "1 1",
-    display: "grid",
     height: "80vh",
-    flexDirection: "column",
+    // flexDirection: "column",
     overflowY: "scroll",
     padding: " 0 25px",
     marginTop: "5px",
+
     "&::-webkit-scrollbar ": { display: "none" },
   },
 };
 
 const chatItem = {
   chatItemPaper: {
-    width: "40%",
-    "&:hover": {
-      cursor: "pointer",
-    },
+    cursor: "pointer",
+    width: "auto",
+    maxWidth: "60%",
+    padding: "10px",
+    height: "fit-content",
+    marginTop: "0.5%",
+    display: "block",
   },
 };
 
@@ -134,9 +136,6 @@ const appContainer = {
   appContainerGridContainer: {
     backgroundColor: "rgb(235, 232, 232)",
     borderRadius: "5px",
-    // display: "grid",
-    // gridTemplateColumns: "35% 1fr",
-    // gridTemplateRows: "calc(100vh)",
     overflowY: "hidden",
     top: "200px",
     margin: "auto",

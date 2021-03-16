@@ -10,25 +10,14 @@ const ChatItem = ({ message, chatTime, chatDate, justify, onContextMenu }) => {
 
   return (
     <>
-      <Grid
-        item
-        container
-        style={{ height: "fit-content", margin: "0 0" }}
-        justify={justify}
-      >
+      <Grid container justify={justify}>
         <Paper
+          className={chatItemPaper}
           elevation={1}
-          style={{
-            cursor: "pointer",
-            width: "auto",
-            maxWidth: "60%",
-            padding: "10px",
-            // marginTop: "1%",
-          }}
           onContextMenu={onContextMenu}
         >
-          <Typography className="">{message}</Typography>
-          <Typography className="">
+          <Typography>{message}</Typography>
+          <Typography>
             {chatTime} {chatDate}
           </Typography>
         </Paper>
