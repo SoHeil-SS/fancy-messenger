@@ -31,7 +31,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
     MicNoneIcon,
     IconButton,
     Grid,
-    classNames: { chatInputContainer },
+    classNames: { chatInputContainer, chatContainerChatListPaper },
   } = useImport();
 
   const { details, chats } = useMemo(
@@ -83,62 +83,61 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
         onSearchIconClick={() => dispatch(actionSearchIconClicked("chats"))}
       />
 
-      <div>
+      <Paper className={chatContainerChatListPaper}>
         <ChatList showableChats={showableChats} />
+      </Paper>
 
-        {chatMode && (
-          <ChatDetailPanel
-            chatMode={chatMode}
-            selectedChatContent={selectedChatContent}
-            editCloseClicked={() => dispatch(actionCancelEditChatClicked())}
-          />
-        )}
-        <div>
-          <Paper className={chatInputContainer}>
-            <span className="textarea-icon">
-              <IconButton onClick={() => console.log("Pin Clicked")}>
-                <AttachFileIcon />
-              </IconButton>
-            </span>
-            <ChatInput
-              chatInputText={chatInputText}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  chatInputText &&
-                    dispatch(
-                      chatMode === "edit"
-                        ? actionConfirmEditChatClicked()
-                        : actionAddNewChatClicked()
-                    );
-                }
-              }}
-              onInputChange={(e) =>
-                dispatch(actionInputChange(e.target.value, "chatInputText"))
+      {chatMode && (
+        <ChatDetailPanel
+          chatMode={chatMode}
+          selectedChatContent={selectedChatContent}
+          editCloseClicked={() => dispatch(actionCancelEditChatClicked())}
+        />
+      )}
+
+      <Paper className={chatInputContainer}>
+        <span className="textarea-icon">
+          <IconButton onClick={() => console.log("Pin Clicked")}>
+            <AttachFileIcon />
+          </IconButton>
+        </span>
+        <ChatInput
+          chatInputText={chatInputText}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              chatInputText &&
+                dispatch(
+                  chatMode === "edit"
+                    ? actionConfirmEditChatClicked()
+                    : actionAddNewChatClicked()
+                );
+            }
+          }}
+          onInputChange={(e) =>
+            dispatch(actionInputChange(e.target.value, "chatInputText"))
+          }
+        />
+        <span className="textarea-icon">
+          {condition ? (
+            <IconButton
+              onClick={() =>
+                dispatch(
+                  chatMode === "edit"
+                    ? actionConfirmEditChatClicked()
+                    : actionAddNewChatClicked()
+                )
               }
-            />
-            <span className="textarea-icon">
-              {condition ? (
-                <IconButton
-                  onClick={() =>
-                    dispatch(
-                      chatMode === "edit"
-                        ? actionConfirmEditChatClicked()
-                        : actionAddNewChatClicked()
-                    )
-                  }
-                >
-                  <TelegramIcon color="primary" />
-                </IconButton>
-              ) : (
-                <IconButton onClick={() => console.log("Mic Clicked")}>
-                  <MicNoneIcon />
-                </IconButton>
-              )}
-            </span>
-          </Paper>
-        </div>
-      </div>
+            >
+              <TelegramIcon color="primary" />
+            </IconButton>
+          ) : (
+            <IconButton onClick={() => console.log("Mic Clicked")}>
+              <MicNoneIcon />
+            </IconButton>
+          )}
+        </span>
+      </Paper>
     </Grid>
   );
 };

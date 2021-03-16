@@ -7,7 +7,7 @@ const ChatList = ({ showableChats }) => {
     show,
     setDisplayMenu,
     Grid,
-    classNames: { chatListList },
+    classNames: { chatListChatsGrid },
   } = useImport();
 
   const chatList = showableChats.map((chat) => {
@@ -31,7 +31,7 @@ const ChatList = ({ showableChats }) => {
   });
 
   return (
-    <Grid container className={chatListList}>
+    <Grid container className={chatListChatsGrid}>
       {chatList}
     </Grid>
   );

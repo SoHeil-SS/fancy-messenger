@@ -142,10 +142,6 @@ body {
   font-size: 25px;
 }
 
-.lastSeenSpan {
-  font-size: 17px;
-}
-
 .textarea-icon {
   border: 0px;
   font-size: 20px;
@@ -193,13 +189,11 @@ textarea::-webkit-scrollbar {
   background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
   box-shadow: 0 3px 5px 2px rgba(33, 205, 243, 0.424) !important;
 }
-/* 
-.chat-list-ul {
-  flex: 1 1;
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  overflow-y: auto;
-  padding: 0 25px;
-  margin-top: 5px;
-} */
+
+html {
+  overflow-y: hidden;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}

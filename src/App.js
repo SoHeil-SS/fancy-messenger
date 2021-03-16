@@ -6,7 +6,7 @@ const App = () => {
     useEffect,
     Context,
     AppContainer,
-
+    Grid,
     reducer,
     actionAppLoadComplete,
     tempPersons,
@@ -57,15 +57,17 @@ const App = () => {
         searchMode,
       }}
     >
-      <AppContainer
-        loading={loading}
-        chatMode={chatMode}
-        chatInputText={chatInputText}
-        selectedChatContent={selectedChatContent}
-        notificationState={notificationState}
-        appDrawerState={appDrawerState}
-        dialogMode={dialogMode}
-      />
+      <Grid container>
+        <AppContainer
+          loading={loading}
+          chatMode={chatMode}
+          chatInputText={chatInputText}
+          selectedChatContent={selectedChatContent}
+          notificationState={notificationState}
+          appDrawerState={appDrawerState}
+          dialogMode={dialogMode}
+        />
+      </Grid>
     </Context.Provider>
   );
 };

@@ -14,6 +14,7 @@ const PersonContainer = () => {
     persons,
     searchMode,
     Grid,
+    classNames: { personContainerGridContainer },
   } = useImport();
 
   const showablePersons = useMemo(
@@ -22,7 +23,7 @@ const PersonContainer = () => {
   );
 
   return (
-    <Grid item xs={4}>
+    <Grid item xs={4} className={personContainerGridContainer}>
       <Grid item>
         <SearchBar
           searchMode={searchMode}

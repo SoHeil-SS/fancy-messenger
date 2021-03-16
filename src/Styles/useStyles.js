@@ -4,12 +4,13 @@ const theme = createMuiTheme();
 
 export const useStyles = makeStyles((theme) => ({
   ...appContainer,
+  ...personContainer,
   ...searchBar,
   ...personList,
   ...personListItem,
   ...avatarStyle,
   ...iconSizes,
-  ...ChatContainerChatInputContainer,
+  ...ChatContainer,
   ...textareaStyles,
   ...chatTitleBar,
   ...chatList,
@@ -17,10 +18,16 @@ export const useStyles = makeStyles((theme) => ({
   ...loader,
 }));
 
+const personContainer = {
+  personContainerGridContainer: {
+    paddingRight: "1%",
+  },
+};
+
 const searchBar = {
   searchBarContainer: {
     position: "relative",
-    width: "92%",
+    width: "100%",
     minWidth: "300px",
     margin: "auto",
   },
@@ -49,18 +56,20 @@ const personList = {
 
 const personListItem = {
   personListItemContainer: {
-    flexGrow: 1,
-    overflow: "hidden",
-    padding: theme.spacing(0, 3),
-    width: "100%",
-    position: "relative",
+    padding: theme.spacing(0.1, 0),
   },
   personListItemPaper: {
     margin: `${theme.spacing(0.4)}px auto`,
+    "&:hover": {
+      boxShadow: theme.shadows[5],
+    },
   },
   personListItemListItem: { padding: theme.spacing(2.5, 2) },
   personListItemUnreadBadge: {
     float: "right",
+  },
+  personListItemDraftTypography: {
+    color: "red",
   },
 };
 
@@ -81,12 +90,16 @@ const iconSizes = {
   },
 };
 
-const ChatContainerChatInputContainer = {
+const ChatContainer = {
   chatInputContainer: {
-    width: "97%",
+    width: "100%",
     height: "auto",
     margin: "0 auto",
     display: "flex",
+  },
+  chatContainerChatListPaper: {
+    backgroundColor: "lightGray",
+    marginBottom: "10px",
   },
 };
 
@@ -98,15 +111,31 @@ const textareaStyles = {
 };
 
 const chatTitleBar = {
-  chatTitleBarContainer: { width: "98%", marginTop: "0.6%" },
+  chatTitleBarPaper: { width: "100%", marginTop: "0.6%" },
+  chatTitleBarLastSeen: {
+    fontSize: "16px",
+  },
+  chatTitleBarBoxContainer: {
+    display: "flex",
+    flexDirection: "row",
+    margin: theme.spacing(1, 0),
+    padding: theme.spacing(1, 0),
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  chatTitleBarPersonDetailsBox: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  chatTitleBarPersonDetailsBoxAvatar: {
+    marginRight: "10px",
+  },
 };
 
 const chatList = {
-  chatListList: {
-    height: "80vh",
-    // flexDirection: "column",
+  chatListChatsGrid: {
+    height: "78vh",
     overflowY: "scroll",
-    padding: " 0 25px",
     marginTop: "5px",
 
     "&::-webkit-scrollbar ": { display: "none" },
@@ -120,7 +149,7 @@ const chatItem = {
     maxWidth: "60%",
     padding: "10px",
     height: "fit-content",
-    marginTop: "0.5%",
+    margin: "0.5% 10px 0",
     display: "block",
   },
 };
@@ -139,6 +168,7 @@ const appContainer = {
     overflowY: "hidden",
     top: "200px",
     margin: "auto",
+    padding: "20px",
     minWidth: "1000px",
   },
 };

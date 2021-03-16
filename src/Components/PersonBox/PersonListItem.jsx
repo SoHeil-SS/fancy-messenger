@@ -23,30 +23,33 @@ const PersonListItem = ({
       personListItemPaper,
       personListItemUnreadBadge,
       avatarLargeSize,
+      personListItemDraftTypography,
     },
   } = useImport();
 
   return (
-    <div className={personListItemContainer}>
+    <Grid className={personListItemContainer}>
       <Paper
-        elevation={3}
+        elevation={1}
         onClick={onPersonClick}
         className={personListItemPaper}
       >
         <ListItem button className={personListItemListItem} selected={selected}>
           <Grid container wrap="nowrap" justify="space-between" spacing={2}>
             <Grid item>
-              <Avatar src={avatar} className={avatarLargeSize}></Avatar>
+              <Avatar src={avatar} className={avatarLargeSize} />
             </Grid>
             <Grid item lg zeroMinWidth container justify="flex-start">
               <Grid item md>
                 <Typography noWrap>{personName}</Typography>
                 <Grid item md></Grid>
                 <Typography noWrap>
-                  <span>
-                    {draft && <span className={{ color: "red" }}>Draft: </span>}
-                    {draft || lastChatText}
-                  </span>
+                  {draft && (
+                    <span className={personListItemDraftTypography}>
+                      Draft:{" "}
+                    </span>
+                  )}
+                  {draft || lastChatText}
                 </Typography>
               </Grid>
             </Grid>
@@ -67,7 +70,7 @@ const PersonListItem = ({
           </Grid>
         </ListItem>
       </Paper>
-    </div>
+    </Grid>
   );
 };
 

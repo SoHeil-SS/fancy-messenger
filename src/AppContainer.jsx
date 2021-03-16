@@ -32,7 +32,7 @@ function AppContainer({
 
   return (
     <>
-      <Grid container item xs={12} className={appContainerGridContainer}>
+      <Grid item container xs={12} className={appContainerGridContainer}>
         <PersonContainer />
         {!selectedPersonId && loading && (
           <Loader className={loaderDefaultStyle} />
