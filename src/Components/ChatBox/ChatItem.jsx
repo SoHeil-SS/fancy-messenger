@@ -16,7 +16,7 @@ const ChatItem = ({ message, chatTime, chatDate, justify, onContextMenu }) => {
           elevation={1}
           onContextMenu={onContextMenu}
         >
-          <Typography>{message}</Typography>
+          <Typography style={{ wordBreak: "break-word" }}>{message}</Typography>
           <Typography>
             {chatTime} {chatDate}
           </Typography>

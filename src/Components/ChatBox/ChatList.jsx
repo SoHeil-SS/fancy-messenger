@@ -31,7 +31,7 @@ const ChatList = ({ showableChats }) => {
   });
 
   return (
-    <Grid id="chat-list" container className={chatListChatsGrid}>
+    <Grid container className={chatListChatsGrid}>
       {chatList}
     </Grid>
   );

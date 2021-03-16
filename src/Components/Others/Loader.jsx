@@ -1,14 +1,16 @@
 import { useImport } from "../../Imports/imports";
 
-//TODO CLEANUP
-const Loader = ({ style }) => {
-  const { Spinner } = useImport();
+const Loader = ({ loaderStyle }) => {
+  const { Spinner, Grid } = useImport();
   return (
-    <div>
-      <Spinner style={style} animation="border" role="status" variant="danger">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    </div>
+    <Grid container item xs={8} justify="center" alignContent="center">
+      <Spinner
+        className={loaderStyle}
+        animation="border"
+        role="status"
+        variant="danger"
+      />
+    </Grid>
   );
 };
 export default Loader;

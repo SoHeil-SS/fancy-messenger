@@ -74,7 +74,7 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
   const { avatar, personName } = details;
 
   return (
-    <Grid item xs={8}>
+    <Grid item container xs={8}>
       <ChatTitleBar
         avatar={avatar}
         personName={personName}
@@ -83,9 +83,11 @@ const ChatContainer = ({ chatMode, chatInputText, selectedChatContent }) => {
         onSearchIconClick={() => dispatch(actionSearchIconClicked("chats"))}
       />
 
-      <Paper className={chatContainerChatListPaper}>
-        <ChatList showableChats={showableChats} />
-      </Paper>
+      <Grid item xs={12}>
+        <Paper id="chat-list" className={chatContainerChatListPaper}>
+          <ChatList showableChats={showableChats} />
+        </Paper>
+      </Grid>
 
       {chatMode && (
         <ChatDetailPanel

@@ -27,7 +27,7 @@ function AppContainer({
     classNames: {
       appContainerGridContainer,
       appContainerChatContainerBackground,
-      loaderDefaultStyle,
+      appLoader,
     },
   } = useImport();
 
@@ -36,9 +36,8 @@ function AppContainer({
     <>
       <Grid item container xs={12} className={appContainerGridContainer}>
         <PersonContainer />
-        {!selectedPersonId && loading && (
-          <Loader className={loaderDefaultStyle} />
-        )}
+        {!selectedPersonId && loading && <Loader loaderStyle={appLoader} />}
+
         {selectedPersonId ? (
           <>
             <ChatContainer
@@ -49,10 +48,10 @@ function AppContainer({
           </>
         ) : (
           <Grid
+            className={appContainerChatContainerBackground}
             item
             container
             xs={8}
-            className={appContainerChatContainerBackground}
           ></Grid>
         )}
       </Grid>

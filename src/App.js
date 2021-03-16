@@ -46,7 +46,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       dispatch(actionAppLoadComplete());
-    }, 1);
+    }, 3000);
   }, [dispatch, actionAppLoadComplete]);
 
   return (

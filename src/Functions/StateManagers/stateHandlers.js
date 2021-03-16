@@ -15,7 +15,6 @@ let editingChatID,
 const {
   getStatesAndVariables,
   setSortPersonList,
-  getTimeFromMilliseconds,
   setFinallyPersons,
   setEditedChats,
   setNewPersonChats,
@@ -41,7 +40,7 @@ const handlePersonClicked = (state, personId) => {
   } = getStatesAndVariables(state, null, personId);
 
   if (loading) {
-    toaster("dark", "", loadIncomplete);
+    toaster("error", "", loadIncomplete);
     return state;
   }
 
@@ -308,16 +307,13 @@ export const stateHandlers = {
   handleEditChatClicked,
   handleSelectPersonToForwardChatClicked,
   handleForwardChatClicked,
-  getTimeFromMilliseconds,
   handleInputChange,
   handlePersonClicked,
   handleConfirmEditChatClicked,
-  setSortPersonList,
   handleChatMenuBarClicked,
   handleSearchIconClicked,
   handlePersonMenuBarClicked,
   handleCloseDialogClicked,
-  toaster,
   handleAppLoadComplete,
   handleDeleteChatClicked,
   handleSelectedPersonDraftChange,

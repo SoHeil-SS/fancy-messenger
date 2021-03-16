@@ -107,7 +107,11 @@ const ChatContainer = {
   },
   chatContainerChatListPaper: {
     backgroundColor: "lightGray",
-    marginBottom: "10px",
+    margin: theme.spacing(3, 0),
+    overflowY: "scroll",
+    height: "77vh",
+    wordWarp: "break-word",
+    "&::-webkit-scrollbar ": { display: "none" },
   },
 };
 
@@ -115,6 +119,9 @@ const textareaStyles = {
   textarea: {
     overflow: "scroll",
     width: "100%",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
   },
 };
 
@@ -126,8 +133,7 @@ const chatTitleBar = {
   chatTitleBarBoxContainer: {
     display: "flex",
     flexDirection: "row",
-    margin: theme.spacing(1, 0),
-    padding: theme.spacing(1, 0),
+    padding: theme.spacing(0.5, 0),
     justifyContent: "space-between",
     alignItems: "center",
   },
@@ -142,7 +148,7 @@ const chatTitleBar = {
 
 const chatList = {
   chatListChatsGrid: {
-    height: "78vh",
+    // height: "78vh",
     overflowY: "scroll",
     marginTop: "5px",
 
@@ -159,6 +165,7 @@ const chatItem = {
     height: "fit-content",
     margin: "0.5% 10px 0",
     display: "block",
+    wordWarp: "break-word",
   },
 };
 
@@ -202,8 +209,7 @@ const appContainer = {
 };
 
 const loader = {
-  loaderDefaultStyle: {
-    margin: "33%",
+  appLoader: {
     width: "250px",
     height: "250px",
   },
