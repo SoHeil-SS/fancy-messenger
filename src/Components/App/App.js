@@ -1,4 +1,4 @@
-import { useImport } from "./Imports/imports";
+import { useImport } from "../../Imports/imports";
 
 const App = () => {
   const {
@@ -24,7 +24,7 @@ const App = () => {
       chatMode,
       searchMode,
       loading,
-      appDrawerState,
+      appDrawer,
       notifyMessage,
     },
     dispatch,
@@ -39,7 +39,8 @@ const App = () => {
     chatMode: null,
     searchMode: "",
     loading: true,
-    appDrawerState: false,
+    appDrawer: { drawerState: false, drawerPosition: "left" },
+
     notifyMessage: "",
   });
 
@@ -67,7 +68,7 @@ const App = () => {
           chatInputText={chatInputText}
           selectedChatContent={selectedChatContent}
           notificationState={notificationState}
-          appDrawerState={appDrawerState}
+          appDrawer={appDrawer}
           dialogMode={dialogMode}
         />
       </Grid>

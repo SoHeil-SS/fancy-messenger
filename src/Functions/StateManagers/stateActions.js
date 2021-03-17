@@ -35,9 +35,6 @@ const actionChatBoxCloseClicked = () =>
 
 const actionChatMenuBarClicked = () => getStateAction("CHAT_MENU_BAR_CLICKED");
 
-const actionPersonMenuBarClicked = () =>
-  getStateAction("PERSON_MENU_BAR_CLICKED");
-
 const actionSearchIconClicked = (value) =>
   getStateAction("SEARCH_ICON_CLICKED", value);
 
@@ -50,6 +47,9 @@ const actionAppLoadComplete = () => getStateAction("APP_LOAD_COMPLETED");
 
 const actionSelectedPersonDraftChange = (chatInputText) =>
   getStateAction("SELECTED_PERSON_DRAFT_CHANGE", chatInputText);
+
+const actionAppDrawerStateChange = (position) =>
+  getStateAction("APP_DRAWER_STATE_CHANGE", position);
 
 export const stateActions = {
   actionPersonClicked,
@@ -64,10 +64,10 @@ export const stateActions = {
   actionChatBoxCloseClicked,
   actionChatMenuBarClicked,
   actionSearchIconClicked,
-  actionPersonMenuBarClicked,
   actionCloseDialogClicked,
   actionAppLoadComplete,
   actionConfirmDeleteChatClicked,
   actionCloseNotificationClicked,
   actionSelectedPersonDraftChange,
+  actionAppDrawerStateChange,
 };

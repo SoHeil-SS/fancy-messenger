@@ -2,7 +2,19 @@ import { utilsFunctionsAndHooks } from "../Functions/utilsFunctionsAndHooks";
 
 import { theme } from "react-contexify";
 
-const { idMaker } = utilsFunctionsAndHooks;
+import { reactComponentsImports } from "../Imports/reactComponentsImports";
+
+const {
+  AccountCircleOutlinedIcon,
+  PeopleOutlineIcon,
+  NotificationsIcon,
+  PermIdentityIcon,
+  CallOutlinedIcon,
+  SettingsOutlinedIcon,
+  Brightness4OutlinedIcon,
+} = reactComponentsImports;
+
+const { getRandomID, getObjectInitializer } = utilsFunctionsAndHooks;
 
 const avatarUrl = "./Assets/Pictures/PersonPictures";
 
@@ -22,22 +34,22 @@ const tempPersons = [
       {
         self: "Hello there...",
         chatTime: 1606577174127,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "nock.. nock...",
         chatTime: 1606577274127,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         person: "Hi :) how are u... ?",
         chatTime: 1606577374127,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "so excited.>!",
         chatTime: 1606577774127,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
     ],
   },
@@ -56,22 +68,22 @@ const tempPersons = [
       {
         self: "Hello there...",
         chatTime: 1606444167412,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "nock.. nock...",
         chatTime: 1606444267412,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         person: "Hi :) how are u... ?",
         chatTime: 1606444367412,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "thanks...",
         chatTime: 1606444467412,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
     ],
   },
@@ -89,22 +101,22 @@ const tempPersons = [
       // {
       //   self: "Hello there...",
       //   chatTime: 1606333062326,
-      //   chatId: idMaker(),
+      //   chatId: getRandomID(),
       // },
       // {
       //   self: "nock.. nock...",
       //   chatTime: 1606333162326,
-      //   chatId: idMaker(),
+      //   chatId: getRandomID(),
       // },
       // {
       //   person: "Hi :) how are u... ?",
       //   chatTime: 1606333262326,
-      //   chatId: idMaker(),
+      //   chatId: getRandomID(),
       // },
       // {
       //   self: "thanks...",
       //   chatTime: 1606333362326,
-      //   chatId: idMaker(),
+      //   chatId: getRandomID(),
       // },
     ],
   },
@@ -122,22 +134,22 @@ const tempPersons = [
       {
         self: "Hello there...",
         chatTime: 1606222211324,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "nock.. nock...",
         chatTime: 1606222221324,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         person: "Hi :) how are u... ?",
         chatTime: 1606222231324,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "not good ... :(",
         chatTime: 1606222261324,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
     ],
   },
@@ -167,22 +179,22 @@ const tempPersons = [
       {
         self: "Hello there...",
         chatTime: 1506999918654,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "nock.. nock...",
         chatTime: 1506999928654,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         person: "Hi :) how are u... ?",
         chatTime: 1506999938654,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
       {
         self: "uuuuh i dont know !",
         chatTime: 1506999998654,
-        chatId: idMaker(),
+        chatId: getRandomID(),
       },
     ],
   },
@@ -213,10 +225,33 @@ const notificationMessage = {
   deleteMessage: "Message deleted successfully.",
 };
 
+const appDrawerLists = [
+  [
+    getObjectInitializer(
+      getRandomID(),
+      "Account",
+      <AccountCircleOutlinedIcon />
+    ),
+  ],
+  [
+    getObjectInitializer(getRandomID(), "New Group", <PeopleOutlineIcon />),
+    getObjectInitializer(getRandomID(), "New Channel", <NotificationsIcon />),
+    getObjectInitializer(getRandomID(), "Contacts", <PermIdentityIcon />),
+    getObjectInitializer(getRandomID(), "Calls", <CallOutlinedIcon />),
+    getObjectInitializer(getRandomID(), "Settings", <SettingsOutlinedIcon />),
+    getObjectInitializer(
+      getRandomID(),
+      "Night Mode",
+      <Brightness4OutlinedIcon />
+    ),
+  ],
+];
+
 export const variables = {
   menuId,
   theme,
   tempPersons,
   dialog,
   notificationMessage,
+  appDrawerLists,
 };

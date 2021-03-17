@@ -7,7 +7,7 @@ const PersonContainer = () => {
     PersonList,
     actionSearchIconClicked,
     actionInputChange,
-    actionPersonMenuBarClicked,
+    actionAppDrawerStateChange,
     getShowablePersons,
     useMemo,
     searchInputText,
@@ -32,7 +32,7 @@ const PersonContainer = () => {
           }
           onSearchIconClick={() => dispatch(actionSearchIconClicked("persons"))}
           onBackArrowIconClick={() => dispatch(actionSearchIconClicked(""))}
-          onPersonMenuClick={() => dispatch(actionPersonMenuBarClicked())}
+          onPersonMenuClick={() => dispatch(actionAppDrawerStateChange())}
         />
       </Grid>
       <Grid>

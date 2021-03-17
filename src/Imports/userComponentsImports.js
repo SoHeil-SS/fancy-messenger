@@ -1,4 +1,4 @@
-import AppContainer from "../AppContainer";
+import AppContainer from "../Components/App/AppContainer";
 
 import PersonContainer from "../Components/PersonBox/PersonContainer";
 import SearchBar from "../Components/PersonBox/SearchBar";
@@ -19,13 +19,13 @@ import Portal from "../Components/Others/Portal";
 import ContactsDialog from "../Components/Dialogs/ContactsDialog";
 import DialogTemplate from "../Components/Dialogs/DialogTemplate";
 import DeleteDialog from "../Components/Dialogs/DeleteDialog";
-import AppDrawer from "../Components/Others/AppDrawer";
-
+import AppDrawer from "../Components/Others/AppDrawer/AppDrawer";
 import Loader from "../Components/Others/Loader";
 
 import DraggablePaper from "../Components/utilsComponents/DraggablePaper";
 import DeleteNotify from "../Components/NotificationBars/DeleteNotify";
 import SuccessNotify from "../Components/NotificationBars/SuccessNotify";
+import AppDrawerList from "../Components/Others/AppDrawer/AppDrawerList";
 
 export const userComponentsImports = {
   DraggablePaper,
@@ -50,4 +50,5 @@ export const userComponentsImports = {
   AppContainer,
   DeleteNotify,
   SuccessNotify,
+  AppDrawerList,
 };

@@ -19,7 +19,7 @@ const {
   setEditedChats,
   setNewPersonChats,
   setDraftChange,
-  toaster,
+  setToastMessage,
   getFilterDeletedChat,
   setNewPersonDetails,
 } = utilsFunctionsAndHooks;
@@ -40,7 +40,7 @@ const handlePersonClicked = (state, personId) => {
   } = getStatesAndVariables(state, null, personId);
 
   if (loading) {
-    toaster("error", "", loadIncomplete);
+    setToastMessage("error", "", loadIncomplete);
     return state;
   }
 
@@ -259,10 +259,6 @@ const handleSearchIconClicked = (state, searchMode) => {
   };
 };
 
-const handlePersonMenuBarClicked = (state) => {
-  return { ...state, appDrawerState: !state.appDrawerState };
-};
-
 const handleChatMenuBarClicked = (state) => {
   return state;
 };
@@ -276,7 +272,7 @@ const handleCloseDialogClicked = (state) => {
 };
 
 const handleAppLoadComplete = (state) => {
-  toaster("info", "", startupMessage);
+  setToastMessage("info", "", startupMessage);
   return {
     ...state,
     loading: false,
@@ -299,6 +295,16 @@ const handleSelectedPersonDraftChange = (
   return { ...state, persons };
 };
 
+const handleAppDrawerStateChange = (state) => {
+  const {
+    appDrawer: { drawerState, position },
+  } = state;
+  return {
+    ...state,
+    appDrawer: { position, drawerState: !drawerState },
+  };
+};
+
 export const stateHandlers = {
   handleAddNewChatClicked,
   handleCancelEditChatClicked,
@@ -312,11 +318,11 @@ export const stateHandlers = {
   handleConfirmEditChatClicked,
   handleChatMenuBarClicked,
   handleSearchIconClicked,
-  handlePersonMenuBarClicked,
   handleCloseDialogClicked,
   handleAppLoadComplete,
   handleDeleteChatClicked,
   handleSelectedPersonDraftChange,
+  handleAppDrawerStateChange,
 };
 
 // import { personClicked } from "../StateManager/actionCreator";

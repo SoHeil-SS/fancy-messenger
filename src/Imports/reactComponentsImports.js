@@ -43,6 +43,13 @@ import TelegramIcon from "@material-ui/icons/Telegram";
 import MicNoneIcon from "@material-ui/icons/MicNone";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import AccountCircleOutlinedIcon from "@material-ui/icons/AccountCircleOutlined";
+import PeopleOutlineIcon from "@material-ui/icons/PeopleOutline";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import PermIdentityIcon from "@material-ui/icons/PermIdentity";
+import CallOutlinedIcon from "@material-ui/icons/CallOutlined";
+import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
+import Brightness4OutlinedIcon from "@material-ui/icons/Brightness4Outlined";
 
 export const reactComponentsImports = {
   React,
@@ -88,4 +95,11 @@ export const reactComponentsImports = {
   InboxIcon,
   MailIcon,
   MuiAlert,
+  AccountCircleOutlinedIcon,
+  PeopleOutlineIcon,
+  NotificationsIcon,
+  PermIdentityIcon,
+  CallOutlinedIcon,
+  SettingsOutlinedIcon,
+  Brightness4OutlinedIcon,
 };

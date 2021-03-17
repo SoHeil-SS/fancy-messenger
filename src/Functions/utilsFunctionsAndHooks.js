@@ -2,7 +2,7 @@ import { reactFunctionsImports } from "../Imports/reactFunctionsImports";
 
 const { toast, createContext, useContext } = reactFunctionsImports;
 
-const dateNow = () => Date.now();
+const getDateNow = () => Date.now();
 
 const getLastChatDetails = (personItem) =>
   personItem.chats.length > 0
@@ -26,7 +26,7 @@ const setSortPersonList = (persons) => {
   );
 };
 
-const idMaker = () => {
+const getRandomID = () => {
   return Math.random();
 };
 
@@ -65,7 +65,7 @@ const setFinallyPersons = (persons, index, person) => {
   }
 };
 
-const toaster = (type, detail, text) => {
+const setToastMessage = (type, detail, text) => {
   toast[type](`${detail} ${text}`, {
     position: "top-right",
     autoClose: 5000,
@@ -120,8 +120,8 @@ const setNewPersonChats = (chats, newChats) => {
     if (!chat) continue;
     chats.push({
       self: chat,
-      chatTime: dateNow(),
-      chatId: idMaker(),
+      chatTime: getDateNow(),
+      chatId: getRandomID(),
     });
   }
 };
@@ -135,7 +135,7 @@ const getFilterDeletedChat = (chats, chatId) => {
 };
 
 const getLastChatTime = (chatTime) =>
-  dateNow() - chatTime > 86400000
+  getDateNow() - chatTime > 86400000
     ? getTimeFromMilliseconds(chatTime, "getMonth", "getDate", "/")
     : getTimeFromMilliseconds(chatTime, "getHours", "getMinutes", ":");
 
@@ -178,7 +178,7 @@ const getStatesAndVariables = (
     chatIndex,
     chatContentIndex,
     selectedPersonId,
-    dateNow: dateNow(),
+    dateNow: getDateNow(),
   };
 };
 
@@ -204,6 +204,12 @@ const setScrollTo = (elementID) => {
   element.scrollTo(0, element.scrollHeight);
 };
 
+const getObjectInitializer = (
+  id = getRandomID(),
+  text = "NO TEXT?",
+  icon = ""
+) => ({ id, text, icon });
+
 export const utilsFunctionsAndHooks = {
   getLastChatDetails,
   Context,
@@ -211,11 +217,11 @@ export const utilsFunctionsAndHooks = {
   getStatesAndVariables,
   useMyContext,
   getStateAction,
-  idMaker,
+  getRandomID,
   setSortPersonList,
   getTimeFromMilliseconds,
   setFinallyPersons,
-  toaster,
+  setToastMessage,
   setDisplayMenu,
   setDraftChange,
   getShowableChats,
@@ -228,4 +234,5 @@ export const utilsFunctionsAndHooks = {
   setCopyChatClicked,
   setNewPersonDetails,
   setScrollTo,
+  getObjectInitializer,
 };

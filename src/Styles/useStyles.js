@@ -17,6 +17,7 @@ export const useStyles = makeStyles((theme) => ({
   ...chatItem,
   ...chatDetailPanel,
   ...loader,
+  ...appDrawer,
 }));
 
 const personContainer = {
@@ -217,5 +218,14 @@ const loader = {
   appLoader: {
     width: "250px",
     height: "250px",
+  },
+};
+
+const appDrawer = {
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: "auto",
   },
 };

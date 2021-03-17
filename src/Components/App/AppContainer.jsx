@@ -1,4 +1,4 @@
-import { useImport } from "./Imports/imports";
+import { useImport } from "../../Imports/imports";
 
 function AppContainer({
   loading,
@@ -6,7 +6,7 @@ function AppContainer({
   chatInputText,
   selectedChatContent,
   notificationState,
-  appDrawerState,
+  appDrawer,
   dialogMode,
 }) {
   const {
@@ -76,7 +76,7 @@ function AppContainer({
             notificationState={!!notificationState}
           />
         )}
-        <AppDrawer appDrawerState={appDrawerState} />
+        <AppDrawer appDrawer={appDrawer} />
       </Portal>
     </>
   );

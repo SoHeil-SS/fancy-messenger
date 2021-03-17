@@ -14,11 +14,11 @@ const {
   handleInputChange,
   handleChatMenuBarClicked,
   handleSearchIconClicked,
-  handlePersonMenuBarClicked,
   handleCloseDialogClicked,
   handleAppLoadComplete,
   handleCloseNotificationClicked,
   handleSelectedPersonDraftChange,
+  handleAppDrawerStateChange,
 } = stateHandlers;
 
 export const reducer = (state, action) => {
@@ -64,9 +64,6 @@ export const reducer = (state, action) => {
     case "SEARCH_ICON_CLICKED":
       return handleSearchIconClicked(state, payload);
 
-    case "PERSON_MENU_BAR_CLICKED":
-      return handlePersonMenuBarClicked(state);
-
     case "CLOSE_DIALOG_CLICKED":
       return handleCloseDialogClicked(state);
 
@@ -79,6 +76,8 @@ export const reducer = (state, action) => {
     case "SELECTED_PERSON_DRAFT_CHANGE":
       return handleSelectedPersonDraftChange(state, payload);
 
+    case "APP_DRAWER_STATE_CHANGE":
+      return handleAppDrawerStateChange(state, payload);
     default:
       return state;
   }
